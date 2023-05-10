@@ -3,8 +3,8 @@
     public class Customer : Person
     {
         int id;
-        int bankAccount;
         bool subscription;
+        int bankAccount;
 
         public Customer()
         {
