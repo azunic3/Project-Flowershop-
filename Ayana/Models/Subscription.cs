@@ -1,26 +1,30 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualBasic;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ayana.Models
 {
     public class Subscription
     {
-        string name;
-        SubscriptionType subscriptionType;
-        DateAndTime deliveryDate;
-        double price;
-        Customer customer;
-        Payment payment;
+
+        [Key]
+        public int SubscriptionID { get; set; }
+        public string Name { get; set; }
+        public SubscriptionType SubscriptionType { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public double Price { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerID { get; set; }
+
+        [ForeignKey("Payment")]
+        public int PaymentID { get; set; }
 
         public Subscription()
         {
 
         }
 
-        public string Name { get => name; set => name = value; }
-        public SubscriptionType SubscriptionType { get => subscriptionType; set => subscriptionType = value; }
-        public DateAndTime DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
-        public double Price { get => price; set => price = value; }
-        public Customer Customer { get => customer; set => customer = value; }
-        public Payment Payment { get => payment; set => payment = value; }
     }
 }

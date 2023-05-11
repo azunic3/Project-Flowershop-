@@ -1,24 +1,24 @@
 ﻿using Microsoft.VisualBasic;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ayana.Models
 {
     public class Discount
     {
-        string discountCode; 
-        double discountAmount;
-        DiscountType discountType;
-        DateAndTime discountBegins;
-        DateAndTime discountEnds;
+        [Key]
+        public int DiscountID { get; set; }
+        public string DiscountCode { get; set; }
+        public double DiscountAmount { get; set; }
+        public DiscountType DiscountType { get; set; }
+        public DateTime DiscountBegins { get; set; }
+        public DateTime DiscountEnds { get; set; }
         public Discount()
         {
 
         }
 
-        public string DiscountCode { get => discountCode; set => discountCode = value; }
-        public double DiscountAmount { get => discountAmount; set => discountAmount = value; }
-        public DiscountType DiscountType { get => discountType; set => discountType = value; }
-        public DateAndTime DiscountBegins { get => discountBegins; set => discountBegins = value; }
-        public DateAndTime DiscountEnds { get => discountEnds; set => discountEnds = value; }
+       
     } 
     
 }

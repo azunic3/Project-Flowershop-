@@ -1,20 +1,24 @@
-﻿namespace Ayana.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Ayana.Models
 {
     public class Payment
     {
-        PaymentType paymentType;
-        Discount discount;
-        bool isPaymentValid;
-        string deliveryAddress;
+        [Key]
+        public int PaymentID { get; set; }
+        public PaymentType PaymentType { get; set; }
+
+        [ForeignKey("Discount")]
+        public int DiscountID { get; set; }
+        public double PayedAmount { get; set; }  //with discount
+        public bool IsPaymentValid { get; set; }
+        public string DeliveryAddress { get; set; }
 
         public Payment()
         {
 
         }
 
-        public PaymentType PaymentType { get => paymentType; set => paymentType = value; }
-        public Discount Discount { get => discount; set => discount = value; }
-        public bool IsPaymentValid { get => isPaymentValid; set => isPaymentValid = value; }
-        public string DeliveryAddress { get => deliveryAddress; set => deliveryAddress = value; }
     }
 }

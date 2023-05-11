@@ -1,30 +1,34 @@
 ﻿using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Ayana.Models
 {
     
     public class Order
     {
-        double totalAmountToPay;
-        DateAndTime deliveryDate;
-        Dictionary<Product, int> quantityAndTypeOrdered = new Dictionary<Product, int>();
-        Customer customer;
-        bool isOrderSent;
-        double rating;
-        Payment payment;
+        [Key]
+        public int OrderID { get; set; }
+
+        [ForeignKey("Customer")]
+        public int CustomerID { get; set; }
+
+        [ForeignKey("Payment")]
+        public int PaymentID { get; set; }
+
+        public bool IsOrderSent { get; set; }
+        public double Rating { get; set; }
+        public double TotalAmountToPay { get; set; } //without discount
+        public DateTime DeliveryDate { get; set; }
 
         public Order()
         {
 
         }
 
-        public double TotalAmountToPay { get => totalAmountToPay; set => totalAmountToPay = value; }
-        public DateAndTime DeliveryDate { get => deliveryDate; set => deliveryDate = value; }
-        public Customer Customer { get => customer; set => customer = value; }
-        public bool IsOrderSent { get => isOrderSent; set => isOrderSent = value; }
-        public double Rating { get => rating; set => rating = value; }
-        public Payment Payment { get => payment; set => payment = value; }
-        public Dictionary<Product, int> QuantityAndTypeOrdered { get => quantityAndTypeOrdered; set => quantityAndTypeOrdered = value; }
+        
     }
 }

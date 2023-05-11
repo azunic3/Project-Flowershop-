@@ -1,18 +1,27 @@
-﻿namespace Ayana.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Ayana.Models
 {
     public class Customer : Person
     {
-        int id;
-        bool subscription;
-        int bankAccount;
+        [Key]
+        public int CustomerID { get; set; }
+
+        [ForeignKey("Subscription")]
+        public int SubscriptionID { get; set; }
+        public int BankAccount { get; set; }
+
+        //List<Order> HistoryOfOrders = new List<Order>();
+
+
 
         public Customer()
         {
 
         }
 
-        public int Id { get => id; set => id = value; }
-        public int BankAccount { get => bankAccount; set => bankAccount = value; }
-        public bool Subscription { get => subscription; set => subscription = value; }
+        
     }
 }
