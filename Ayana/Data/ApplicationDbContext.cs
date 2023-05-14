@@ -37,5 +37,7 @@ namespace Ayana.Data
             base.OnModelCreating(modelBuilder);
         }
 
+        public DbSet<Ayana.Models.Subscription> Subscription { get; set; }
+
     }
 }
