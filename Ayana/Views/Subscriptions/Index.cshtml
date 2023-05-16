@@ -4,62 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubscriptionType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeliveryDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubscriptionType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SubscriptionID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SubscriptionID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SubscriptionID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    <div style="background: #fbf8f9;text-align:left;padding:1em 0; margin-left:-130px;  width:103%; height:350%;">
+        <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">Say it with flowers</h1>
+        <p style="margin-left:50px;margin-top:10px;font-style:italic;">Whatever the occasion, our flowers make it special!</p>
+        <a asp-area="" asp-controller="Subscriptions" asp-action="Index" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Subsription </a>
+    </div>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqAT5vptItn_pU8w3O25sGfAulMy1N9LZ8YnIQEOWSWNNd-38b" style="float:right; margin-right:-128px;margin-top:-225px;">
+</div>
