@@ -293,3 +293,4 @@ C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\V
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts\Edit.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts\Index.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Home\Help.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Home\DeliveryPolicy.cshtml.g.cs

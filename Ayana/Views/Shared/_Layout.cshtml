@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <style>
-   
+       
         .navbar-custom {
             background-color: beige;
-            height:fit-content;
         }
         .topnav-centered{
             float: none;
             position: absolute;
-            top: 45%;
+            top: 25%;
             left: 50%;
             transform: translate(-50%, -50%);
             -webkit-text-fill-color: black;
@@ -45,7 +44,7 @@
         .subnav {
             float: left;
             overflow: hidden;
-margin-top:65px;
+margin-top:15px;
 width:max-content;
         }
 
@@ -59,6 +58,7 @@ width:max-content;
                 background-color: beige;
                 font-family: 'Courier New';
                 margin:0;
+                margin-top:20px;
                 width:max-content;
                
             }
@@ -142,7 +142,7 @@ width:max-content;
 <body>
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style="margin-top:2px;  font-family: 'Courier New';">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style=" font-family: 'Courier New';">
             <div class="container">
                 <nav class="navbar navbar-custom border-none">
                     <div class="subnav">
@@ -229,9 +229,24 @@ width:max-content;
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Ayana - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted flex-grow-1" style="background-color:#e9f0d7; font-family:'Courier New';">
+        <div class="container" style="background-color:#e9f0d7; font-family:'Courier New';">
+         <a style="-webkit-text-fill-color: black;font-size:xx-large;font-weight:600;" asp-area="" asp-controller="Home" asp-action="Index">Ayana</a>
+      </div>
+        <div style="margin-top:-25px;">
+            <a style="margin-left:120px;-webkit-text-fill-color: black;
+font-size: large;
+            font-weight: 400;" asp-area="" asp-controller="Home" asp-action="Index" style="margin-top:100px;">About us</a>
+            </div>
+        <div style="margin-top:-35px; margin-left:120px;">
+            <a style="-webkit-text-fill-color: black;
+font-size: large;
+            font-weight: 400;" asp-area="" asp-controller="Home" asp-action="DeliveryPolicy">Delivery policy</a>
+           </div>
+        <div style="margin-top:-35px; margin-left:120px;">
+            <a style="-webkit-text-fill-color: black;
+font-size: large;
+            font-weight: 400;" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

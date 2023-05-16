@@ -37,6 +37,10 @@ namespace Ayana.Controllers
         {
             return View();
         }
+        public IActionResult DeliveryPolicy()
+        {
+            return View();
+        }
 
     }
 }
