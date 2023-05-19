@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Ayana",
-    "\\Ayana\\Controllers"
+    "\\Ayana\\Controllers",
+    "\\Ayana\\Views",
+    "\\Ayana\\Views\\Home",
+    "\\Ayana\\Views\\Shared"
   ],
-  "SelectedNode": "\\Ayana\\Controllers\\HomeController.cs",
+  "SelectedNode": "\\Ayana\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,21 +8,32 @@
     <title>@ViewData["Title"] - Ayana</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="js/modernizr.custom.js"></script>
     <style>
-       
+ 
+
         .navbar-custom {
-            background-color: beige;
+            background-color: white;
         }
-        .topnav-centered{
+
+        .topnav-centered {
             float: none;
             position: absolute;
             top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             -webkit-text-fill-color: black;
-
-        font-size:xx-large;
-        font-weight:600;
+            font-size: xx-large;
+            font-weight: 600;
         }
 
             .topnav-centered a:link {
@@ -31,34 +43,32 @@
             .topnav-centered a:visited {
                 text-decoration: none;
             }
-        .topnav-centered a:hover{
-            text-decoration:none;
 
-        }
-            .topnav-centered a:active {
+            .topnav-centered a:hover {
                 text-decoration: none;
-
             }
 
-           
+            .topnav-centered a:active {
+                text-decoration: none;
+            }
+
+
         .subnav {
             float: left;
             overflow: hidden;
         }
 
             /* Subnav button */
-           
+
             .subnav .subnavbtn {
                 border: none;
                 outline: none;
-                color:black;
+                color: black;
                 padding: 14px 16px;
-                background-color: beige;
-                font-family: 'Courier New';
-                margin-top:40px;
-               
+                background-color: transparent;
+                margin-top: 40px;
             }
-            
+
 
         /* Style the subnav content - positioned absolute */
         .subnav-content {
@@ -67,17 +77,17 @@
             left: 0;
             background-color: #e8e4c9;
             width: 140%;
-            margin-left:-300px;
-            height:200%;
+            margin-left: -200px;
+            height: 200%;
             z-index: 1;
         }
 
-         
+
 
             /* Style the subnav links */
             .subnav-content a {
                 float: left;
-            color: #e8e4c9;
+                color: #e8e4c9;
                 text-decoration: none;
             }
 
@@ -91,10 +101,11 @@
         .subnav:hover .subnav-content {
             display: block;
         }
+
         .topnav-right {
             float: right;
             position: absolute;
-            top:20%;
+            top: 20%;
             left: 85%;
             transform: translate(-50%, -50%);
             -webkit-text-fill-color: black;
@@ -126,11 +137,13 @@
             transform: translate(-50%, -50%);
             -webkit-text-fill-color: black;
         }
-  body{
-  font-family: 'Courier New';
-  font-palette:dark;
-  }
-  .custom{
+
+        body {
+            font-family: 'Courier New';
+            font-palette: dark;
+        }
+
+        .custom {
             border-bottom: 1px solid black;
         }
     </style>
@@ -138,66 +151,14 @@
 <body>
     <header>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style=" font-family: 'Courier New';">
-            <div class="container">
-                <nav class="navbar navbar-custom border-none">
-                    <div class="subnav">
-                        <button class="subnavbtn">Occasions </button>
-                        <div class="subnav-content">
-                            <a style="margin-left:550px; margin-top:40px;">Birthday</a>
-                            <a style="margin-left:-77px; margin-top:70px;">Mother's day</a>
-                            <a style="margin-left:-117px; margin-top:100px">Valentine's day</a>
-                            <a style="margin-left:-145px; margin-top:130px">Thank you</a>
-                            <a style="margin-left:250px; margin-top:40px;">Anniversary</a>
-                            <a style="margin-left:-107px; margin-top:70px;">Love & romance</a>
-                            <a style="margin-left:-133px; margin-top:100px">Women's day</a>
-                            <a style="margin-left:-137px; margin-top:130px">Cheer someone up</a>
-                        </div>
-                        </div>
-                        <div class="subnav">
-                        <button class="subnavbtn" style="margin-left:110px;">Flowers </button>
-                        <div class="subnav-content">
-                            <a style="margin-left:450px; margin-top:40px; font-weight:600;">All flowers</a>
-                            <a style="margin-left:-107px; margin-top:70px;">Carnations</a>
-                            <a style="margin-left:-107px; margin-top:100px">Tulips</a>
-                            <a style="margin-left:-107px; margin-top:130px">Gerberus</a>
-                            <a style="margin-left:250px; margin-top:40px;">Orchids</a>
-                            <a style="margin-left:-67px; margin-top:70px;">Lilies</a>
-                            <a style="margin-left:-67px; margin-top:100px">Sunflowers</a>
-                            <a style="margin-left:-97px; margin-top:130px">Daisies</a>
-                            <a style="margin-left:250px; margin-top:40px;">Roses</a>
-                            </div>
-                        </div>
-                        <div class="subnav">
-                        <button class="subnavbtn" style="margin-left:110px;">Gifts </button>
-                        <div class="subnav-content">
-                            <a style="margin-left:450px; margin-top:40px;font-weight:600;">Featured gifts</a>
-                            <a style="margin-left:-135px; margin-top:70px;">All gifts</a>
-                            <a style="margin-left:-135px; margin-top:100px">Gift baskets</a>
-                            <a style="margin-left:-135px; margin-top:130px">Gift boxes</a>
-                            <a style="margin-left:200px; margin-top:40px;font-weight:600;">Sweets</a>
-                            <a style="margin-left:-57px; margin-top:70px;">Chocolates</a>
-                            <a style="margin-left:-97px; margin-top:100px">Chocolate covered strawberries</a>
-                            <a style="margin-left:-288px; margin-top:130px">Cookies</a>
-                            <a style="margin-left:100px; margin-top:40px;font-weight:600;">Keepsakes</a>
-                            <a style="margin-left:-87px; margin-top:70px;">Teddy bears</a>
-                            <a style="margin-left:-108px; margin-top:100px;">Balloons</a>
-                        </div>
-                        </div>
-                        <div class="subnav">
-                        <button class="subnavbtn" style="margin-left:110px;">Plants </button>
-                       </div>
-                       <div class="subnav">
-                        <button class="subnavbtn" style="margin-left:110px;">Personalizes rose box </button>
-                        
-                    </div>
-                </nav>
-                <a class="topnav-centered" asp-area="" asp-controller="Home" asp-action="Index">A y a n a</a>
-                
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style=" height:100px;">
+            
+                <a class="topnav-centered" asp-area="" asp-controller="Home" asp-action="Index">a  y  a  n  a</a>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                   
+
                     <ul class="navbar-nav flex-grow-1">
-                       
+
                         <li class="nav-item">
                             <a class="topnav-right text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-search"></i>Search</a>
                         </li>
@@ -212,36 +173,90 @@
                         </li>
                     </ul>
                 </div>
-                
-            </div>
-          
-          
+
+            
+
+
         </nav>
-      
+
     </header>
-    <div class="container">
+    <div class="container" style="margin-top:-115px;">
+        <nav class="navbar navbar-custom border-none" style="background-color:transparent; ">
+            <div class="subnav">
+                <button class="subnavbtn">Occasions </button>
+                <div class="subnav-content">
+                    <a style="margin-left:550px; margin-top:40px;">Birthday</a>
+                    <a style="margin-left:-56px; margin-top:70px;">Mother's day</a>
+                    <a style="margin-left:-86px; margin-top:100px">Valentine's day</a>
+                    <a style="margin-left:-102px; margin-top:130px">Thank you</a>
+                    <a style="margin-left:350px; margin-top:40px;">Anniversary</a>
+                    <a style="margin-left:-79px; margin-top:70px;">Love & romance</a>
+                    <a style="margin-left:-107px; margin-top:100px">Women's day</a>
+                    <a style="margin-left:-107px; margin-top:130px">Cheer someone up</a>
+                </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn" style="margin-left:110px;">Flowers </button>
+                <div class="subnav-content">
+                    <a style="margin-left:400px; margin-top:40px; font-weight:600;">All flowers</a>
+                    <a style="margin-left:-72px; margin-top:70px;">Carnations</a>
+                    <a style="margin-left:-72px; margin-top:100px">Tulips</a>
+                    <a style="margin-left:-72px; margin-top:130px">Gerberus</a>
+                    <a style="margin-left:250px; margin-top:40px;">Orchids</a>
+                    <a style="margin-left:-53px; margin-top:70px;">Lilies</a>
+                    <a style="margin-left:-53px; margin-top:100px">Sunflowers</a>
+                    <a style="margin-left:-73px; margin-top:130px">Daisies</a>
+                    <a style="margin-left:250px; margin-top:40px;">Roses</a>
+                </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn" style="margin-left:110px;">Gifts </button>
+                <div class="subnav-content">
+                    <a style="margin-left:400px; margin-top:40px;font-weight:600;">Featured gifts</a>
+                    <a style="margin-left:-93px; margin-top:70px;">All gifts</a>
+                    <a style="margin-left:-93px; margin-top:100px">Gift baskets</a>
+                    <a style="margin-left:-93px; margin-top:130px">Gift boxes</a>
+                    <a style="margin-left:250px; margin-top:40px;font-weight:600;">Sweets</a>
+                    <a style="margin-left:-47px; margin-top:70px;">Chocolates</a>
+                    <a style="margin-left:-75px; margin-top:100px">Chocolate covered strawberries</a>
+                    <a style="margin-left:-213px; margin-top:130px">Cookies</a>
+                    <a style="margin-left:100px; margin-top:40px;font-weight:600;">Keepsakes</a>
+                    <a style="margin-left:-71px; margin-top:70px;">Teddy bears</a>
+                    <a style="margin-left:-83px; margin-top:100px;">Balloons</a>
+                </div>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn" style="margin-left:110px;">Plants </button>
+            </div>
+            <div class="subnav">
+                <button class="subnavbtn" style="margin-left:110px;">Personalizes rose box </button>
+
+            </div>
+        </nav>
+        </div>
+    <div class="container" style="margin-bottom:500px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
+    <br><br><br>
     <footer class="border-top footer text-muted flex-grow-1" style="background-color:#e9f0d7; font-family:'Courier New';">
         <div class="container" style="background-color:#e9f0d7; font-family:'Courier New';">
             <a style="-webkit-text-fill-color:black;font-size:x-large;font-weight:600;  font-family:'Courier New'; " asp-area="" asp-controller="Home" asp-action="Index">A y a n a</a>
-      </div>
+        </div>
         <div style="margin-top:-25px;">
             <a style="margin-left:120px;-webkit-text-fill-color: black;
 font-size: large;
             font-weight: 400;
 font-family:'Courier New';
 " asp-area="" asp-controller="Home" asp-action="Index" style="margin-top:100px;">About us</a>
-            </div>
+        </div>
         <div style="margin-top:-35px; margin-left:120px;">
             <a style="-webkit-text-fill-color: black;
 font-size: large;
             font-weight: 400;
 font-family:'Courier New';" asp-area="" asp-controller="Home" asp-action="DeliveryPolicy">Delivery policy</a>
-           </div>
+        </div>
         <div style="margin-top:-35px; margin-left:120px;">
             <a style="-webkit-text-fill-color: black;
 font-size: large;
@@ -249,9 +264,9 @@ font-size: large;
 font-family:'Courier New';" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
