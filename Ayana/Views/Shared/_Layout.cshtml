@@ -1,4 +1,7 @@
-﻿﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +21,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="js/modernizr.custom.js"></script>
-    <style>
- 
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <style>
         .navbar-custom {
             background-color: white;
         }
@@ -81,10 +101,7 @@
             height: 200%;
             z-index: 1;
         }
-
-
-
-            /* Style the subnav links */
+                    /* Style the subnav links */
             .subnav-content a {
                 float: left;
                 color: #e8e4c9;
@@ -150,7 +167,6 @@
 </head>
 <body>
     <header>
-
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style=" height:100px;">
             
                 <a class="topnav-centered" asp-area="" asp-controller="Home" asp-action="Index">a  y  a  n  a</a>
@@ -165,9 +181,33 @@
                         <li class="nav-item">
                             <a class="topnav-right2 text-dark" asp-area="" asp-controller="Home" asp-action="Help">Help</a>
                         </li>
+                    @if (SignInManager.IsSignedIn(User))
+                    { <ul class="menu">
+                        <li class="topnav-right3 text-dark">
+                        <li>
+                            <a href="#" class="topnav-right3 text-dark"><span>
+                                   @User.Identity.Name
+                                </span>
+                            </a>
+                          <ul class="menu-hover">
+                                <li>
+                                    <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                    Logout
+                                            </a>
+                                        </li>
+                            
+                            </ul>       
+                               </li>                        
+                        </li></ul>
+                    }
+
+                    else
+                    {
                         <li class="nav-item">
-                            <a class="topnav-right3 text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sign in</a>
-                        </li>
+                            <a class="topnav-right3 text-dark" asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+                    </li>
+                    }
+                    
                         <li class="nav-item">
                             <a class="topnav-right4 text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa fa-fw fa-shopping-cart"></i></a>
                         </li>
@@ -234,7 +274,7 @@
             </div>
         </nav>
         </div>
-    <div class="container" style="margin-bottom:500px;">
+    <div class="container" >
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -249,7 +289,7 @@
 font-size: large;
             font-weight: 400;
 font-family:'Courier New';
-" asp-area="" asp-controller="Home" asp-action="Index" style="margin-top:100px;">About us</a>
+" asp-area="" asp-controller="Home" asp-action="AboutUs" style="margin-top:100px;">About us</a>
         </div>
         <div style="margin-top:-35px; margin-left:120px;">
             <a style="-webkit-text-fill-color: black;
@@ -264,6 +304,17 @@ font-size: large;
 font-family:'Courier New';" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
         </div>
     </footer>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
