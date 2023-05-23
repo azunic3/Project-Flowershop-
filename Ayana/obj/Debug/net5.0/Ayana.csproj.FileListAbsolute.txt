@@ -297,8 +297,9 @@ C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\V
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Home\SignIn.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Home\AboutUs.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\bin\Debug\net5.0\assets\vendor\bootstrap-icons\bootstrap-icons.json
-C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts1\Create.cshtml.g.cs
-C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts1\Delete.cshtml.g.cs
-C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts1\Details.cshtml.g.cs
-C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts1\Edit.cshtml.g.cs
-C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Discounts1\Index.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\RegisterConfirmation.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
