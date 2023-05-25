@@ -17,5 +17,8 @@
     <View_SelectedScaffolderID>IdentityScaffolder</View_SelectedScaffolderID>
     <View_SelectedScaffolderCategoryPath>root/Identity</View_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ViewDialogWidth>800</WebStackScaffolding_ViewDialogWidth>
+    <_SelectedScaffolderID>MvcControllerWithContextScaffolder</_SelectedScaffolderID>
+    <_SelectedScaffolderCategoryPath>root/Common</_SelectedScaffolderCategoryPath>
+    <WebStackScaffolding_LayoutPageFile />
   </PropertyGroup>
 </Project>

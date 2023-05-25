@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Ayana.Data.Migrations
+namespace Ayana.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230511125440_FirstMigration")]
+    [Migration("20230525115235_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,12 +43,9 @@ namespace Ayana.Data.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubscriptionID")
-                        .HasColumnType("int");
-
                     b.HasKey("CustomerID");
 
-                    b.ToTable("Students");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Ayana.Models.Discount", b =>
@@ -223,13 +220,13 @@ namespace Ayana.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("reportType")
+                    b.Property<int>("ReportType")
                         .HasColumnType("int");
 
                     b.HasKey("ReportID");

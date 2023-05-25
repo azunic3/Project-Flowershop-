@@ -9,8 +9,8 @@ namespace Ayana.Models
     {
         [Key]
         public int ReportID { get; set; }
-        public ReportType reportType { get; set; }
-        public DateTime date { get; set; }
+        public ReportType ReportType { get; set; }
+        public DateTime Date { get; set; }
 
         [ForeignKey("Employee")]
         public int EmployeeID { get; set; }

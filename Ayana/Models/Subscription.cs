@@ -15,6 +15,7 @@ namespace Ayana.Models
         public SubscriptionType SubscriptionType { get; set; }
         public DateTime DeliveryDate { get; set; }
         public double Price { get; set; }
+
         [ForeignKey("Customer")]
         public int CustomerID { get; set; }
 

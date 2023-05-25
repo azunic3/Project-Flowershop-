@@ -9,17 +9,14 @@ namespace Ayana.Models
         [Key]
         public int CustomerID { get; set; }
 
-        [ForeignKey("Subscription")]
-        public int SubscriptionID { get; set; }
         public int BankAccount { get; set; }
 
-        //this will use in a method that creates a list of history orders
-
-        [ForeignKey("Order")]
-        public int OrderID { get; set; }
+        //this will use in a method that creates a list of history orders and subscriptions
 
 
-        //List<Order> HistoryOfOrders = new List<Order>(); 
+        //public List<Subscription> HistoryOfSubscriptions { get; set; } = new List<Subscription>();
+
+        //public List<Order> HistoryOfOrders { get; set; } = new List<Order>(); 
 
 
         public Customer()

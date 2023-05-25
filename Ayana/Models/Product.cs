@@ -15,7 +15,7 @@ namespace Ayana.Models
         public string Category { get; set; }
         public string Description { get; set; }
 
-        List<string> subcategoryList = new List<string>();
+        //List<string> subcategoryList = new List<string>(); //problem s migracijom
         //best seller
        
         

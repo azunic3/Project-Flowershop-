@@ -22,7 +22,7 @@ namespace Ayana.Controllers
         // GET: Subscriptions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subscription.ToListAsync());
+            return View(await _context.Subscriptions.ToListAsync());
         }
 
         // GET: Subscriptions/Details/5
@@ -33,7 +33,7 @@ namespace Ayana.Controllers
                 return NotFound();
             }
 
-            var subscription = await _context.Subscription
+            var subscription = await _context.Subscriptions
                 .FirstOrDefaultAsync(m => m.SubscriptionID == id);
             if (subscription == null)
             {
@@ -73,7 +73,7 @@ namespace Ayana.Controllers
                 return NotFound();
             }
 
-            var subscription = await _context.Subscription.FindAsync(id);
+            var subscription = await _context.Subscriptions.FindAsync(id);
             if (subscription == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Ayana.Controllers
                 return NotFound();
             }
 
-            var subscription = await _context.Subscription
+            var subscription = await _context.Subscriptions
                 .FirstOrDefaultAsync(m => m.SubscriptionID == id);
             if (subscription == null)
             {
@@ -139,15 +139,15 @@ namespace Ayana.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var subscription = await _context.Subscription.FindAsync(id);
-            _context.Subscription.Remove(subscription);
+            var subscription = await _context.Subscriptions.FindAsync(id);
+            _context.Subscriptions.Remove(subscription);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SubscriptionExists(int id)
         {
-            return _context.Subscription.Any(e => e.SubscriptionID == id);
+            return _context.Subscriptions.Any(e => e.SubscriptionID == id);
         }
     }
 }

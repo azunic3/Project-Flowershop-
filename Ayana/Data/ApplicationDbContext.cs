@@ -13,19 +13,19 @@ namespace Ayana.Data
             : base(options)
         {
         }
-        public DbSet<Customer> Customers{ get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Discount> Discounts{ get; set; }
+        public DbSet<Discount> Discounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Report> Reports { get; set; }
-        public DbSet<Product> Subscriptions{ get; set; }
-        public DbSet<ProductOrder> ProductOrders { get; set;}
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>().ToTable("Students");
+            modelBuilder.Entity<Customer>().ToTable("Customers");
             modelBuilder.Entity<Employee>().ToTable("Employees");
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<Discount>().ToTable("Discounts");
@@ -37,7 +37,7 @@ namespace Ayana.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Ayana.Models.Subscription> Subscription { get; set; }
+
 
     }
 }
