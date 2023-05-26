@@ -3,20 +3,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ayana.Models
 {
-    public class ProductOrder
+    public class CustomerOrder
     {
         [Key]
-        public int ProductOrderID { get; set; }
+        public int CustomerOrderID { get; set; }
 
         [ForeignKey("Order")]
         public int OrderID { get; set; }
         public Order Order { get; set; }
 
-        [ForeignKey("Product")]
-        public int ProductID { get; set; }
-        public Product Product { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerID { get; set; }
+        public Customer Customer { get; set; }
 
-        ProductOrder ()
+        CustomerOrder()
         {
 
         }

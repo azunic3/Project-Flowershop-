@@ -14,7 +14,7 @@ namespace Ayana.Models
 
         [ForeignKey("Employee")]
         public int EmployeeID { get; set; }
-
+        public Employee Employee { get; set; }
         public Report()
         {
 

@@ -18,9 +18,11 @@ namespace Ayana.Models
 
         [ForeignKey("Customer")]
         public int CustomerID { get; set; }
+        public Customer Customer { get; set; }
 
         [ForeignKey("Payment")]
         public int PaymentID { get; set; }
+        public Payment Payment { get; set; }
 
         public Subscription()
         {

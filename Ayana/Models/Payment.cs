@@ -11,6 +11,8 @@ namespace Ayana.Models
 
         [ForeignKey("Discount")]
         public int DiscountID { get; set; }
+        public Discount discount
+        { get; set; }
         public double PayedAmount { get; set; }  //with discount
         public bool IsPaymentValid { get; set; }
         public string DeliveryAddress { get; set; }
