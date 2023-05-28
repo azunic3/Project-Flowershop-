@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ayana.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace Ayana.Controllers
 {
@@ -25,6 +26,7 @@ namespace Ayana.Controllers
 
         public IActionResult Index()
         {
+            bestSellers();
             return View();
         }
 
@@ -56,21 +58,24 @@ namespace Ayana.Controllers
         }
         public void bestSellers()
         {
-            List<Product> bestSellers = _context.Products.ToList();
-            for (int i = 0; i < bestSellers.Count; i++)
-            {
-                for (int j = i + 1; j < bestSellers.Count; j++)
-                {
-                    if (bestSellers[i].SalesHistory < bestSellers[j].SalesHistory)
-                    {
-                        Product product = bestSellers[i];
-                        bestSellers[i] = bestSellers[j];
-                        bestSellers[j] = product;
-                    }
-                }
-            }
-            for (int i = 0; i < 4; i++)
-                ViewBag.bestSellers = bestSellers[i];
+            List<Product> orderded = _context.Products.ToList();
+           
+            orderded.OrderByDescending(x => x.SalesHistory);
+            List<Product> bestSellers = new List<Product>();
+            for(int i=0;i<3;i++)
+                bestSellers.Add(orderded[i]);
+                ViewBag.bestSellers = bestSellers;
+            Console.WriteLine(bestSellers);
         }
+        public void birthdayBestSellers()
+        {
+            List<Product> birthdayList = _context.Products.ToList().FindAll(x => x.Category == "Birthday");
+            birthdayList.OrderByDescending(x=>x.SalesHistory);
+            List<Product> birthdayBestSeller = new List<Product>();
+            for (int i = 0; i < 4; i++)
+                birthdayBestSeller.Insert(i, birthdayList[i]);
+            ViewBag.birthdayBestSellers = birthdayBestSeller;
+        }
+
     }
 }

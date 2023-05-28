@@ -11,6 +11,23 @@
     .boxed{
         background-color: #fbf8f9;
     }
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 10px;
+    }
+
+    .image-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
       
 </style>
@@ -25,38 +42,19 @@
 <br>
 <p style="text-align:center; font-size:x-large; font-style:italic; font-weight:300;">Best sellers</p>
 <br>
-        <div class="row text-center">
-            <div class="col-sm-3">
-                <div>
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-                    <p><strong></strong></p>
-                    <p></p>
-        </div>
+<div class="row text-center">
+    @foreach (Product url in ViewBag.bestSellers)
+    {
+        <div class="col-sm-4">
+            <div>
+                <img src="https://e0.pxfuel.com/wallpapers/996/249/desktop-wallpaper-earth-white-tulip-white-tulips.jpg" alt="" width="200" height="200">
+                <p><strong>@url.Name</strong></p>
+                <p>BAM @url.Price.00</p>
             </div>
-            <div class="col-sm-3">
-                <div >
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-                    <p><strong></strong></p>
-                    <p></p>
         </div>
-            </div>
-            <div class="col-sm-3">
-                <div >
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-                    <p><strong></strong></p>
-                    <p></p>
-        </div>
-            </div>
-        
-<div class="col-sm-3" style="margin-bottom:500px;">
-    <div >
-        <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-        <p><strong></strong></p>
-        <p></p>
-    </div>
+    }
 </div>
-</div>
-<div class="row slideanim" style="transition:ease-in-out; margin-top:-450px; " >
+<div class="row slideanim" style="transition:ease-in-out; margin-top:-2px; " >
     <div style="background: #ddeffb;text-align:left;padding:1em 0; margin-left:10px;  width:85%; height:400%;">
         <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">cheer someone up...</h1>
         <p style="margin-left:50px;margin-top:10px;font-style:italic;">Because you don't need a special occasion to suprise the one you love</p>

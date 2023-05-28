@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ayana.Data;
 using Ayana.Models;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using System.Text.RegularExpressions;
 
 namespace Ayana.Controllers
 {
@@ -46,6 +48,17 @@ namespace Ayana.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            return View();
+        }
+        public IActionResult SearchResult(string search)
+        {
+            List<Product> products = _context.Products.ToList();
+
+            string pattern = $@"\b{Regex.Escape(search)}\b";
+            List<Product> searchResults = products.Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
+
+            ViewBag.SearchResults = searchResults;
+
             return View();
         }
 
@@ -149,5 +162,6 @@ namespace Ayana.Controllers
         {
             return _context.Products.Any(e => e.ProductID == id);
         }
+
     }
 }
