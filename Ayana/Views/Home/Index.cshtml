@@ -58,7 +58,7 @@
     <div style="background: #ddeffb;text-align:left;padding:1em 0; margin-left:10px;  width:85%; height:400%;">
         <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">cheer someone up...</h1>
         <p style="margin-left:50px;margin-top:10px;font-style:italic;">Because you don't need a special occasion to suprise the one you love</p>
-        <a asp-area="" asp-controller="Subscriptions" asp-action="Index" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop now</a>
+        <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Subscriptions" asp-action="Index" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop now</a>
     </div>
     <img src="https://cdn.shopify.com/s/files/1/0507/3754/5401/t/1/assets/CLMD_LOL_preset_proflowers-mx-tile-wide-lv-new.jpeg?v=1662494477" style="float:right; margin-right:20px;" height="137">
 </div>
@@ -93,7 +93,7 @@
         <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">happy birthday</h1>
         <p style="margin-left:50px;margin-top:10px;font-style:italic;">Celebrate your loved ones</p>
 
-        <a asp-area="" asp-controller="Subscriptions" asp-action="Index" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop now</a>
+        <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Birthday" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop now</a>
     </div>
     <img src="https://cdn.shopify.com/s/files/1/0507/3754/5401/t/1/assets/V5449D_LOL_preset_proflowers-mx-hero-lv-new.jpeg?v=1637201054&v=1680812238" style="float:right; margin-right:20px;" height="137">
 </div>
@@ -118,7 +118,7 @@
         <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">for mom</h1>
         <p style="margin-left:50px;margin-top:10px;font-style:italic;">Suprise her</p>
 
-        <a asp-area="" asp-controller="Subscriptions" asp-action="Index" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop Mother's day</a>
+        <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="mother's day" style="margin-left:80px;margin-top:30px;margin-bottom:25px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Shop Mother's day</a>
     </div>
     <img src="https://cdn.shopify.com/s/files/1/0507/3754/5401/t/1/assets/L5496D_LOL_preset_proflowers-mx-hero-lv-new.jpeg?v=1674762178&v=1680812238" style="float:right; margin-right:20px;" height="137">
 </div>
@@ -128,32 +128,37 @@
 <div class="row text-center">
     <div class="col-sm-3">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Mother's day">
             <img src="https://thumbs.dreamstime.com/b/bouquet-colorful-roses-lisianthus-lilac-flowers-vector-illustration-pink-yellow-blue-white-hydrangea-green-leaves-50384792.jpg?v=1680812238" alt="" width="200" height="200">
-            <p><strong>Mother's day</strong></p>
-            <p></p>
+            <p ><strong>Mother's day</strong></p>
+                <p></p>
+            </a>
         </div>
     </div>
     <div class="col-sm-3">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="cheer someone up">
             <img src="https://img.freepik.com/premium-vector/flower-bouquet_463755-102.jpg?w=2000&v=1680812238" alt="" width="200" height="200">
             <p><strong>cheer someone up</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
 
 
     <div class="col-sm-3">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Valentine's day">
             <img src="https://img.freepik.com/premium-vector/vintage-white-flowers-bouquet-with-green-leaves-painting-watercolor_150636-178.jpg?v=1680812238" alt="" width="200" height="200">
             <p><strong>Valentine's day</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
     <div class="col-sm-3">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Love & romance">
             <img src="https://previews.123rf.com/images/naddya/naddya1709/naddya170900016/87158697-vector-bouquet-of-roses-and-flowers.jpg?v=1680812238" alt="" width="200" height="200">
             <p><strong>Love & romance</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
 </div>
@@ -162,32 +167,34 @@
 <div class="row text-center">
     <div class="col-sm-3">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="thank you">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0bVLNgQf7g6JRGp0maeZ2iDTm5wjyj3_Ix9EDvB5VYiT9UTnN" alt="" width="200" height="200">
             <p><strong>thank you</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
     <div class="col-sm-3">
-        <div>
+        <div><a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Anniversary">
             <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTtqMddvmPggB43olPbwj4kalf5kkjqbVhwdtggBkamIuOcrtGT" alt="" width="200" height="200">
             <p><strong>anniversary</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
 
 
     <div class="col-sm-3">
-        <div>
+        <div><a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Birthday">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCEAC6WqOSHkc9MPDlqstzyNEEoYUUBzWQgg&usqp=CAU" alt="" width="200" height="200">
             <p><strong>birthday</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
     <div class="col-sm-3" style="margin-bottom:100px;">
         <div>
+            <a style="-webkit-text-fill-color:black;" asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="woman's day">
             <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSsD308WKkoZH9iv9NmYPZUBhzWVrdQlsPxuKKBDrmxzM95N-v1" alt="" width="200" height="200">
             <p><strong>woman's day</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
 </div>

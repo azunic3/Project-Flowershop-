@@ -24,6 +24,13 @@ namespace Ayana.Controllers
 
         }
 
+        public IActionResult CategoryView(string category1)
+        {
+            List<Product>categoryList=_context.Products.ToList().FindAll(x => x.Category == category1);
+            ViewBag.category = categoryList;
+            return View("~/Views/Products/SearchResult.cshtml", ViewBag.category);
+        }
+
         public IActionResult Index()
         {
             bestSellers();
@@ -76,6 +83,11 @@ namespace Ayana.Controllers
             for (int i = 0; i < 3; i++)
                 birthdayBestSeller.Insert(i, birthdayList[i]);
             ViewBag.birthdayBestSellers = birthdayBestSeller;
+        }
+
+        public List<Product> Category(string category1)
+        {
+          return  _context.Products.ToList().FindAll(x => x.Category == category1);
         }
 
     }
