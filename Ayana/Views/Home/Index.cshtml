@@ -101,29 +101,16 @@
 <p style="text-align:center; font-size:x-large; font-style:italic; font-weight:300;">Birthday best sellers</p>
 <br>
 <div class="row text-center">
-    <div class="col-sm-4">
-        <div>
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-            <p><strong></strong></p>
-            <p></p>
+    @foreach (Product url in ViewBag.birthdayBestSellers)
+    {
+        <div class="col-sm-4">
+            <div>
+                <img src="https://e0.pxfuel.com/wallpapers/996/249/desktop-wallpaper-earth-white-tulip-white-tulips.jpg" alt="" width="200" height="200">
+                <p><strong>@url.Name</strong></p>
+                <p>BAM @url.Price.00</p>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-4">
-        <div>
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-            <p><strong></strong></p>
-            <p></p>
-        </div>
-    </div>
-
-
-    <div class="col-sm-4">
-        <div>
-            <img src="https://placehold.it/150x80?text=IMAGE" alt="" width="200" height="200">
-            <p><strong></strong></p>
-            <p></p>
-        </div>
-    </div>
+    }
 </div>
 
 <div class="row slideanim" style="transition:ease-in-out;">
