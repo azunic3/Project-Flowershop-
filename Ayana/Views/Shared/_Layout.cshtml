@@ -56,7 +56,40 @@
             font-weight: 600;
         }
 
-      
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 800px;
+            height:40px;
+            background-color: transparent;
+            border-radius: 20px 20px 20px 20px;
+        }
+
+            .search-bar input[type="text"] {
+                flex: 1;
+                padding: 8px;
+                font-size: 16px;
+                border: none;
+                outline: none;
+border-radius: 20px 20px 20px 20px; width: 800px;
+                height: 38px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-bar .search-icon {
+                padding: 8px;
+                color: #555;
+                cursor: pointer;
+                border-radius: 20px 0 0 20px;
+            }
+
+                .search-bar .search-icon i {
+                    font-size: 20px;
+                }
+
+                .search-bar .search-icon:hover {
+                    color: #000;
+                }
 
         .menu-options {
             display: none;
@@ -205,7 +238,38 @@
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="topnav-right text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-search"></i>Search</a>
+                          <div class="subnav">
+                            <a class="subnavbtn" style=" float: right;
+            position: absolute;
+z-index:1;
+left: 85%;
+margin-top:-28.6px;
+            transform: translate(-50%, -50%);
+            -webkit-text-fill-color: black;" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fa fa-fw fa-search"></i>Search
+                            </a>
+
+                        <div class="subnav-content">
+                                <div class="search-bar" style="margin-left:500px; margin-top:12px;">
+                                    <form asp-area="" asp-controller="Products" asp-action="SearchResult" asp-route-search="search" method="post">
+                                            <input type="text" id="search" name="search" placeholder="Search..." style="" />
+   
+                                    </form>
+                                </div>
+                                <a style="margin-left:570px; margin-top:25px; font-weight:700;">Popular searches</a>
+                                <a style="margin-left:-113px; margin-top:55px;">Roses</a>
+                                <a style="margin-left:-113px; margin-top:85px">Sunflowers</a>
+                                <a style="margin-left:-113px; margin-top:115px">Tulips</a>
+                                <a style="margin-left:250px; margin-top:25px;">Valentine's day</a>
+                                <a style="margin-left:-103px; margin-top:55px;">Birthday</a>
+                                <a style="margin-left:-103px; margin-top:85px">Anniversary</a>
+                                <a style="margin-left:-103px; margin-top:115px">Mother's day</a>
+                                <a style="margin-left:250px; margin-top:25px; font-weight:700;">Search by price</a>
+                                <a style="margin-left:-103px; margin-top:55px;">BAM 35.00 & Under</a>
+                                <a style="margin-left:-133px; margin-top:85px">BAM 60.00 & Under</a>
+                                <a style="margin-left:-133px; margin-top:115px">BAM 100.00 & Under</a>
+                        </div>
+                        </div>
                         </li>
                         <li class="nav-item">
                             <a class="topnav-right2 text-dark" asp-area="" asp-controller="Home" asp-action="Help">Help</a>

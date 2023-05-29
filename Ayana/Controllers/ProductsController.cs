@@ -53,13 +53,15 @@ namespace Ayana.Controllers
         public IActionResult SearchResult(string search)
         {
             List<Product> products = _context.Products.ToList();
-
-            string pattern = $@"\b{Regex.Escape(search)}\b";
+            if (search == null)
+                ViewBag.SearchResults = products;
+            else { 
+            string pattern = $"{Regex.Escape(search)}";
             List<Product> searchResults = products.Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
 
             ViewBag.SearchResults = searchResults;
-
-            return View();
+}
+            return View(ViewBag.SearchResults);
         }
 
         // POST: Products/Create
