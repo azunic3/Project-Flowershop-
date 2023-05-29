@@ -56,6 +56,35 @@
             font-weight: 600;
         }
 
+      
+
+        .menu-options {
+            display: none;
+            background-color: #f9f9f9;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 8px 0;
+            z-index: 1;
+            float: right;
+            position: absolute;
+            top:100%;
+            left: 94.6%;
+            transform: translate(-50%, -50%);
+            -webkit-text-fill-color: black;
+
+        }
+
+            .menu-options li {
+                padding: 8px 16px;
+            }
+
+                .menu-options li:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .menu-trigger:hover .menu-options {
+            display: block;
+        }
             .topnav-centered a:link {
                 text-decoration: none;
             }
@@ -182,23 +211,23 @@
                             <a class="topnav-right2 text-dark" asp-area="" asp-controller="Home" asp-action="Help">Help</a>
                         </li>
                     @if (SignInManager.IsSignedIn(User))
-                    { <ul class="menu">
-                        <li class="topnav-right3 text-dark">
-                        <li>
-                            <a href="#" class="topnav-right3 text-dark"><span>
-                                   @User.Identity.Name
-                                </span>
-                            </a>
-                          <ul class="menu-hover">
-                                <li>
-                                    <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                    Logout
-                                            </a>
-                                        </li>
-                            
-                            </ul>       
-                               </li>                        
-                        </li></ul>
+                    {
+                        <div class="account-menu">
+                            <div class="menu-trigger">
+                                <button class="menu-toggle" style="float: right;
+            position: absolute;
+            top: 20%;
+            left: 94.6%;
+            transform: translate(-50%, -50%);
+            -webkit-text-fill-color: black; border:none; background-color:white;">
+                                    Account
+                                </button>
+                                <ul class="menu-options">
+                                    <li><a href="#" style="-webkit-text-fill-color:black;">Account Details</a></li>
+                                    <li><a href="#" style="-webkit-text-fill-color:black;">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     }
 
                     else
