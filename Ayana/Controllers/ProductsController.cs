@@ -9,6 +9,7 @@ using Ayana.Data;
 using Ayana.Models;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
+using static Humanizer.On;
 
 namespace Ayana.Controllers
 {
@@ -62,6 +63,24 @@ namespace Ayana.Controllers
             ViewBag.SearchResults = searchResults;
 }
             return View(ViewBag.SearchResults);
+        }
+
+        public IActionResult PopularSearches(string popularsearch)
+        {
+            List<Product> products = _context.Products.ToList();
+            bool isItBAM = Regex.IsMatch(popularsearch, "BAM", RegexOptions.IgnoreCase);
+            if (isItBAM)
+            {
+                int o = int.Parse(popularsearch.Substring(4).Split(".").First());
+                List<Product> inPriceRange = products.FindAll(p => p.Price <= o);
+                ViewBag.p = inPriceRange;
+            }
+            else
+            {
+                List<Product> categoryList = _context.Products.ToList().FindAll(x => x.Category == popularsearch);
+                ViewBag.p = categoryList;
+            }
+            return View("~/Views/Products/SearchResult.cshtml", ViewBag.p);
         }
 
         // POST: Products/Create

@@ -12,9 +12,10 @@
     @foreach (Product p in Model)
     {
         <div class="col-sm-4">
-            <div>
+                <div>
+                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@p.ProductID" style="-webkit-text-fill-color:black;">
                 <img src="https://e0.pxfuel.com/wallpapers/996/249/desktop-wallpaper-earth-white-tulip-white-tulips.jpg" alt="" width="200" height="200">
-                <p><strong><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@p.ProductID" style="-webkit-text-fill-color:black;"> @p.Name</a></strong></p>
+                <p><strong> @p.Name</strong></p></a>
                 <p>BAM @p.Price.00</p>
             </div>
         </div>
