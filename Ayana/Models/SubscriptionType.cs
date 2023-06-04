@@ -2,9 +2,9 @@
 {
     public enum SubscriptionType
     {
-        FourMonths,
-        ThreeMonths,
-        TwoMonths
+        ThreeMonth,
+        SixMonth,
+        Month
 
     }
 }

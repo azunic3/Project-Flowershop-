@@ -64,13 +64,17 @@ namespace Ayana.Controllers
         {
             return View();
         }
+        public IActionResult Subscription()
+        {
+            return View();
+        }
         public void bestSellers()
         {
             List<Product> orderded = _context.Products.ToList();
            
            //orderded= orderded.OrderByDescending(x => x.SalesHistory).ToList();
             List<Product> bestSellers = new List<Product>();
-            for(int i=0;i<3;i++)
+            for(int i=0;i<orderded.Count;i++)
                 bestSellers.Add(orderded[i]);
                 ViewBag.bestSellers = bestSellers;
             Console.WriteLine(bestSellers);
@@ -80,7 +84,7 @@ namespace Ayana.Controllers
             List<Product> birthdayList = _context.Products.ToList().FindAll(x => x.Category == "Birthday");
            //birthdayList= birthdayList.OrderByDescending(x=>x.SalesHistory).ToList();
             List<Product> birthdayBestSeller = new List<Product>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < birthdayList.Count; i++)
                 birthdayBestSeller.Insert(i, birthdayList[i]);
             ViewBag.birthdayBestSellers = birthdayBestSeller;
         }
