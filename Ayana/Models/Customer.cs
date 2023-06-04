@@ -12,7 +12,6 @@ namespace Ayana.Models
         public int BankAccount { get; set; }
 
 
-
         public Customer()
         {
 

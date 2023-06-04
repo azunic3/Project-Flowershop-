@@ -46,28 +46,6 @@ namespace Ayana.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Ayana.Models.CustomerOrder", b =>
-                {
-                    b.Property<int>("CustomerOrderID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomerOrderID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("CustomerOrders");
-                });
-
             modelBuilder.Entity("Ayana.Models.Discount", b =>
                 {
                     b.Property<int>("DiscountID")
@@ -155,6 +133,10 @@ namespace Ayana.Migrations
 
                     b.HasKey("OrderID");
 
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("PaymentID");
+
                     b.ToTable("Orders");
                 });
 
@@ -200,19 +182,27 @@ namespace Ayana.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FlowerType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("SalesHistory")
+                    b.Property<int>("ProductSalesID")
                         .HasColumnType("int");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("ProductSalesID");
 
                     b.ToTable("Products");
                 });
@@ -237,6 +227,21 @@ namespace Ayana.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("ProductOrders");
+                });
+
+            modelBuilder.Entity("Ayana.Models.ProductSales", b =>
+                {
+                    b.Property<int>("ProductSalesID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("SalesDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProductSalesID");
+
+                    b.ToTable("ProductSales");
                 });
 
             modelBuilder.Entity("Ayana.Models.Report", b =>
@@ -496,7 +501,7 @@ namespace Ayana.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Ayana.Models.CustomerOrder", b =>
+            modelBuilder.Entity("Ayana.Models.Order", b =>
                 {
                     b.HasOne("Ayana.Models.Customer", "Customer")
                         .WithMany()
@@ -504,26 +509,37 @@ namespace Ayana.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Ayana.Models.Order", "Order")
+                    b.HasOne("Ayana.Models.Payment", "Payment")
                         .WithMany()
-                        .HasForeignKey("OrderID")
+                        .HasForeignKey("PaymentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Order");
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Ayana.Models.Payment", b =>
                 {
-                    b.HasOne("Ayana.Models.Discount", "discount")
+                    b.HasOne("Ayana.Models.Discount", "Discount")
                         .WithMany()
                         .HasForeignKey("DiscountID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("discount");
+                    b.Navigation("Discount");
+                });
+
+            modelBuilder.Entity("Ayana.Models.Product", b =>
+                {
+                    b.HasOne("Ayana.Models.ProductSales", "ProductSales")
+                        .WithMany()
+                        .HasForeignKey("ProductSalesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductSales");
                 });
 
             modelBuilder.Entity("Ayana.Models.ProductOrder", b =>

@@ -1164,3 +1164,4 @@ C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Projekat-OOAD\Projekat-OOAD\Ay
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Projekat-OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Ayana.genruntimeconfig.cache
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Projekat-OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\ref\Ayana.dll
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Projekat-OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Products\SearchResult.cshtml.g.cs
+C:\Users\HP\source\repos\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Products\SearchResult.cshtml.g.cs

@@ -100,103 +100,16 @@ namespace Ayana.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "ProductSales",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
+                    ProductSalesID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    PaymentID = table.Column<int>(type: "int", nullable: false),
-                    IsOrderSent = table.Column<bool>(type: "bit", nullable: false),
-                    Rating = table.Column<double>(type: "float", nullable: false),
-                    TotalAmountToPay = table.Column<double>(type: "float", nullable: false),
-                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SalesDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Payments",
-                columns: table => new
-                {
-                    PaymentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    DiscountID = table.Column<int>(type: "int", nullable: false),
-                    PayedAmount = table.Column<double>(type: "float", nullable: false),
-                    IsPaymentValid = table.Column<bool>(type: "bit", nullable: false),
-                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payments", x => x.PaymentID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductOrders",
-                columns: table => new
-                {
-                    ProductOrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderID = table.Column<int>(type: "int", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductOrders", x => x.ProductOrderID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
-                    SalesHistory = table.Column<int>(type: "int", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reports",
-                columns: table => new
-                {
-                    ReportID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReportType = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reports", x => x.ReportID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subscriptions",
-                columns: table => new
-                {
-                    SubscriptionID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubscriptionType = table.Column<int>(type: "int", nullable: false),
-                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    PaymentID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subscriptions", x => x.SubscriptionID);
+                    table.PrimaryKey("PK_ProductSales", x => x.ProductSalesID);
                 });
 
             migrationBuilder.CreateTable(
@@ -305,6 +218,162 @@ namespace Ayana.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    PaymentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentType = table.Column<int>(type: "int", nullable: false),
+                    DiscountID = table.Column<int>(type: "int", nullable: false),
+                    PayedAmount = table.Column<double>(type: "float", nullable: false),
+                    IsPaymentValid = table.Column<bool>(type: "bit", nullable: false),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.PaymentID);
+                    table.ForeignKey(
+                        name: "FK_Payments_Discounts_DiscountID",
+                        column: x => x.DiscountID,
+                        principalTable: "Discounts",
+                        principalColumn: "DiscountID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reports",
+                columns: table => new
+                {
+                    ReportID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReportType = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reports", x => x.ReportID);
+                    table.ForeignKey(
+                        name: "FK_Reports_Employees_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    FlowerType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductSalesID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductSales_ProductSalesID",
+                        column: x => x.ProductSalesID,
+                        principalTable: "ProductSales",
+                        principalColumn: "ProductSalesID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentID = table.Column<int>(type: "int", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    IsOrderSent = table.Column<bool>(type: "bit", nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    TotalAmountToPay = table.Column<double>(type: "float", nullable: false),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Orders_Payments_PaymentID",
+                        column: x => x.PaymentID,
+                        principalTable: "Payments",
+                        principalColumn: "PaymentID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subscriptions",
+                columns: table => new
+                {
+                    SubscriptionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubscriptionType = table.Column<int>(type: "int", nullable: false),
+                    DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
+                    PaymentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscriptions", x => x.SubscriptionID);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Payments_PaymentID",
+                        column: x => x.PaymentID,
+                        principalTable: "Payments",
+                        principalColumn: "PaymentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductOrders",
+                columns: table => new
+                {
+                    ProductOrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductOrders", x => x.ProductOrderID);
+                    table.ForeignKey(
+                        name: "FK_ProductOrders_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductOrders_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -343,6 +412,51 @@ namespace Ayana.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerID",
+                table: "Orders",
+                column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PaymentID",
+                table: "Orders",
+                column: "PaymentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_DiscountID",
+                table: "Payments",
+                column: "DiscountID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrders_OrderID",
+                table: "ProductOrders",
+                column: "OrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrders_ProductID",
+                table: "ProductOrders",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductSalesID",
+                table: "Products",
+                column: "ProductSalesID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_EmployeeID",
+                table: "Reports",
+                column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_CustomerID",
+                table: "Subscriptions",
+                column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_PaymentID",
+                table: "Subscriptions",
+                column: "PaymentID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -363,25 +477,7 @@ namespace Ayana.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Discounts");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
-
-            migrationBuilder.DropTable(
                 name: "ProductOrders");
-
-            migrationBuilder.DropTable(
-                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Reports");
@@ -394,6 +490,27 @@ namespace Ayana.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
+                name: "ProductSales");
+
+            migrationBuilder.DropTable(
+                name: "Discounts");
         }
     }
 }

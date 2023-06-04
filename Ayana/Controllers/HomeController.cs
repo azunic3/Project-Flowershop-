@@ -68,7 +68,7 @@ namespace Ayana.Controllers
         {
             List<Product> orderded = _context.Products.ToList();
            
-           orderded= orderded.OrderByDescending(x => x.SalesHistory).ToList();
+           //orderded= orderded.OrderByDescending(x => x.SalesHistory).ToList();
             List<Product> bestSellers = new List<Product>();
             for(int i=0;i<3;i++)
                 bestSellers.Add(orderded[i]);
@@ -78,7 +78,7 @@ namespace Ayana.Controllers
         public void birthdayBestSellers()
         {
             List<Product> birthdayList = _context.Products.ToList().FindAll(x => x.Category == "Birthday");
-           birthdayList= birthdayList.OrderByDescending(x=>x.SalesHistory).ToList();
+           //birthdayList= birthdayList.OrderByDescending(x=>x.SalesHistory).ToList();
             List<Product> birthdayBestSeller = new List<Product>();
             for (int i = 0; i < 3; i++)
                 birthdayBestSeller.Insert(i, birthdayList[i]);

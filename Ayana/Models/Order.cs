@@ -13,11 +13,14 @@ namespace Ayana.Models
         [Key]
         public int OrderID { get; set; }
 
-        [ForeignKey("Customer")]
-        public int CustomerID { get; set; }
-
         [ForeignKey("Payment")]
         public int PaymentID { get; set; }
+        public Payment Payment { get; set; }
+
+        [ForeignKey("Customer")]
+        public int CustomerID{ get; set; }
+        public Customer Customer{ get; set; }
+
 
         public bool IsOrderSent { get; set; }
         public double Rating { get; set; }

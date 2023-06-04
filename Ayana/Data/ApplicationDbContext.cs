@@ -23,8 +23,12 @@ namespace Ayana.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
 
-        public DbSet<CustomerOrder> CustomerOrders { get; set; }
+        public DbSet<ProductSales> ProductSales { get; set; }
 
+
+       
+           
+        
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,7 +42,7 @@ namespace Ayana.Data
             modelBuilder.Entity<Report>().ToTable("Reports");
             modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
             modelBuilder.Entity<ProductOrder>().ToTable("ProductOrders");
-            modelBuilder.Entity<CustomerOrder>().ToTable("CustomerOrders");
+            modelBuilder.Entity<ProductSales>().ToTable("ProductSales");
 
             base.OnModelCreating(modelBuilder);
         }
