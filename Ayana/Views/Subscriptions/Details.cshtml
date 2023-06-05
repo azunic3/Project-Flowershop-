@@ -24,6 +24,7 @@
 
     .wide-input {
         width: 250px;
+        margin-bottom:150px
     }
 
 </style>
@@ -32,8 +33,8 @@
     <div class="box">
         <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/labelle.jpg">
         <div>
-            <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">Monthly Package Subscription</p>
-            <p style="font-weight:400; font-style:italic;margin-bottom:20px; margin-left:20px;font-size:small;width: 150px;">BAM 200.00</p>
+            <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">@ViewBag.Data1</p>
+            <p style="font-weight:400; font-style:italic;margin-bottom:20px; margin-left:20px;font-size:small;width: 150px;">@ViewBag.Data2</p>
             <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">Subscription duration</p>
             <p style="font-weight:400; font-style:italic; margin-left:20px;font-size:small;width: 150px;">Monthly</p>
         </div>
@@ -44,21 +45,26 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p style="font-weight:600; margin-left:20px; font-size:medium; width: 300px;">Delivery address</p>
-                <div class="form-group">
-                    <input asp-for="Customer.FirstName" class="form-control" placeholder="Name" />
-                </div>
-                <div class="form-group">
-                    <input asp-for="Customer.LastName" class="form-control" placeholder="Last name" />
-                </div>
+           
                 <div class="form-group">
                     <p style="font-weight:600; margin-left:20px; font-size:medium; width: 300px;">Select your first delivery date</p>
                     <p style="font-weight:400; font-style: italic;margin-left:20px; font-size:small; width: 400px;">This will be the first delivery date, after this date we will aim to deliver the remaining deliveries on the closest possible date monthly.</p>
                     <input asp-for="DeliveryDate" class="form-control" />
                     <span asp-validation-for="DeliveryDate" class="text-danger" ></span>
                 </div>
-                
-            </form>
+               <div class = "form-group">
+                 <input type = "submit" value="Pay now" class = "btn btn-primary"/>
+               </div>
+                <!-- Hidden input fields -->
+                <input type="hidden" asp-for="Name" value=@ViewBag.Data1 />
+                <input type="hidden" asp-for="Price" value=@ViewBag.Data2 />
+                <input type="hidden" asp-for="PaymentID" value=1 />
+                <input type="hidden" asp-for="SubscriptionType" value=1 />
+                <input type="hidden" asp-for="CustomerID" value=1 />
+           
+
+
+            </form>   
         </div>
     </div>
 </div>
-<button style=" border-color:grey;-webkit-text-fill-color:white;background-color:grey; margin-top:40px;margin-left:900px;margin-bottom: 150px;">Pay now</button>
