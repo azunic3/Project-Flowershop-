@@ -3,52 +3,62 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    
+    .container {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+    }
 
-<h1>Details</h1>
+    .box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        text-align: left;
+        font-weight: bold;
+        border: none;
+        position: relative;
+        margin-right: 50px
+    }
 
-<div>
-    <h4>Subscription</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubscriptionType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SubscriptionType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveryDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustomerID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustomerID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentID)
-        </dd>
-    </dl>
+    .wide-input {
+        width: 250px;
+    }
+
+</style>
+<a asp-area="" asp-controller="Home" asp-action="Index" style="font-size: medium; -webkit-text-fill-color:black;"> Continue shoping</a>
+<div class="container">
+    <div class="box">
+        <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/labelle.jpg">
+        <div>
+            <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">Monthly Package Subscription</p>
+            <p style="font-weight:400; font-style:italic;margin-bottom:20px; margin-left:20px;font-size:small;width: 150px;">BAM 200.00</p>
+            <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">Subscription duration</p>
+            <p style="font-weight:400; font-style:italic; margin-left:20px;font-size:small;width: 150px;">Monthly</p>
+        </div>
+    
+    </div>
+    <div>
+        <div class="wide-input">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p style="font-weight:600; margin-left:20px; font-size:medium; width: 300px;">Delivery address</p>
+                <div class="form-group">
+                    <input asp-for="Customer.FirstName" class="form-control" placeholder="Name" />
+                </div>
+                <div class="form-group">
+                    <input asp-for="Customer.LastName" class="form-control" placeholder="Last name" />
+                </div>
+                <div class="form-group">
+                    <p style="font-weight:600; margin-left:20px; font-size:medium; width: 300px;">Select your first delivery date</p>
+                    <p style="font-weight:400; font-style: italic;margin-left:20px; font-size:small; width: 400px;">This will be the first delivery date, after this date we will aim to deliver the remaining deliveries on the closest possible date monthly.</p>
+                    <input asp-for="DeliveryDate" class="form-control" />
+                    <span asp-validation-for="DeliveryDate" class="text-danger" ></span>
+                </div>
+                
+            </form>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.SubscriptionID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<button style=" border-color:grey;-webkit-text-fill-color:white;background-color:grey; margin-top:40px;margin-left:900px;margin-bottom: 150px;">Pay now</button>

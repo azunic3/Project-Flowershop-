@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Ayana",
-    "\\Ayana\\Controllers",
-    "\\Ayana\\Views",
-    "\\Ayana\\Views\\Home",
-    "\\Ayana\\Views\\Shared"
+    ""
   ],
-  "SelectedNode": "\\Ayana\\Views\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\Ayana.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -28,19 +28,7 @@ namespace Ayana.Controllers
         // GET: Subscriptions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(m => m.SubscriptionID == id);
-            if (subscription == null)
-            {
-                return NotFound();
-            }
-
-            return View(subscription);
+            return View();
         }
 
         // GET: Subscriptions/Create
