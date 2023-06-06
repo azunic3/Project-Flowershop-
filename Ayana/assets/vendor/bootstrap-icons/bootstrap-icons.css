@@ -652,7 +652,8 @@ url("./fonts/bootstrap-icons.woff?24e3eb84d0bcaf83d77f904c78ac1f47") format("wof
 .bi-file-earmark-minus::before { content: "\f375"; }
 .bi-file-earmark-music-fill::before { content: "\f376"; }
 .bi-file-earmark-music::before { content: "\f377"; }
-.bi-file-earmark-person-fill::before { content: "\f378"; }
+.bi-file-earmark-
+-fill::before { content: "\f378"; }
 .bi-file-earmark-person::before { content: "\f379"; }
 .bi-file-earmark-play-fill::before { content: "\f37a"; }
 .bi-file-earmark-play::before { content: "\f37b"; }

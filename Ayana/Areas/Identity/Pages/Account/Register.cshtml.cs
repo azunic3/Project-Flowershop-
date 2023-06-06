@@ -24,14 +24,14 @@ namespace Ayana.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Person> _signInManager;
-        private readonly UserManager<Person> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<   ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
         public RegisterModel(
-            UserManager<Person> userManager,
-            SignInManager<Person> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             ApplicationDbContext context)
@@ -88,26 +88,27 @@ namespace Ayana.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Person { UserName = Input.Email, Email = Input.Email };
+
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
-                    var person = new Person
+                    var person = new Person()
                     {
-                        Id = user.Id,
-                        FirstName =Input.FistName,
+                        ApplicationUserId = user.Id,
+                        FirstName = Input.FistName,
                         LastName = Input.LastName
-                    }; 
-                    _context.Add(person);
-                    await _context.SaveChangesAsync();
-                    var customer = new Customer
-                    {
-                        Id = person.Id
                     };
-                   
-                    _context.Add(customer);
-                    await _context.SaveChangesAsync();
-
+                    var Customer = new Customer()
+                    {
+                        BankAccount = 555
+                    };
+                    _context.Person.Add(person);
+                    _context.SaveChanges();
+                    _context.Customers.Add(Customer);
+                    _context.SaveChanges();
+                  
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -122,7 +123,7 @@ namespace Ayana.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
+                    { 
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
@@ -130,13 +131,16 @@ namespace Ayana.Areas.Identity.Pages.Account
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
+
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
 
+                  
+            }
+                    await _context.SaveChangesAsync();
             // If we got this far, something failed, redisplay form
             return Page();
         }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Ayana.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Person>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -18,6 +18,7 @@ namespace Ayana.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Person> Person { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
@@ -43,8 +44,8 @@ namespace Ayana.Data
             modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
             modelBuilder.Entity<ProductOrder>().ToTable("ProductOrders");
             modelBuilder.Entity<ProductSales>().ToTable("ProductSales");
-            modelBuilder.Entity<Person>().Property(e => e.FirstName).HasMaxLength(250);
-            modelBuilder.Entity<Person>().Property(e => e.LastName).HasMaxLength(250);
+            modelBuilder.Entity<Person>().ToTable("Person");
+            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
             base.OnModelCreating(modelBuilder);
         }
 

@@ -13,7 +13,7 @@ namespace Ayana.Models
         public DateTime Date { get; set; }
 
         [ForeignKey("Employee")]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
         public Report()
         {

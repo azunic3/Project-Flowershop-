@@ -5,7 +5,7 @@ namespace Ayana.Models
 {
     public class Employee: Person
     {
-       /* [Key]
+       /*[Key]
         public int EmployeeID { get; set; }*/
         public string HomeAddress { get; set; }
         public DateTime DateOfBirth { get; set; }

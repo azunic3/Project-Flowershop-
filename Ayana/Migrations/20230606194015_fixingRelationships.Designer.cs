@@ -4,14 +4,16 @@ using Ayana.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ayana.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230606194015_fixingRelationships")]
+    partial class fixingRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,8 +120,8 @@ namespace Ayana.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
@@ -172,29 +174,6 @@ namespace Ayana.Migrations
                     b.HasIndex("DiscountID");
 
                     b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("Ayana.Models.Person", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PersonId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("Ayana.Models.Product", b =>
@@ -282,8 +261,8 @@ namespace Ayana.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ReportType")
                         .HasColumnType("int");
@@ -302,8 +281,8 @@ namespace Ayana.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
@@ -464,6 +443,19 @@ namespace Ayana.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Ayana.Models.Person", b =>
+                {
+                    b.HasBaseType("Ayana.Data.ApplicationUser");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("Person");
+                });
+
             modelBuilder.Entity("Ayana.Models.Customer", b =>
                 {
                     b.HasBaseType("Ayana.Models.Person");
@@ -491,9 +483,7 @@ namespace Ayana.Migrations
                 {
                     b.HasOne("Ayana.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Ayana.Models.Payment", "Payment")
                         .WithMany()
@@ -515,15 +505,6 @@ namespace Ayana.Migrations
                         .IsRequired();
 
                     b.Navigation("Discount");
-                });
-
-            modelBuilder.Entity("Ayana.Models.Person", b =>
-                {
-                    b.HasOne("Ayana.Data.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Ayana.Models.Product", b =>
@@ -560,9 +541,7 @@ namespace Ayana.Migrations
                 {
                     b.HasOne("Ayana.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
 
                     b.Navigation("Employee");
                 });
@@ -571,9 +550,7 @@ namespace Ayana.Migrations
                 {
                     b.HasOne("Ayana.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Ayana.Models.Payment", "Payment")
                         .WithMany()
@@ -637,11 +614,20 @@ namespace Ayana.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Ayana.Models.Person", b =>
+                {
+                    b.HasOne("Ayana.Data.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("Ayana.Models.Person", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Ayana.Models.Customer", b =>
                 {
                     b.HasOne("Ayana.Models.Person", null)
                         .WithOne()
-                        .HasForeignKey("Ayana.Models.Customer", "PersonId")
+                        .HasForeignKey("Ayana.Models.Customer", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
@@ -650,7 +636,7 @@ namespace Ayana.Migrations
                 {
                     b.HasOne("Ayana.Models.Person", null)
                         .WithOne()
-                        .HasForeignKey("Ayana.Models.Employee", "PersonId")
+                        .HasForeignKey("Ayana.Models.Employee", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
