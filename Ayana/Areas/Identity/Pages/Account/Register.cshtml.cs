@@ -100,13 +100,9 @@ namespace Ayana.Areas.Identity.Pages.Account
                         FirstName = Input.FistName,
                         LastName = Input.LastName
                     };
-                    var Customer = new Customer()
-                    {
-                        BankAccount = 555
-                    };
+                    
                     _context.Person.Add(person);
                     _context.SaveChanges();
-                    _context.Customers.Add(Customer);
                     _context.SaveChanges();
                   
                     _logger.LogInformation("User created a new account with password.");
