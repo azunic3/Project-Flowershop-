@@ -27,10 +27,14 @@
         margin-bottom:150px
     }
 
+    .*{
+        margin:0;
+       
+    }
 </style>
 <a asp-area="" asp-controller="Home" asp-action="Index" style="font-size: medium; -webkit-text-fill-color:black;"> Continue shoping</a>
-<div class="container">
-    <div class="box">
+<div class="container" style="margin-bottom:150px;">
+    <div class="box" >
         <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/labelle.jpg">
         <div>
             <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">@ViewBag.Data1</p>
@@ -60,7 +64,7 @@
                 <input type="hidden" asp-for="Price" value=@ViewBag.Data2 />
                 <input type="hidden" asp-for="PaymentID" value=1 />
                 <input type="hidden" asp-for="SubscriptionType" value=1 />
-                <input type="hidden" asp-for="CustomerID" value=1 />
+                <input type="hidden" asp-for="CustomerId" value=1 />
            
 
 

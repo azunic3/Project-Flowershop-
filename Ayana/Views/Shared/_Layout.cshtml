@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<Person> SignInManager
+@inject UserManager<Person> UserManager
 ﻿
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +100,7 @@ border-radius: 20px 20px 20px 20px; width: 800px;
             z-index: 1;
             float: right;
             position: absolute;
-            top:100%;
+            top:70%;
             left: 94.6%;
             transform: translate(-50%, -50%);
             -webkit-text-fill-color: black;
@@ -375,7 +375,7 @@ margin-top:-28.6px;
     <br><br><br>
     <footer class="border-top footer text-muted flex-grow-1" style="background-color:#e9f0d7; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         <div class="container" style="background-color:#e9f0d7; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-            <a style="-webkit-text-fill-color:black;font-size:x-large;font-weight:600;  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; " asp-area="" asp-controller="Home" asp-action="Index">A y a n a</a>
+            <a style="-webkit-text-fill-color:black;font-size:x-large;font-weight:600;  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; margin-left:initial;; " asp-area="" asp-controller="Home" asp-action="Index">A y a n a</a>
         </div>
         <div style="margin-top:-25px;">
             <a style="margin-left:120px;-webkit-text-fill-color: black;
@@ -394,7 +394,7 @@ font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans 
             <a style="-webkit-text-fill-color: black;
 font-size: large;
             font-weight: 400;
-font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" asp-area="" asp-controller="Subscriptions" asp-action="Subscription">Subscription</a>
+font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" asp-area="" asp-controller="Subscriptions" asp-action="Index">Subscription</a>
         </div>
     </footer>
     <!-- Vendor JS Files -->

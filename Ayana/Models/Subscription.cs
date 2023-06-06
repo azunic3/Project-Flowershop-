@@ -16,7 +16,7 @@ namespace Ayana.Models
         public double Price { get; set; }
 
         [ForeignKey("Customer")]
-        public int CustomerID { get; set; }
+        public string CustomerId { get; set; }
         public Customer Customer { get; set; }
 
         [ForeignKey("Payment")]
