@@ -66,7 +66,6 @@ namespace Ayana.Controllers
 
                 _context.Add(customer1);
                 await _context.SaveChangesAsync();
-                User.IsInRole("Customer");
             }
             else
             {
