@@ -14,7 +14,7 @@ namespace Ayana.Models
         public string ImageUrl { get; set; }
         public double Price { get; set; }
 
-        public string FlowerType { get; set; }
+        public string? FlowerType { get; set; }
 
 
         public int Stock { get; set; }

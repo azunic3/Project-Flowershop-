@@ -59,9 +59,9 @@ namespace Ayana.Controllers
             if (existingCustomer == null)
             {
                 // Set up the payment instance
-                 customer1 = new Customer
+                customer1 = new Customer
                 {
-                    BankAccount = customer.BankAccount
+                    AppUserId = 1
                 };
 
                 _context.Add(customer1);

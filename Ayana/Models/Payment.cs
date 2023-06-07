@@ -15,6 +15,7 @@ namespace Ayana.Models
         public double PayedAmount { get; set; }  //with discount
         public bool IsPaymentValid { get; set; }
         public string DeliveryAddress { get; set; }
+        public int BankAccount { get; set; }
 
         public Payment()
         {

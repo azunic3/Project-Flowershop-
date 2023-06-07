@@ -10,7 +10,6 @@ namespace Ayana.Models
     {
         [ForeignKey("ApplicationUser")]
         public int AppUserId { get; set; }
-        public int BankAccount { get; set; }
 
         public Customer()
         {

@@ -75,9 +75,9 @@
                 {
                     <div class="form-group">
 
-                        <label asp-for="@Model.customer.BankAccount" class="control-label"></label>
-                        <input asp-for="@Model.customer.BankAccount" class="form-control" type="number" />
-                        <span asp-validation-for="@Model.customer.BankAccount" class="text-danger"></span>
+                        <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
+                        <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
+                        <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
                     </div>
                 }
                 <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
