@@ -20,6 +20,7 @@ namespace Ayana.Models
        
         public Customer Customer{ get; set; }
 
+        public string personalMessage { get; set; }
 
         public bool IsOrderSent { get; set; }
         public double Rating { get; set; }

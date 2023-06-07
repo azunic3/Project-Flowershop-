@@ -1,7 +1,8 @@
 ﻿@using System.Security.Claims;
+@model Ayana.Models.DtoRequest
 @using Ayana.Data;
-@using Microsoft.AspNetCore.Identity;
-@model Ayana.Models.
+@using Microsoft.AspNetCore.Identity
+
 @inject UserManager<ApplicationUser> UserManager
 @inject RoleManager<IdentityRole> RoleManager
 
@@ -70,15 +71,15 @@
                     <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
                     <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
                 </div>
-               @if (!isInCustomerRole)
-                    {  <div class="form-group">
-                   
+                @if (!isInCustomerRole)
+                {
+                    <div class="form-group">
+
                         <label asp-for="@Model.customer.BankAccount" class="control-label"></label>
                         <input asp-for="@Model.customer.BankAccount" class="form-control" type="number" />
                         <span asp-validation-for="@Model.customer.BankAccount" class="text-danger"></span>
-                   
-                </div>
- }
+                    </div>
+                }
                 <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
                 <input type="hidden" asp-for="@Model.subscription.Price" value=@ViewBag.Data2 />
                 <div class="form-group">
