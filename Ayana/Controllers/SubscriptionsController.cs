@@ -26,10 +26,10 @@ namespace Ayana.Controllers
         }
 
         // GET: Subscriptions/Details/5
-        public async Task<IActionResult> Details(int? id,string data1, double data2)
+        public async Task<IActionResult> Details(string data1, double data2)
         {
             ViewBag.Data1 = data1;
-            ViewBag.Data2 = data2;
+            ViewBag.Data2 = Math.Round(data2, 2);
 
             return View();
         }

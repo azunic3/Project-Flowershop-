@@ -62,11 +62,29 @@ namespace Ayana.Controllers
         }
         public IActionResult AboutUs()
         {
+            overallRating();
             return View();
         }
         public IActionResult Subscription()
         {
             return View();
+        }
+
+        public void overallRating(){ 
+       
+            List<Order> orders = _context.Orders.ToList();
+
+            double rating = 0;
+            int temp = 0;
+
+            for (int i = 0; i < orders.Count; i++)
+            {
+                if (orders[i].Rating != 0) temp++;
+                rating += orders[i].Rating;
+            }
+               
+            ViewBag.rating = Math.Round(rating / temp, 1);
+            Console.WriteLine(rating);
         }
         public void bestSellers()
         {

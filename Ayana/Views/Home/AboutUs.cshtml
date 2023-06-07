@@ -2,8 +2,36 @@
 @{
     ViewData["Title"] = "AboutUs";
 }
+
+<style>
+    .average-rating {
+        position: relative;
+        appearance: none;
+        color: transparent;
+        width: 400px;
+        display: inline-block;
+        vertical-align: baseline;
+        margin-left: 1390px;
+
+    }
+    .average-rating::before {
+        --percent: calc(@ViewBag.rating/5*100%);
+        content: '★★★★★';
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: rgba(0,0,0,0.2);
+        background: linear-gradient(90deg, gold var(--percent), rgba(0,0,0,0.2) var(--percent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    meter.average-rating {
+        transform: scale(3);
+    }
+</style>
 <div style="margin-bottom:100px;">
-    <div style="background-color:#cfb8be;margin-left:-55px; margin-top:10px;width:970px; height:190px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="background-color:#cfb8be;margin-left:-55px; margin-top:10px; margin-bottom:50px; width:970px; height:190px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
     <br>
     <p style="margin-top:-10px; margin-left:30px; margin-right:10px;">
         We believe every day has something worth celebrating and flowers,
@@ -26,7 +54,7 @@
         how it arrives at your door
     </p>
 </div>
-<div style="background-color:#d8e5f1; margin-left:450px; width:200px; height:200px;;margin-top:-340px;">
+<div style="background-color:#d8e5f1; margin-left:450px; width:200px; height:200px;margin-top:-340px;">
     <p style="text-align:center; margin-top:20px;font-weight:600; margin-top:5px;">freshness guarantee</p>
     <p style="text-align:left; margin-top:20px; font-size:small;">
         Our priority is for you to
@@ -44,8 +72,32 @@
         collections of fresh blooms
     </p>
 </div>
+    <div style="background-color:#f7ede5;margin-left:-55px; margin-top:50px;width:1220px; height:190px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <br>
+            <p style="margin-top:-10px; margin-left:30px; margin-right:280px;">
+                 Customer happiness is number one for us!
+           </p>
+           <br>
+   
+           <p style="margin-top:-10px; margin-left:30px;margin-right:40px;">
+                Here at Ayana, we take great pride with every bouquet we create. From our farms to your doorstep. 
+                Every step we take has the health of our planet, the quality of our flowers and our customers happiness at heart.
+           </p>
+        </div>
+        <br>
+        <p style="margin-top:30px; margin-right:50px; font-size:26px; font-weight:bold;" >
+            OUR OVERALL RATING:
+        </p>
+        <br>
+   </div>
+   <meter class="average-rating" min="0" max="5" value=@ViewBag.rating.0 width="200px" title="@ViewBag.rating out of 5 stars"></meter>
+</div>
 <br>
 <br>
 <br>
 <div style="height:20px;"></div>
 </div>
+
+
