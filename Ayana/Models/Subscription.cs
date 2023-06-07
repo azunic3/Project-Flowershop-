@@ -15,8 +15,7 @@ namespace Ayana.Models
         public DateTime DeliveryDate { get; set; }
         public double Price { get; set; }
 
-        [ForeignKey("Customer")]
-        public int CustomerId { get; set; }
+       
         public Customer Customer { get; set; }
 
         [ForeignKey("Payment")]

@@ -49,6 +49,13 @@ namespace Ayana.Data
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
             modelBuilder.Entity<DtoRequest>().ToTable("DtoRequests");
+            modelBuilder.Entity<ApplicationUser>().Property(e => e.FullName);
+            modelBuilder.Entity<ApplicationUser>().Property(e => e.Id);
+            modelBuilder.Entity<ApplicationUser>().Property(e => e.EmailAddress);
+            modelBuilder.Entity<ApplicationUser>().Property(e => e.Password);
+            modelBuilder.Entity<ApplicationUser>().Property(e => e.UserName);
+
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Ayana.Data;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ayana.Models
 {
-    public class Employee: Person
+    public class Employee: ApplicationUser
     {
-       /*[Key]
-        public int EmployeeID { get; set; }*/
+        [ForeignKey("ApplicationUser")]
+        public int AppUserId { get; set; }
         public string HomeAddress { get; set; }
         public DateTime DateOfBirth { get; set; }
 

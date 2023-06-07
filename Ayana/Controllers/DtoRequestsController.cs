@@ -52,7 +52,7 @@ namespace Ayana.Controllers
         public async Task<IActionResult> Create([Bind("Name,Price")] Subscription subscription, [Bind("DeliveryAddress")] Payment payment, [Bind("BankAccount")] Customer customer)
         {
 
-            var p1 = _context.Person.ToList();
+          /*  var p1 = _context.Person.ToList();
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var personId = p1.Find(m => m.ApplicationUserId == userId).PersonId;
 
@@ -110,7 +110,7 @@ namespace Ayana.Controllers
 
             // Save the subscription to the database
             _context.Add(subscription1);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();*/
 
 
 

@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ayana.Models
 {
     
-    public  class Person
+    public   class Person
     {
         [Key]
-        public int PersonId { get; set; }
+        public virtual int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

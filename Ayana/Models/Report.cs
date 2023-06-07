@@ -12,8 +12,7 @@ namespace Ayana.Models
         public ReportType ReportType { get; set; }
         public DateTime Date { get; set; }
 
-        [ForeignKey("Employee")]
-        public int EmployeeId { get; set; }
+   
         public Employee Employee { get; set; }
         public Report()
         {
