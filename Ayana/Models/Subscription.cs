@@ -21,7 +21,7 @@ namespace Ayana.Models
         [ForeignKey("Payment")]
         public int PaymentID { get; set; }
         public Payment Payment { get; set; }
-        public string? personalMessage { get; set; };
+        public string? personalMessage { get; set; }
         public Subscription()
         {
 

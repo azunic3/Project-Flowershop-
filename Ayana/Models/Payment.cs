@@ -13,7 +13,6 @@ namespace Ayana.Models
         public int? DiscountID { get; set; }
         public Discount? Discount { get; set; }
         public double PayedAmount { get; set; }  //with discount
-        public bool IsPaymentValid { get; set; }
         public string DeliveryAddress { get; set; }
         public int BankAccount { get; set; }
 

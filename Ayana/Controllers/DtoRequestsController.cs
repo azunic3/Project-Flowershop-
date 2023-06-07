@@ -76,8 +76,7 @@ namespace Ayana.Controllers
             // Set up the payment instance
             Payment payment1 = new Payment
             {
-                IsPaymentValid = true, //hardcoded
-                PayedAmount = 20, //hardcoded
+                PayedAmount =subscription.Price, //hardcoded
                 DeliveryAddress = payment.DeliveryAddress,
                 DiscountID = 1, //hardcoded
                 PaymentType = PaymentType.Cash //hardcoded

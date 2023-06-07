@@ -74,7 +74,7 @@ namespace Ayana.Controllers
        
             List<Order> orders = _context.Orders.ToList();
 
-            double rating = 0;
+            double? rating = 0;
             int temp = 0;
 
             for (int i = 0; i < orders.Count; i++)
@@ -83,7 +83,7 @@ namespace Ayana.Controllers
                 rating += orders[i].Rating;
             }
                
-            ViewBag.rating = Math.Round(rating / temp, 1);
+            ViewBag.rating = Math.Round((decimal)(rating / temp), 1);
             Console.WriteLine(rating);
         }
         public void bestSellers()

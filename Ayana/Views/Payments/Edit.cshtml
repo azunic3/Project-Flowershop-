@@ -28,11 +28,7 @@
                 <input asp-for="PayedAmount" class="form-control" />
                 <span asp-validation-for="PayedAmount" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPaymentValid" /> @Html.DisplayNameFor(model => model.IsPaymentValid)
-                </label>
-            </div>
+           
             <div class="form-group">
                 <label asp-for="DeliveryAddress" class="control-label"></label>
                 <input asp-for="DeliveryAddress" class="form-control" />
