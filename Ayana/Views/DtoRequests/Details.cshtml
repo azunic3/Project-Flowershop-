@@ -1,0 +1,73 @@
+﻿@model Ayana.Models.DtoRequest
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+
+    .container {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        text-align: left;
+        font-weight: bold;
+        border: none;
+        position: relative;
+        margin-right: 50px
+    }
+
+    .wide-input {
+        width: 250px;
+        margin-bottom: 150px
+    }
+
+    .* {
+        margin: 0;
+    }
+</style>
+<a asp-area="" asp-controller="Home" asp-action="Index" style="font-size: medium; -webkit-text-fill-color:black;"> Continue shoping</a>
+<div class="container" style="margin-bottom:150px;">
+    <div class="box">
+        <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/labelle.jpg">
+        <div>
+            <p style="font-weight:600;  margin-left:20px; font-size:medium; width: 150px;">@ViewBag.Data1</p>
+            <p style="font-weight:400; font-style:italic;margin-bottom:20px; margin-left:20px;font-size:small;width: 150px;">BAM @ViewBag.Data2</p>
+        </div>
+
+    </div>
+    <div>
+        <div class="wide-input">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.subscription.Name" class="control-label"></label>
+                    <input asp-for="@Model.subscription.Name" class="form-control" />
+                    <span asp-validation-for="@Model.subscription.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
+                    <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
+                    <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.customer.BankAccount" class="control-label"></label>
+                    <input asp-for="@Model.customer.BankAccount" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.customer.BankAccount" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
+                <input type="hidden" asp-for="@Model.subscription.Price" value=@ViewBag.Data2 />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1789,4 +1789,4 @@ C:\Users\User\OneDrive\Desktop\hih\Projekat-OOAD\Ayana\obj\Debug\net5.0\refint\A
 C:\Users\User\OneDrive\Desktop\hih\Projekat-OOAD\Ayana\obj\Debug\net5.0\Ayana.pdb
 C:\Users\User\OneDrive\Desktop\hih\Projekat-OOAD\Ayana\obj\Debug\net5.0\Ayana.genruntimeconfig.cache
 C:\Users\User\OneDrive\Desktop\hih\Projekat-OOAD\Ayana\obj\Debug\net5.0\ref\Ayana.dll
-C:\Users\HP\source\repos\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\DtoRequests\Create.cshtml.g.cs
+C:\Users\HP\source\repos\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\DtoRequests\Details.cshtml.g.cs

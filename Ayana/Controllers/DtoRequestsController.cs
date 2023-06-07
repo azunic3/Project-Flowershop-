@@ -7,6 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ayana.Data;
 using Ayana.Models;
+using System.Security.Claims;
+using Ayana.Migrations;
+using Humanizer;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using static Humanizer.In;
+using static Humanizer.On;
+using System.Diagnostics;
+using System.Reflection.Metadata;
+using System.Reflection.PortableExecutable;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Ayana.Controllers
 {
@@ -25,16 +35,86 @@ namespace Ayana.Controllers
             return View();
         }
 
+        // GET: Subscriptions/Details/5
+        public Task<IActionResult> Details(string data1, double data2)
+        {
+            ViewBag.Data1 = data1;
+            ViewBag.Data2 = Math.Round(data2, 2);
+
+            return Task.FromResult<IActionResult>(View());
+        }
+
         // POST: DtoRequests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] Subscription subscription, [Bind("DeliveryAddress")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Name,Price")] Subscription subscription, [Bind("DeliveryAddress")] Payment payment, [Bind("BankAccount")] Customer customer)
         {
-            // TODO - create a payment -> p -> p.Id ->
-            // TODO - pass the subscription and the paymentId
-            return View();
+
+            var p1 = _context.Person.ToList();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var personId = p1.Find(m => m.ApplicationUserId == userId).PersonId;
+
+            var existingCustomer = _context.Customers.FirstOrDefault(m => m.PersonId == personId);
+
+            if (existingCustomer == null)
+            {
+                // Set up the payment instance
+                Customer customer1 = new Customer
+                {
+                    BankAccount = customer.BankAccount,
+                    PersonId = personId
+                };
+
+                _context.Add(customer1);
+                await _context.SaveChangesAsync();
+
+            }
+
+            // Set up the payment instance
+            Payment payment1 = new Payment
+            {
+                IsPaymentValid = true, //hardcoded
+                PayedAmount = 20, //hardcoded
+                DeliveryAddress = payment.DeliveryAddress,
+                DiscountID = 1, //hardcoded
+                PaymentType = PaymentType.Cash //hardcoded
+
+            };
+
+            // Save the payment instance to the database
+            _context.Add(payment1);
+            await _context.SaveChangesAsync();
+
+            var subsType = SubscriptionType.Month;
+
+            if (subscription.Name == "Three month Package")
+                subsType = SubscriptionType.ThreeMonth;
+            else if (subscription.Name == "Six month Package")
+                subsType = SubscriptionType.SixMonth;
+
+
+            // Set up the payment instance
+            Subscription subscription1 = new Subscription
+            {
+                Name = subscription.Name,
+                DeliveryDate= DateTime.Now,
+                SubscriptionType =subsType,
+                CustomerId=personId,
+                PaymentID=payment1.PaymentID,
+                Price = subscription.Price
+
+            };
+
+
+            // Save the subscription to the database
+            _context.Add(subscription1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Redirect("/Home");
         }
     }
 }
