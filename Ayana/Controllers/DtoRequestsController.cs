@@ -52,24 +52,25 @@ namespace Ayana.Controllers
         public async Task<IActionResult> Create([Bind("Name,Price")] Subscription subscription, [Bind("DeliveryAddress")] Payment payment, [Bind("BankAccount")] Customer customer)
         {
 
-          /*  var p1 = _context.Person.ToList();
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var personId = p1.Find(m => m.ApplicationUserId == userId).PersonId;
 
-            var existingCustomer = _context.Customers.FirstOrDefault(m => m.PersonId == personId);
-
+            var existingCustomer = _context.Customers.FirstOrDefault(m => m.Id == userId);
+            Customer customer1;
             if (existingCustomer == null)
             {
                 // Set up the payment instance
-                Customer customer1 = new Customer
+                 customer1 = new Customer
                 {
-                    BankAccount = customer.BankAccount,
-                    PersonId = personId
+                    BankAccount = customer.BankAccount
                 };
 
                 _context.Add(customer1);
                 await _context.SaveChangesAsync();
-
+                User.IsInRole("Customer");
+            }
+            else
+            {
+                customer1 = existingCustomer;
             }
 
             // Set up the payment instance
@@ -101,7 +102,7 @@ namespace Ayana.Controllers
                 Name = subscription.Name,
                 DeliveryDate= DateTime.Now,
                 SubscriptionType =subsType,
-                CustomerId=personId,
+                Customer=customer,
                 PaymentID=payment1.PaymentID,
                 Price = subscription.Price
 
@@ -110,7 +111,7 @@ namespace Ayana.Controllers
 
             // Save the subscription to the database
             _context.Add(subscription1);
-            await _context.SaveChangesAsync();*/
+            await _context.SaveChangesAsync();
 
 
 

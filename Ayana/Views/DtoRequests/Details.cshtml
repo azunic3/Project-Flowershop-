@@ -1,5 +1,19 @@
-﻿@model Ayana.Models.DtoRequest
+﻿@using System.Security.Claims;
+@using Ayana.Data;
+@using Microsoft.AspNetCore.Identity;
+@model Ayana.Models.
+@inject UserManager<ApplicationUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var isInCustomerRole = user != null && await UserManager.IsInRoleAsync(user, "Customer");
+}
+
+@if (isInCustomerRole)
+{
+    <p>User is in the customer role</p>
+}
 @{
     ViewData["Title"] = "Details";
 }
@@ -56,12 +70,15 @@
                     <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
                     <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="@Model.customer.BankAccount" class="control-label"></label>
-                    <input asp-for="@Model.customer.BankAccount" class="form-control" type="number" />
-                    <span asp-validation-for="@Model.customer.BankAccount" class="text-danger"></span>
+               @if (!isInCustomerRole)
+                    {  <div class="form-group">
+                   
+                        <label asp-for="@Model.customer.BankAccount" class="control-label"></label>
+                        <input asp-for="@Model.customer.BankAccount" class="form-control" type="number" />
+                        <span asp-validation-for="@Model.customer.BankAccount" class="text-danger"></span>
+                   
                 </div>
-
+ }
                 <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
                 <input type="hidden" asp-for="@Model.subscription.Price" value=@ViewBag.Data2 />
                 <div class="form-group">
