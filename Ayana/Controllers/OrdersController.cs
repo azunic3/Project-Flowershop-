@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ayana.Data;
 using Ayana.Models;
+using System.Security.Claims;
 
 namespace Ayana.Controllers
 {
@@ -24,6 +25,48 @@ namespace Ayana.Controllers
         {
             return View(await _context.Orders.ToListAsync());
         }
+
+        public List<List<Product>> GetOrderProducts(List<Order> orders)
+        {
+            List<List<Product>> orderProducts = new List<List<Product>>();
+
+            foreach (var order in orders)
+            {
+                var products = _context.ProductOrders
+                    .Where(po => po.OrderID == order.OrderID)
+                    .Select(po => po.Product)
+                    .ToList();
+
+                orderProducts.Add(products);
+            }
+
+            return orderProducts;
+        }
+
+
+        public IActionResult UserOrders()
+        {
+            var p1 = _context.Person.ToList();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var customerId = p1.Find(m => m.ApplicationUserId == userId).PersonId;
+
+            // Retrieve user-specific orders based on the CustomerId
+            List<Order> userOrders = _context.Orders
+                .Include(o => o.Payment)
+                .Where(o => o.CustomerId == customerId)
+                .ToList();
+
+            // Get the associated products for each order
+            List<List<Product>> orderProducts = GetOrderProducts(userOrders);
+
+            // Pass the userOrders and orderProducts to the view
+            ViewBag.UserOrders = userOrders;
+            ViewBag.OrderProducts = orderProducts;
+
+            // Render the view
+            return View();
+        }
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)

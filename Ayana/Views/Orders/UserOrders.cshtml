@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "User Orders";
+}
+
+<div style="margin-bottom: 100px;">
+    <style>
+        .order {
+            background-color: #dee0ab;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .order-info {
+            margin-bottom: 10px;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product-box {
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .product-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        .product-name {
+            margin-top: 5px;
+        }
+    </style>
+
+    <div style="background-color:#FFE4E1; margin-left:-30px; margin-right:-30px; margin-top:10px; height:300px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        <br>
+        <div style="display:flex;align-items:center;">
+            <div style="flex-basis: 60%; margin-left:30px; margin-right:10px;">
+                <p style="margin-top:-10px; font-size: 30px; font-weight: bold;">Dear Valued Customer</p>
+                <br>
+                <p style="margin-top:-10px; margin-right:100px;">
+                    We hope this message finds you well. We wanted to take a moment to express how important your feedback is to us as a flower shop. Your opinion matters, and we would greatly appreciate it if you could take a few moments to rate your recent order. By doing so, you'll be making a significant impact on our business and helping us serve you and other customers even better.
+                </p>
+            </div>
+            <div style="flex-basis: 40%; text-align: right;align-items:center;">
+                <img src="https://assets.bigcartel.com/assets/194010/Beige+Pale+Pink+Modern+Client+Review+Instagram+Post.jpg?w=2400&h=2400&fit=clip" style="width: auto; height:260px;margin-right:30px;">
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="order-container">
+        @for (var i = 0; i < ViewBag.UserOrders.Count; i++)
+        {
+            var order = ViewBag.UserOrders[i];
+            var products = ViewBag.OrderProducts[i];
+
+            <div class="order">
+                <div class="order-info">
+                    <p><strong>Total Amount Paid:</strong> @order.TotalAmountToPay BAM</p>
+                    <p><strong>Delivery Date:</strong> @order.DeliveryDate</p>
+                    <p>
+                        <strong>Delivery Address:</strong> @order.Payment.DeliveryAddress
+                    </p>
+                    <p><strong>Products:</strong></p>
+                    <div class="product-container">
+                        @foreach (var product in products)
+                        {
+                            <div class="product-box">
+                                <img src="@product.ImageUrl" alt="@product.Name" class="product-image">
+                                <p class="product-name">@product.Name</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div style="height:20px;"></div>
+</div>

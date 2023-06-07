@@ -288,7 +288,7 @@ margin-top:-28.6px;
                                     Account
                                 </button>
                                 <ul class="menu-options">
-                                    <li><a href="#" style="-webkit-text-fill-color:black;">Account Details</a></li>
+                                    <li><a href="@Url.Action("UserOrders", "Orders")" style="-webkit-text-fill-color:black;">Orders</a></li>
                                     <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" style="-webkit-text-fill-color:black;">Logout</a></li>
                                 </ul>
                             </div>
