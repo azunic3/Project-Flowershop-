@@ -10,8 +10,8 @@ namespace Ayana.Models
         public PaymentType PaymentType { get; set; }
 
         [ForeignKey("Discount")]
-        public int DiscountID { get; set; }
-        public Discount Discount { get; set; }
+        public int? DiscountID { get; set; }
+        public Discount? Discount { get; set; }
         public double PayedAmount { get; set; }  //with discount
         public bool IsPaymentValid { get; set; }
         public string DeliveryAddress { get; set; }
