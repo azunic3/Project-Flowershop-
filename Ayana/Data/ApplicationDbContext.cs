@@ -26,10 +26,12 @@ namespace Ayana.Data
 
         public DbSet<ProductSales> ProductSales { get; set; }
 
+        public DbSet<DtoRequest> DtoRequest { get; set; }
 
-       
-           
-        
+
+
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,8 +48,17 @@ namespace Ayana.Data
             modelBuilder.Entity<ProductSales>().ToTable("ProductSales");
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            modelBuilder.Entity<DtoRequest>().ToTable("DtoRequests");
             base.OnModelCreating(modelBuilder);
         }
+
+
+       
+           
+        
+
+
+        
 
 
 
