@@ -35,8 +35,14 @@ namespace Ayana.Controllers
             return View();
         }
 
+        // GET: DtoRequests/Create
+        public IActionResult Cart()
+        {
+            return View();
+        }
+
         // GET: Subscriptions/Details/5
-        public Task<IActionResult> Details(string data1, double data2)
+        public Task<IActionResult> SubscriptionOrder(string data1, double data2)
         {
             ViewBag.Data1 = data1;
             ViewBag.Data2 = Math.Round(data2, 2);
@@ -49,7 +55,7 @@ namespace Ayana.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price,personalMessage,DeliveryDate")] Subscription subscription, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment)
+        public async Task<IActionResult> SubscriptionCreate([Bind("Name,Price,personalMessage,DeliveryDate")] Subscription subscription, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment)
         {
             //TODO needs fixing --> customer id change to string in all other tables
 

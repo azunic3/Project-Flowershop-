@@ -10,6 +10,15 @@ namespace Ayana.Models
         public Subscription subscription { get; set; }
         public Payment payment { get; set; }
 
+        public Order order { get; set; }
+
+        public Discount discount { get; set; }
+
+        public Product product { get; set; }
+        public ProductOrder productOrder{ get; set; }
+
+        public ProductSales productSales { get; set; }
+
         public ApplicationUser customer{ get; set; }
 
     }

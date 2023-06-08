@@ -1,0 +1,127 @@
+﻿@using System.Security.Claims;
+@model Ayana.Models.DtoRequest
+@using Ayana.Data;
+
+
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+
+    .container {
+        
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .box {
+        width: 340px;
+        height: 340px;
+        display: flex;
+        text-align: left;
+        font-weight: bold;
+        border: none;
+        position: relative;
+        margin-right: 50px
+    }
+
+    .wide-input {
+        width: 250px;
+        margin-bottom: 150px
+    }
+
+    .bigger-box {
+        height: 50px;
+    }
+
+    .continue-shopping {
+        display: inline-block;
+        font-size: medium;
+        text-decoration:underline;
+        position: relative;
+        padding-left: 30px;
+    }
+
+    .continue-shopping::before {
+            content: '\2190'; 
+            position: absolute;
+            left: 0;
+     }
+
+</style>
+<a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Continue shopping</a>
+
+<div class="container" style="margin-bottom:150px;">
+    <div class="box">
+        <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/labelle.jpg">
+        <div>
+            <p style="font-weight:600; margin-left:20px; font-size:medium; width: 150px;">@ViewBag.Data1</p>
+            <p style="font-weight:400; font-style:italic; margin-bottom:20px; margin-left:20px; font-size:small; width: 150px;">BAM @ViewBag.Data2</p>
+        </div>
+    </div>
+    <div>
+        <div class="wide-input">
+            <form asp-action="SubscriptionCreate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
+                    <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
+                    <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.subscription.DeliveryDate" class="control-label"></label>
+                    <input asp-for="@Model.subscription.DeliveryDate" class="form-control" />
+                    <span asp-validation-for="@Model.subscription.DeliveryDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.subscription.personalMessage" class="control-label"></label>
+                    <input asp-for="@Model.subscription.personalMessage" class="form-control" style="height:100px" />
+                    <span asp-validation-for="@Model.subscription.personalMessage" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.payment.PaymentType" class="control-label"></label>
+                    <select asp-for="@Model.payment.PaymentType" class="form-control" id="paymentType">
+                        @foreach (var value in Enum.GetValues(typeof(PaymentType)))
+                        {
+                            <option value="@value">@((PaymentType)value)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.payment.PaymentType" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="@Model.subscription.Name" value="@ViewBag.Data1" />
+                <input type="hidden" asp-for="@Model.subscription.Price" value="@ViewBag.Data2" />
+
+                <div class="form-group" id="bankAccountField" style="display: none;">
+                    <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
+                    <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Pay now" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#paymentType').change(function () {
+            var selectedPaymentType = $(this).val();
+            if (selectedPaymentType === 'CreditCard') {
+                $('#bankAccountField').show();
+            } else {
+                $('#bankAccountField').hide();
+            }
+        });
+    });
+</script>
