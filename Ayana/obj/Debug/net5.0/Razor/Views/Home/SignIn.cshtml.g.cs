@@ -12,6 +12,7 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+    using Ayana.Data;
 #nullable restore
 #line 1 "C:\Users\HP\source\repos\Projekat-OOAD\Ayana\Views\_ViewImports.cshtml"
 using Ayana;
@@ -216,11 +217,11 @@ using Microsoft.AspNetCore.Identity;
         #pragma warning restore 1998
         #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public UserManager<Person> UserManager { get; private set; } = default!;
+        public UserManager<ApplicationUser> UserManager { get; private set; } = default!;
         #nullable disable
         #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
-        public SignInManager<Person> SignInManager { get; private set; } = default!;
+        public SignInManager<ApplicationUser> SignInManager { get; private set; } = default!;
         #nullable disable
         #nullable restore
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

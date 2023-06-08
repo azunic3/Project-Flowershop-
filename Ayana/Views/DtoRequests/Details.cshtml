@@ -18,8 +18,8 @@
     }
 
     .box {
-        width: 300px;
-        height: 300px;
+        width: 340px;
+        height: 340px;
         display: flex;
         text-align: left;
         font-weight: bold;
@@ -31,6 +31,10 @@
     .wide-input {
         width: 250px;
         margin-bottom: 150px
+    }
+
+    .bigger-box {
+        height: 50px;
     }
 
     .* {
@@ -56,20 +60,38 @@
                     <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
                     <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
                 </div>
-                
-                    <div class="form-group">
 
-                        <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
-                        <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
-                        <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
-                    </div>
+                <div class="form-group">
+
+                    <label asp-for="@Model.subscription.DeliveryDate" class="control-label"></label>
+                    <input asp-for="@Model.subscription.DeliveryDate" class="form-control" />
+                    <span asp-validation-for="@Model.subscription.DeliveryDate" class="text-danger"></span>
+                </div>
+                
+                <p style="font-weight:600; font-size:small;"></p>
+
+                <div class="form-group">
+
+                    <label asp-for="@Model.payment.PaymentType" class="control-label"></label>
+                    <select asp-for="@Model.payment.PaymentType" class="form-control" aspitems="Html.GetEnumSelectList<PaymentType>()"></select>
+                    <span asp-validation-for="@Model.payment.PaymentType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
+                    <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
+                </div>
 
                 <div class="form-group">
                     <label asp-for="@Model.subscription.personalMessage" class="control-label"></label>
-                    <input asp-for="@Model.subscription.personalMessage" class="form-control" />
+                    <input asp-for="@Model.subscription.personalMessage" class="form-control" style="height:100px" />
                     <span asp-validation-for="@Model.subscription.personalMessage" class="text-danger"></span>
                 </div>
-                
+
+
+  
                 <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
                 <input type="hidden" asp-for="@Model.subscription.Price" value=@ViewBag.Data2 />
                 <div class="form-group">

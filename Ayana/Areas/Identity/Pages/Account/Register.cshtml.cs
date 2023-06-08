@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ayana.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Ayana.Areas.Identity.Pages.Account
 {
@@ -26,12 +27,14 @@ namespace Ayana.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<   ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             ApplicationDbContext context)
@@ -39,6 +42,7 @@ namespace Ayana.Areas.Identity.Pages.Account
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             _context = context;
         }
@@ -94,17 +98,11 @@ namespace Ayana.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    var person = new Person()
-                    {
-                        ApplicationUserId = user.Id,
-                        FirstName = Input.FistName,
-                        LastName = Input.LastName
-                    };
-                    
-                    _context.Person.Add(person);
-                    _context.SaveChanges();
-                    _context.SaveChanges();
-                  
+                    // Fetch all roles from the database
+
+                    var userResult = await _userManager.AddToRoleAsync(user, "Customers");
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

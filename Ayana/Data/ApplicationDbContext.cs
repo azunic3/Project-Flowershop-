@@ -13,12 +13,10 @@ namespace Ayana.Data
             : base(options)
         {
         }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+       
         public DbSet<Order> Orders { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<Person> Person { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
@@ -36,8 +34,7 @@ namespace Ayana.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>().ToTable("Customers");
-            modelBuilder.Entity<Employee>().ToTable("Employees");
+           
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<Discount>().ToTable("Discounts");
             modelBuilder.Entity<Payment>().ToTable("Payments");
@@ -46,7 +43,7 @@ namespace Ayana.Data
             modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
             modelBuilder.Entity<ProductOrder>().ToTable("ProductOrders");
             modelBuilder.Entity<ProductSales>().ToTable("ProductSales");
-            modelBuilder.Entity<Person>().ToTable("Person");
+
             modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
             modelBuilder.Entity<DtoRequest>().ToTable("DtoRequests");
             modelBuilder.Entity<ApplicationUser>().Property(e => e.FullName);

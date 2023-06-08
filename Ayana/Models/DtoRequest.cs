@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Ayana.Data;
 
 namespace Ayana.Models
 {
@@ -9,7 +10,7 @@ namespace Ayana.Models
         public Subscription subscription { get; set; }
         public Payment payment { get; set; }
 
-        public Customer customer{ get; set; }
+        public ApplicationUser customer{ get; set; }
 
     }
 }

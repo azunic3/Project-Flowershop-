@@ -55,23 +55,12 @@ namespace Ayana.Controllers
 
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var existingCustomer = _context.Customers.FirstOrDefault(m => m.Id == userId);
-            Customer customer1;
-            if (existingCustomer == null)
+            var existingCustomer = _context.Users.FirstOrDefault(m => m.Id == userId);
+            if (userId == null)
             {
-                // Set up the payment instance
-                customer1 = new Customer
-                {
-                    AppUserId = 1 //greska
-                };
-
-                _context.Add(customer1);
-                await _context.SaveChangesAsync();
+                return View("~/Views/Shared/Error.cshtml");
             }
-            else
-            {
-                customer1 = existingCustomer;
-            }
+          
 
             // Set up the payment instance
             Payment payment1 = new Payment
@@ -102,7 +91,7 @@ namespace Ayana.Controllers
                 Name = subscription.Name,
                 DeliveryDate= DateTime.Now,
                 SubscriptionType =subsType,
-                Customer=customer1,
+                CustomerID=userId,
                 PaymentID=payment1.PaymentID,
                 Price = subscription.Price,
                 personalMessage = subscription.personalMessage

@@ -4,14 +4,16 @@ using Ayana.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Ayana.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230608130712_migration2")]
+    partial class migration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -486,6 +488,20 @@ namespace Ayana.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Ayana.Models.Customer", b =>
+                {
+                    b.HasBaseType("Ayana.Data.ApplicationUser");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Ayana.Models.Employee", b =>
+                {
+                    b.HasBaseType("Ayana.Data.ApplicationUser");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Ayana.Models.DtoRequest", b =>
                 {
                     b.HasOne("Ayana.Models.Payment", "payment")
@@ -496,7 +512,7 @@ namespace Ayana.Migrations
                         .WithMany()
                         .HasForeignKey("SubscriptionID");
 
-                    b.HasOne("Ayana.Data.ApplicationUser", "customer")
+                    b.HasOne("Ayana.Models.Customer", "customer")
                         .WithMany()
                         .HasForeignKey("customerId");
 
@@ -509,7 +525,7 @@ namespace Ayana.Migrations
 
             modelBuilder.Entity("Ayana.Models.Order", b =>
                 {
-                    b.HasOne("Ayana.Data.ApplicationUser", "Customer")
+                    b.HasOne("Ayana.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerID");
 
@@ -565,7 +581,7 @@ namespace Ayana.Migrations
 
             modelBuilder.Entity("Ayana.Models.Report", b =>
                 {
-                    b.HasOne("Ayana.Data.ApplicationUser", "Employee")
+                    b.HasOne("Ayana.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeID");
 
@@ -574,7 +590,7 @@ namespace Ayana.Migrations
 
             modelBuilder.Entity("Ayana.Models.Subscription", b =>
                 {
-                    b.HasOne("Ayana.Data.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Ayana.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerID");
 
@@ -584,7 +600,7 @@ namespace Ayana.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("Customer");
 
                     b.Navigation("Payment");
                 });
@@ -637,6 +653,24 @@ namespace Ayana.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ayana.Models.Customer", b =>
+                {
+                    b.HasOne("Ayana.Data.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("Ayana.Models.Customer", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Ayana.Models.Employee", b =>
+                {
+                    b.HasOne("Ayana.Data.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("Ayana.Models.Employee", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Ayana.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,8 +18,10 @@ namespace Ayana.Models
         [ForeignKey("Payment")]
         public int PaymentID { get; set; }
         public Payment Payment { get; set; }
-      
-        public Customer Customer{ get; set; }
+
+        [ForeignKey("Customer")]
+        public string CustomerID { get; set; }
+        public ApplicationUser Customer{ get; set; }
 
         public string? personalMessage { get; set; }
 

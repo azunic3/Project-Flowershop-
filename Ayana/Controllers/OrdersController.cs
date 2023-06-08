@@ -46,9 +46,9 @@ namespace Ayana.Controllers
 
         public IActionResult UserOrders()
         {
-            var p1 = _context.Person.ToList();
+            var p1 = _context.Users.ToList();
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var customerId = p1.Find(m => m.ApplicationUserId == userId).PersonId;
+            var customerId = p1.Find(m => m.Id == userId);
 
             // Retrieve user-specific orders based on the CustomerId
           /*  List<Order> userOrders = _context.Orders

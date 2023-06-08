@@ -8,6 +8,9 @@ namespace Ayana.Models
     {
         [Key]
         public int PaymentID { get; set; }
+
+        [DisplayName("How would you like to pay?")]
+        [EnumDataType(typeof(PaymentType))]
         public PaymentType PaymentType { get; set; }
 
         [ForeignKey("Discount")]
