@@ -11,6 +11,5 @@ namespace Ayana.Models
 
         public Customer customer{ get; set; }
 
-        public Discount discount { get; set; }
     }
 }

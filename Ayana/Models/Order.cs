@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,8 +17,7 @@ namespace Ayana.Models
         [ForeignKey("Payment")]
         public int PaymentID { get; set; }
         public Payment Payment { get; set; }
-
-       
+      
         public Customer Customer{ get; set; }
 
         public string? personalMessage { get; set; }
@@ -25,6 +25,8 @@ namespace Ayana.Models
         public bool IsOrderSent { get; set; }
         public double? Rating { get; set; }
         public double TotalAmountToPay { get; set; } //without discount
+
+        [DisplayName("Delivery date")]
         public DateTime DeliveryDate { get; set; }
 
         public Order()

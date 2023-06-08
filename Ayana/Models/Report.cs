@@ -11,8 +11,6 @@ namespace Ayana.Models
         public int ReportID { get; set; }
         public ReportType ReportType { get; set; }
         public DateTime Date { get; set; }
-
-   
         public Employee Employee { get; set; }
         public Report()
         {

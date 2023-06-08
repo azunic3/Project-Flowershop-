@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ayana.Models
@@ -12,9 +13,13 @@ namespace Ayana.Models
         [ForeignKey("Discount")]
         public int? DiscountID { get; set; }
         public Discount? Discount { get; set; }
-        public double PayedAmount { get; set; }  //with discount
+        public double PayedAmount { get; set; }  //with discount if it exists
+
+        [DisplayName("Delivery address")]
         public string DeliveryAddress { get; set; }
-        public int? BankAccount { get; set; } //TODO -> make it nullable
+
+        [DisplayName("Card number")]
+        public int? BankAccount { get; set; } 
 
         public Payment()
         {

@@ -79,31 +79,35 @@ namespace Ayana.Controllers
 
             for (int i = 0; i < orders.Count; i++)
             {
-                if (orders[i].Rating != 0) temp++;
-                rating += orders[i].Rating;
+                if (orders[i].Rating != null)
+                {
+                    temp++;
+                    rating += orders[i].Rating;
+                }
             }
+            if(temp != 0)
+                ViewBag.rating = Math.Round((decimal)rating / temp, 1);
                
-            ViewBag.rating = Math.Round((decimal)(rating / temp), 1);
             Console.WriteLine(rating);
         }
         public void bestSellers()
         {
             List<Product> orderded = _context.Products.ToList();
            
-           //orderded= orderded.OrderByDescending(x => x.SalesHistory).ToList();
+           orderded= orderded.OrderByDescending(x => x.Price).ToList(); //TODO
             List<Product> bestSellers = new List<Product>();
-            for(int i=0;i<orderded.Count;i++)
-                bestSellers.Add(orderded[i]);
+          //  for(int i=0;i<3;i++)
+         //       bestSellers.Add(orderded[i]);
                 ViewBag.bestSellers = bestSellers;
             Console.WriteLine(bestSellers);
         }
         public void birthdayBestSellers()
         {
             List<Product> birthdayList = _context.Products.ToList().FindAll(x => x.Category == "Birthday");
-           //birthdayList= birthdayList.OrderByDescending(x=>x.SalesHistory).ToList();
+           birthdayList= birthdayList.OrderByDescending(x=>x.Price).ToList();//TODO
             List<Product> birthdayBestSeller = new List<Product>();
-            for (int i = 0; i < birthdayList.Count; i++)
-                birthdayBestSeller.Insert(i, birthdayList[i]);
+         //   for (int i = 0; i < 3; i++)
+         //     birthdayBestSeller.Insert(i, birthdayList[i]);
             ViewBag.birthdayBestSellers = birthdayBestSeller;
         }
 

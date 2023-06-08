@@ -52,11 +52,6 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="@Model.subscription.Name" class="control-label"></label>
-                    <input asp-for="@Model.subscription.Name" class="form-control" />
-                    <span asp-validation-for="@Model.subscription.Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
                     <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
                     <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
@@ -68,11 +63,17 @@
                         <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
                         <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
                     </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.subscription.personalMessage" class="control-label"></label>
+                    <input asp-for="@Model.subscription.personalMessage" class="form-control" />
+                    <span asp-validation-for="@Model.subscription.personalMessage" class="text-danger"></span>
+                </div>
                 
                 <input type="hidden" asp-for="@Model.subscription.Name" value=@ViewBag.Data1 />
                 <input type="hidden" asp-for="@Model.subscription.Price" value=@ViewBag.Data2 />
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Pay now" class="btn btn-primary" />
                 </div>
             </form>
         </div>

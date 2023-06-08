@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ayana.Models
 {
     
-    public   class Person
+    public class Person
     {
         [Key]
         public virtual int PersonId { get; set; }
