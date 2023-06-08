@@ -85,8 +85,9 @@ namespace Ayana.Controllers
                     rating += orders[i].Rating;
                 }
             }
-            if(temp != 0)
+            if (temp != 0)
                 ViewBag.rating = Math.Round((decimal)rating / temp, 1);
+            else ViewBag.rating = 0;
                
             Console.WriteLine(rating);
         }

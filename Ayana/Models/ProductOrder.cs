@@ -16,6 +16,8 @@ namespace Ayana.Models
         public int ProductID { get; set; }
         public Product Product { get; set; }
 
+        public int? ProductQuantity { get; set; }
+
         ProductOrder ()
         {
 

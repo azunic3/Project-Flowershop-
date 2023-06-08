@@ -1,14 +1,18 @@
-﻿@{
+﻿@model Ayana.Models.Order
+
+@{
     ViewData["Title"] = "User Orders";
 }
 
 <div style="margin-bottom: 100px;">
     <style>
         .order {
-            background-color: #dee0ab;
+            background-color: #ddeffb;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             margin-bottom: 20px;
             padding: 10px;
+            display: flex;
+            justify-content: space-between;
         }
 
         .order-info {
@@ -81,9 +85,22 @@
                         }
                     </div>
                 </div>
+                <form asp-action="Edit">
+                    <div style="margin-right: 50px">
+                        <input type="hidden" asp-for="OrderID" value=@order.OrderID />
+                        <label asp-for="Rating" class="control-label">Rate your order: </label>
+                        <input asp-for="Rating" class="form-control" value="1" />
+                        <span asp-validation-for="Rating" class="product-box"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+
             </div>
         }
     </div>
+
 
     <br>
     <br>

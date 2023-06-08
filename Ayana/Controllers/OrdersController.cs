@@ -48,21 +48,20 @@ namespace Ayana.Controllers
         {
             var p1 = _context.Users.ToList();
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var customerId = p1.Find(m => m.Id == userId);
 
             // Retrieve user-specific orders based on the CustomerId
-          /*  List<Order> userOrders = _context.Orders
+            List<Order> userOrders = _context.Orders
                 .Include(o => o.Payment)
-                .Where(o => o.CustomerId == customerId)
+                .Where(o => o.CustomerID == userId)
                 .ToList();
-          
+
             // Get the associated products for each order
             List<List<Product>> orderProducts = GetOrderProducts(userOrders);
 
             // Pass the userOrders and orderProducts to the view
             ViewBag.UserOrders = userOrders;
             ViewBag.OrderProducts = orderProducts;
-*/
+
             // Render the view
             return View();
         }
