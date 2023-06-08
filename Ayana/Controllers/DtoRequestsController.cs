@@ -49,7 +49,7 @@ namespace Ayana.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price,personalMessage")] Subscription subscription, [Bind("DeliveryAddress,BankAccount")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Name,Price,personalMessage,DeliveryDate")] Subscription subscription, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment)
         {
             //TODO needs fixing --> customer id change to string in all other tables
 
@@ -66,10 +66,10 @@ namespace Ayana.Controllers
             Payment payment1 = new Payment
             {
                 BankAccount=payment.BankAccount,
-                PayedAmount =subscription.Price, //hardcoded
+                PayedAmount =subscription.Price, 
                 DeliveryAddress = payment.DeliveryAddress,
-                DiscountID = null, //hardcoded
-                PaymentType = PaymentType.Cash //hardcoded
+                DiscountID = null,
+                PaymentType = payment.PaymentType
 
             };
 
@@ -89,7 +89,7 @@ namespace Ayana.Controllers
             Subscription subscription1 = new Subscription
             {
                 Name = subscription.Name,
-                DeliveryDate= DateTime.Now,
+                DeliveryDate= subscription.DeliveryDate,
                 SubscriptionType =subsType,
                 CustomerID=userId,
                 PaymentID=payment1.PaymentID,
