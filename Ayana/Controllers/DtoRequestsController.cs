@@ -49,8 +49,9 @@ namespace Ayana.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price")] Subscription subscription, [Bind("DeliveryAddress")] Payment payment, [Bind("BankAccount")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Name,Price")] Subscription subscription, [Bind("DeliveryAddress,BankAccount")] Payment payment)
         {
+            //TODO needs fixing --> customer id change to string in all other tables
 
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -61,7 +62,7 @@ namespace Ayana.Controllers
                 // Set up the payment instance
                 customer1 = new Customer
                 {
-                    AppUserId = 1
+                    AppUserId = 1 //greska
                 };
 
                 _context.Add(customer1);
@@ -75,9 +76,10 @@ namespace Ayana.Controllers
             // Set up the payment instance
             Payment payment1 = new Payment
             {
+                BankAccount=payment.BankAccount,
                 PayedAmount =subscription.Price, //hardcoded
                 DeliveryAddress = payment.DeliveryAddress,
-                DiscountID = 1, //hardcoded
+                DiscountID = null, //hardcoded
                 PaymentType = PaymentType.Cash //hardcoded
 
             };
@@ -100,7 +102,7 @@ namespace Ayana.Controllers
                 Name = subscription.Name,
                 DeliveryDate= DateTime.Now,
                 SubscriptionType =subsType,
-                Customer=customer,
+                Customer=customer1,
                 PaymentID=payment1.PaymentID,
                 Price = subscription.Price
 

@@ -14,7 +14,7 @@ namespace Ayana.Models
         public Discount? Discount { get; set; }
         public double PayedAmount { get; set; }  //with discount
         public string DeliveryAddress { get; set; }
-        public int BankAccount { get; set; }
+        public int? BankAccount { get; set; } //TODO -> make it nullable
 
         public Payment()
         {
