@@ -10,7 +10,7 @@
         color: transparent;
         display: inline-block;
         vertical-align: baseline;
-       margin-left: 1000px;
+        margin-left: 1000px;
     }
 
         .average-rating::before {
@@ -28,9 +28,24 @@
     meter.average-rating {
         transform: scale(3);
     }
+
+    .continue-shopping {
+        display: inline-block;
+        font-size: medium;
+        text-decoration: underline;
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .continue-shopping::before {
+            content: '\2190';
+            position: absolute;
+            left: 0;
+        }
 </style>
+<a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Continue shopping</a>
 <div style="margin-bottom:100px;">
-    <div style="background-color:#cfb8be; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:10px; height:300px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="background-color:#f7ede5; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:10px; height:300px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         <br>
         <div style="display:flex;align-items:center;">
             <div style="flex-basis: 60%; margin-left:30px; margin-right:10px;">
@@ -43,7 +58,7 @@
                 </p>
             </div>
             <div style="flex-basis: 40%; text-align: right;align-items:center;">
-                <img src="https://t3.ftcdn.net/jpg/05/00/90/30/360_F_500903029_iHKPHFVqLpBrLP4Z77CUlKT64GeMfeuG.jpg" style="width: auto; height:260px;margin-right:30px;">
+                <img src="https://img.freepik.com/free-photo/top-view-fresh-flowers-isolated-white-wall_181624-38053.jpg?w=996&t=st=1686335052~exp=1686335652~hmac=52cb992e97c21198ba670b0b984d5795cf3d2b83410221e3a7e0ca6402e8a4d5" style="width: auto; height:260px;margin-right:30px;">
             </div>
         </div>
     </div>
@@ -78,7 +93,7 @@
             collections of fresh blooms
         </p>
     </div>
-    <div style="background-color:#f7ede5; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:50px; height:200px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="background-color:#ecebeb; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:50px; height:200px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         <div style="display: flex; justify-content: space-between;">
             <div>
                 <br>
@@ -92,12 +107,12 @@
                     Every step we take has the health of our planet, the quality of our flowers and our customers happiness at heart.
                 </p>
             </div>
-            
-                <br>
-                <p style="margin-top:40px; margin-right:50px; font-size:26px; font-weight:bold;">
-                    OUR OVERALL RATING:
-                </p>
-                <br>
+
+            <br>
+            <p style="margin-top:40px; margin-right:50px; font-size:26px; font-weight:bold;">
+                OUR OVERALL RATING:
+            </p>
+            <br>
         </div>
         <meter class="average-rating" min="0" max="5" value=@ViewBag.rating title="@ViewBag.rating out of 5 stars"></meter>
 

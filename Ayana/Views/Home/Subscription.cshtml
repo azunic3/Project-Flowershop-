@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Subscription";
 }
 
@@ -51,9 +50,9 @@
             align-items: center;
         }
 
-        .circle span {
-            text-align: center;
-        }
+            .circle span {
+                text-align: center;
+            }
 
 
         .circle-1 {
@@ -80,7 +79,7 @@
 
     <style>
         .container {
-            margin-top:40px;
+            margin-top: 40px;
             display: flex;
             justify-content: space-between;
         }
@@ -113,7 +112,7 @@
             }
 
             .box .number {
-                font-size:40px;
+                font-size: 40px;
                 position: absolute;
                 color: black;
             }
@@ -157,20 +156,21 @@
                 top: 0;
                 right: 0;
             }
+
             .box:nth-child(1) .number {
-               top: 0;
-               right: 0;
+                top: 0;
+                right: 0;
             }
 
             .box:nth-child(2) .number {
-               bottom: 0;
-               right: 0;
-             } 
+                bottom: 0;
+                right: 0;
+            }
 
             .box:nth-child(3) .number {
-               bottom: 10px;
-               top: 0;
-             }
+                bottom: 10px;
+                top: 0;
+            }
     </style>
 
     <div class="container">
@@ -186,8 +186,10 @@
         </div>
         <div class="box">
             <img src="https://images.123-flowers.co.uk/fetch/https://www.123-flowers.co.uk/images/subscriptions/wildandwonderful.jpg">
-            <span>We will handle the rest. 
-                Sit back and relax! </span>
+            <span>
+                We will handle the rest.
+                Sit back and relax!
+            </span>
             <div class="number">3</div>
         </div>
     </div>
@@ -251,7 +253,7 @@
                 <p style="font-size: 26px; font-weight: bold;">Package</p>
                 <p style="font-size: 13px">Get a beautiful and let us suprise you twice a year</p>
                 <p style="font-size: 26px; font-weight: bold;">BAM 70.00</p>
-                <a asp-area="" asp-controller="DtoRequests" asp-action="SubscriptionOrder" asp-route-data1="Six month Package" asp-route-data2="70.00"style="font-size: 18px;margin-top:120px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Choose package</a>
+                <a asp-area="" asp-controller="DtoRequests" asp-action="SubscriptionOrder" asp-route-data1="Six month Package" asp-route-data2="70.00" style="font-size: 18px;margin-top:120px; background-color:grey; border-color:darkgrey; -webkit-text-fill-color:white;"> Choose package</a>
             </div>
         </div>
     </div>
