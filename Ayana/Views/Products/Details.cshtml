@@ -4,8 +4,13 @@
     ViewData["Title"] = "Details";
 }
 <style>
-    .*{
-        margin:0;
+    .margin-zero {
+        margin: 0;
+    }
+
+    .message {
+        margin-top: 10px;
+        margin-left: 710px;
     }
 </style>
 <p style="font-weight:600; font-style:italic; margin-left:710px; font-size:medium;">@Model.Name</p>
@@ -13,5 +18,35 @@
 <div style="width:250px;margin-top:40px; margin-left:710px;">
     @Model.Description
 </div>
-<button style="background-color:grey;margin-top:40px;margin-left:710px;">Add to Cart</button>
+<button id="addToCartBtn" style="background-color: #f2b6c1; margin-top: 40px; margin-left: 710px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+<div id="message" class="message" style="display: none;"></div>
 
+<script>
+    document.getElementById("addToCartBtn").addEventListener("click", function () {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").textContent = "Item added to cart!";
+    });
+
+    document.getElementById('addToCartBtn').addEventListener('click', AddToCart);
+
+    async function AddToCart() {
+        const parameters = new URLSearchParams();
+        parameters.append("id", @Model.ProductID.ToString());
+        const url = "/DtoRequests/AddToCart?" + parameters.toString();
+
+        console.log(url);
+
+        const response = await fetch(url)
+            .then(result => result.json());
+
+        console.log(response);
+        
+
+        
+    }
+</script>
+
+
+
+    
+  

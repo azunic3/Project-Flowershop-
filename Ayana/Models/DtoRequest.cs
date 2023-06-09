@@ -21,5 +21,7 @@ namespace Ayana.Models
 
         public ApplicationUser customer{ get; set; }
 
+        public Cart cart { get; set; }
+
     }
 }

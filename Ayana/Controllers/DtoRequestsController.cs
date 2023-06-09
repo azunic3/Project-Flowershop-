@@ -23,23 +23,90 @@ namespace Ayana.Controllers
     public class DtoRequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+       
         public DtoRequestsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: DtoRequests/Create
-        public IActionResult Create()
+        
+        public async Task<IActionResult> AddToCart(int id)
         {
-            return View();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return View("Error");
+
+
+            var cart = _context.Cart.FirstOrDefault(o => o.CustomerID == userId && o.ProductID == id);
+
+
+
+            if (cart == null)
+
+            {
+                Cart cart1 = new Cart()
+                {
+                    CustomerID = userId,
+                    ProductID = id,
+                    ProductQuantity = 1
+                    
+                };
+
+                _context.Add(cart1);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                cart.ProductQuantity ++;
+                await _context.SaveChangesAsync();
+
+            }
+          
+            return Json(new { message = "Radi!" });
+
+        }
+
+     
+        public List<List<Product>> GetCartProducts(List<Cart> carts)
+        {
+            List<List<Product>> cartProducts = new List<List<Product>>();
+
+            foreach (var cart in carts)
+            {
+                var products = _context.Cart
+                    .Where(po => po.CartID == cart.CartID)
+                    .Select(po => po.Product)
+                    .ToList();
+
+                cartProducts.Add(products);
+            }
+
+            return cartProducts;
         }
 
         // GET: DtoRequests/Create
         public IActionResult Cart()
         {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            // Retrieve user-specific orders based on the CustomerId
+            List<Cart> userCarts = _context.Cart
+                .Where(o => o.CustomerID == userId)
+                .ToList();
+
+            // Get the associated products for each order
+            List<List<Product>> cartProducts = GetCartProducts(userCarts);
+
+            // Pass the userOrders and orderProducts to the view
+            ViewBag.UserCarts = userCarts;
+            ViewBag.CartProducts = cartProducts;
+
+            // Render the view
+   
             return View();
         }
+
 
         // GET: Subscriptions/Details/5
         public Task<IActionResult> SubscriptionOrder(string data1, double data2)
