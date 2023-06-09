@@ -8,10 +8,9 @@
         position: relative;
         appearance: none;
         color: transparent;
-        width: 400px;
         display: inline-block;
         vertical-align: baseline;
-        margin-left: 1340px;
+       margin-left: 1000px;
     }
 
         .average-rating::before {
@@ -31,19 +30,24 @@
     }
 </style>
 <div style="margin-bottom:100px;">
-    <div style="background-color:#cfb8be;margin-left:-55px; margin-top:-10px; margin-bottom:50px; width:930px; height:190px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="background-color:#cfb8be; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:10px; height:300px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         <br>
-        <p style="margin-top:-10px; margin-left:30px;  font-size: 30px; font-weight: bold;">
-            Flowers, plants and gifts make everything so much brighter!
-        </p>
-        <br>
-        <p style="margin-top:-10px; margin-left:30px;margin-right:10px;">
-            We deliver florist-crafted arrangements, dropship bundles, fresh plants
-            and we are partners with trending gifting brands to ensure everyone gets
-            the gift they will love.
-        </p>
-        <img src="https://t3.ftcdn.net/jpg/05/00/90/30/360_F_500903029_iHKPHFVqLpBrLP4Z77CUlKT64GeMfeuG.jpg" style="float:right; height:190px; margin-right:-250px; margin-top:-122.5px;">
+        <div style="display:flex;align-items:center;">
+            <div style="flex-basis: 60%; margin-left:30px; margin-right:10px;">
+                <p style="margin-top:-10px; font-size: 30px; font-weight: bold;">Flowers, plants and gifts make everything so much brighter!</p>
+                <br>
+                <p style="margin-top:-10px; margin-right:100px;">
+                    We deliver florist-crafted arrangements, dropship bundles, fresh plants
+                    and we are partners with trending gifting brands to ensure everyone gets
+                    the gift they will love.
+                </p>
+            </div>
+            <div style="flex-basis: 40%; text-align: right;align-items:center;">
+                <img src="https://t3.ftcdn.net/jpg/05/00/90/30/360_F_500903029_iHKPHFVqLpBrLP4Z77CUlKT64GeMfeuG.jpg" style="width: auto; height:260px;margin-right:30px;">
+            </div>
+        </div>
     </div>
+
     <div style="background-color:#e9f0d7; margin-left:30px; width:200px; height:200px; margin-bottom:140px;">
         <br>
         <p style="text-align:center; margin-top:20px; font-weight:600;">greener outside & in</p>
@@ -74,27 +78,29 @@
             collections of fresh blooms
         </p>
     </div>
-    <div style="background-color:#f7ede5;margin-left:-55px; margin-top:50px;width:1180px; height:190px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    <div style="background-color:#f7ede5; margin-left:-30px; margin-right:-30px; margin-bottom:50px; margin-top:50px; height:200px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         <div style="display: flex; justify-content: space-between;">
             <div>
                 <br>
-                <p style="margin-top:-10px; margin-left:30px; margin-right:280px;">
+                <p style="margin-top:-10px; margin-left:30px; ">
                     Customer happiness is number one for us!
                 </p>
                 <br>
 
-                <p style="margin-top:-10px; margin-left:30px;margin-right:40px;">
+                <p style="margin-top:-10px; margin-left:30px; margin-right:10px;">
                     Here at Ayana, we take great pride with every bouquet we create. From our farms to your doorstep.
                     Every step we take has the health of our planet, the quality of our flowers and our customers happiness at heart.
                 </p>
             </div>
-            <br>
-            <p style="margin-top:30px; margin-right:50px; font-size:26px; font-weight:bold;">
-                OUR OVERALL RATING:
-            </p>
-            <br>
+            
+                <br>
+                <p style="margin-top:40px; margin-right:50px; font-size:26px; font-weight:bold;">
+                    OUR OVERALL RATING:
+                </p>
+                <br>
         </div>
-        <meter class="average-rating" min="0" max="5" value=@ViewBag.rating width="200px" title="@ViewBag.rating out of 5 stars"></meter>
+        <meter class="average-rating" min="0" max="5" value=@ViewBag.rating title="@ViewBag.rating out of 5 stars"></meter>
+
     </div>
     <br>
     <br>
