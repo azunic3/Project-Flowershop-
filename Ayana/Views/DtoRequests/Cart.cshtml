@@ -29,6 +29,7 @@
         .product-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: flex-start;
         }
 
         .product-box {
@@ -48,8 +49,9 @@
         }
 
         .wide-input {
-            width: 250px;
+            width: 300px;
             margin-bottom: 150px;
+            margin-left: 50px;
         }
 
         .bigger-box {
@@ -69,82 +71,114 @@
                 position: absolute;
                 left: 0;
             }
+
+        .message {
+            margin-top: 10px;
+        }
     </style>
-    <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color: black;">Continue shopping</a>
 
-    <div class="order-container">
-        @for (var i = 0; i < ViewBag.UserCarts.Count; i++)
-        {
-            var cart = ViewBag.UserCarts[i];
-            var products = ViewBag.CartProducts[i];
+    @if (ViewBag.UserCarts.Count != 0)
+    {
+        <p style="text-align: center; font-size:large;"><strong>CHECKOUT</strong></p>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color: black; margin-bottom: 30px; margin-top: 30px">Continue shopping</a>
 
-            <div class="order">
-                <div class="order-info">
-                    <p><strong>Products:</strong></p>
-                    <div class="product-container">
-                        @foreach (var product in products)
-                        {
-                            <div class="product-box">
-                                <img src="@product.ImageUrl" alt="@product.Name" class="product-image">
-                                <p class="product-name">@product.Name</p>
-                                <p>@cart.ProductQuantity</p>
-                            </div>
-                        }
+
+        <br>
+        <div class="order-container">
+            @for (var i = 0; i < ViewBag.UserCarts.Count; i++)
+            {
+                var cart = ViewBag.UserCarts[i];
+                var products = ViewBag.CartProducts[i];
+
+                <div class="order">
+                    <div class="order-info">
+
+                        <div class="product-container">
+                            @foreach (var product in products)
+                            {
+                                <div class="product-box">
+                                    <img src="@product.ImageUrl" alt="@product.Name" class="product-image">
+                                    <p class="product-name">@product.Name</p>
+                                    <p>@cart.ProductQuantity</p>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        <div>
-            <div class="wide-input">
-                <form asp-action="SubscriptionCreate">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
-                        <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
-                        <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
-                    </div>
+            <div>
+                <div class="wide-input">
+                    <form asp-action="OrderCreate">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
+                            <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
+                            <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="@Model.order.DeliveryDate" class="control-label"></label>
-                        <input asp-for="@Model.order.DeliveryDate" class="form-control" />
-                        <span asp-validation-for="@Model.order.DeliveryDate" class="text-danger"></span>
-                    </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.order.DeliveryDate" class="control-label"></label>
+                            <input asp-for="@Model.order.DeliveryDate" class="form-control" />
+                            <span asp-validation-for="@Model.order.DeliveryDate" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="@Model.order.personalMessage" class="control-label"></label>
-                        <input asp-for="@Model.order.personalMessage" class="form-control" style="height:100px" />
-                        <span asp-validation-for="@Model.order.personalMessage" class="text-danger"></span>
-                    </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.order.personalMessage" class="control-label"></label>
+                            <input asp-for="@Model.order.personalMessage" class="form-control" style="height:100px" />
+                            <span asp-validation-for="@Model.order.personalMessage" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group">
-                        <label asp-for="@Model.payment.PaymentType" class="control-label"></label>
-                        <select asp-for="@Model.payment.PaymentType" class="form-control" id="paymentType">
-                            @foreach (var value in Enum.GetValues(typeof(PaymentType)))
-                            {
-                                <option value="@value">@((PaymentType)value)</option>
-                            }
-                        </select>
-                        <span asp-validation-for="@Model.payment.PaymentType" class="text-danger"></span>
-                    </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.discount.DiscountCode" class="control-label"></label>
+                            <input asp-for="@Model.discount.DiscountCode" class="form-control" />
+                            <span asp-validation-for="@Model.discount.DiscountCode" class="text-danger"></span>
+                        </div>
 
-                    <input type="hidden" asp-for="@Model.subscription.Name" value="@ViewBag.Data1" />
-                    <input type="hidden" asp-for="@Model.subscription.Price" value="@ViewBag.Data2" />
+                        <button id="applyDiscountBtn" style="background-color: #f2b6c1; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+                        <div id="message" class="message" style="display: none; "></div>
+                       
+                        <div class="form-group">
+                            <label asp-for="@Model.payment.PaymentType" class="control-label"></label>
+                            <select asp-for="@Model.payment.PaymentType" class="form-control" id="paymentType">
+                                @foreach (var value in Enum.GetValues(typeof(PaymentType)))
+                                {
+                                    <option value="@value">
+                                        @(
+                                            (PaymentType)value
+                                            )
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.payment.PaymentType" class="text-danger"></span>
+                        </div>
 
-                    <div class="form-group" id="bankAccountField" style="display: none;">
-                        <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
-                        <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
-                        <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
-                    </div>
+                        <input type="hidden" asp-for="@Model.subscription.Name" value="@ViewBag.Data1" />
+                        <input type="hidden" asp-for="@Model.subscription.Price" value="@ViewBag.Data2" />
 
-                    <div class="form-group">
-                        <input type="submit" value="Pay now" class="btn btn-primary" />
-                    </div>
-                </form>
+                        <div class="form-group" id="bankAccountField" style="display: none;">
+                            <label asp-for="@Model.payment.BankAccount" class="control-label"></label>
+                            <input asp-for="@Model.payment.BankAccount" class="form-control" type="number" />
+                            <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Pay now" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div style="text-align: center; padding: 20px;">
+            <h3>Oops.. Your cart is empty.</h3>
+            <p>Start exploring our products and place your first order to enjoy our offerings!</p>
+        </div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Shop now</a>
 
+    }
     <br>
     <br>
     <br>
@@ -162,4 +196,19 @@
             }
         });
     });
+</script>
+
+
+<script>
+    document.getElementById("applyDiscountBtn").addEventListener("click", function () {
+
+        document.getElementById("message").style.display = "block";
+        if(temp) document.getElementById("message").textContent = "Discount applied!";
+        else document.getElementById("message").textContent = "Wrong discount code!";
+    });
+
+
+    var temp = false;
+
+    
 </script>

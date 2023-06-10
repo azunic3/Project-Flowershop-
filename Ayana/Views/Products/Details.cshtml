@@ -10,17 +10,24 @@
 
     .message {
         margin-top: 10px;
-        margin-left: 710px;
+    }
+
+    .window-container {
+        height: 600px; 
     }
 </style>
-<p style="font-weight:600; font-style:italic; margin-left:710px; font-size:medium;">@Model.Name</p>
-<p style="margin-left:710px;">BAM @Model.Price.00</p>
-<div style="width:250px;margin-top:40px; margin-left:710px;">
-    @Model.Description
+<div class="window-container" style="display: flex;  justify-content: space-between;  ">
+    <img src="@Model.ImageUrl" alt="" width="400" height="400" style=" margin-left: 150px;">
+    <div>
+        <p style="font-weight: 600;  margin-right:150px; font-style: italic; font-size: medium;">@Model.Name</p>
+        <p style="font-weight: 300;  margin-right:150px; font-style: italic; font-size: small;">BAM @Model.Price.00</p>
+        <div style="width:250px;margin-top:40px; margin-right:150px; ">
+            @Model.Description
+        </div>
+        <button id="addToCartBtn" style="background-color: #f2b6c1; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+        <div id="message" class="message" style="display: none; "></div>
+    </div>
 </div>
-<button id="addToCartBtn" style="background-color: #f2b6c1; margin-top: 40px; margin-left: 710px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
-<div id="message" class="message" style="display: none;"></div>
-
 <script>
     document.getElementById("addToCartBtn").addEventListener("click", function () {
         document.getElementById("message").style.display = "block";
@@ -40,9 +47,7 @@
             .then(result => result.json());
 
         console.log(response);
-        
-
-        
+   
     }
 </script>
 

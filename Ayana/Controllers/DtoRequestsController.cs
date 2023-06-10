@@ -98,9 +98,13 @@ namespace Ayana.Controllers
             // Get the associated products for each order
             List<List<Product>> cartProducts = GetCartProducts(userCarts);
 
+            // Get all discounts available
+            List<Discount> discountList = _context.Discounts.ToList();
+
             // Pass the userOrders and orderProducts to the view
             ViewBag.UserCarts = userCarts;
             ViewBag.CartProducts = cartProducts;
+            ViewBag.DiscountList = discountList;
 
             // Render the view
    
@@ -180,5 +184,58 @@ namespace Ayana.Controllers
 
             return Redirect("/Home");
         }
+
+        public async Task<IActionResult> OrderCreate([Bind("Name,Price,personalMessage,DeliveryDate")] Order order, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment, [Bind("DiscountID,DiscountCode,DiscountAmount")] Discount discount)
+        {
+            //TODO needs fixing --> customer id change to string in all other tables
+
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var existingCustomer = _context.Users.FirstOrDefault(m => m.Id == userId);
+            if (userId == null)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
+
+
+            // Set up the payment instance
+            Payment payment1 = new Payment
+            {
+                BankAccount = payment.BankAccount,
+                PayedAmount = order.TotalAmountToPay,
+                DeliveryAddress = payment.DeliveryAddress,
+                DiscountID = null,
+                PaymentType = payment.PaymentType
+
+            };
+
+            // Save the payment instance to the database
+            _context.Add(payment1);
+            await _context.SaveChangesAsync();
+
+            // Set up the payment instance
+            Order order1 = new Order
+            {
+                DeliveryDate = order.DeliveryDate,
+                CustomerID = userId,
+                PaymentID = payment1.PaymentID,
+                TotalAmountToPay = order.TotalAmountToPay,
+                personalMessage = order.personalMessage,
+                IsOrderSent = order.IsOrderSent,
+                Rating = order.Rating
+            };
+
+
+            // Save the subscription to the database
+            _context.Add(order1);
+            await _context.SaveChangesAsync();
+
+
+
+            return Redirect("/Home");
+        }
     }
 }
+
+
+
