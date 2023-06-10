@@ -69,13 +69,12 @@
     function handleSortChange() {
         var selectedSortOption = document.getElementById("sortDropdown").value;
 
-        // Make an AJAX request to the server
+
         $.ajax({
             url: '/Products/Sort',
             type: 'GET',
             data: { sortOption: selectedSortOption, String: '@ViewBag.String' },
             success: function (response) {
-                // Replace the current product list with the sorted product list
                 $('#products').html(response);
             },
             error: function (error) {

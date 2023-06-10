@@ -114,7 +114,7 @@ namespace Ayana.Controllers
                 sortStrategy = new AscendingNameSortStrategy();
             string pattern = $"{Regex.Escape(String)}";
             List<Product> searchResults = _context.Products.ToList().Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
-
+            ViewBag.String = String;
             var sortedProducts = sortStrategy.Sort(searchResults);
             ViewBag.SelectedSortOption = sortOption;
 
