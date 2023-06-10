@@ -8,47 +8,56 @@
 
 <h4>Product</h4>
 <hr />
-<div class="row">
+<div class="row" style="margin-bottom:100px; margin-left:710px;">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductID" />
-            <div class="form-group">
+            <div class="form-group" style="width:max-content; ">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" style="width:max-content;" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width:max-content; ">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width:max-content; ">
                 <label asp-for="Stock" class="control-label"></label>
                 <input asp-for="Stock" class="form-control" />
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width:max-content; ">
                 <label asp-for="Category" class="control-label"></label>
                 <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="width:max-content; ">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" rows="6"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <div class="form-group" style="width:max-content; ">
+                <label hidden asp-for="ImageUrl" class="control-label"><</label>
+                <input hidden asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="width:max-content; ">
+                <label hidden asp-for="FlowerType" class="control-label"><</label>
+                <input hidden asp-for="FlowerType" class="form-control" />
+                <span asp-validation-for="FlowerType" class="text-danger"></span>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="background-color: #f2b6c1; border-color:white; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

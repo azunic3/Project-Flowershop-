@@ -1,6 +1,9 @@
-﻿@{
+﻿@using Ayana.Patterns;
+@{
     ViewData["Title"] = "Home Page";
 }
+@inject IProduct ProductService
+
 
 <style>
     body{
@@ -31,6 +34,50 @@
 
       
 </style>
+@if (User.IsInRole("Employee"))
+{
+    <div class="row text-center" style="margin-bottom:100px;">
+        @foreach (Product p in ProductService.GetAllProducts())
+        {
+            <div class="col-sm-4">
+                <div class="photo-container">
+                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@p.ProductID" style="-webkit-text-fill-color:black;">
+                        
+                        <img src=@p.ImageUrl alt="" width="200" height="200">
+                    </a>
+                        <form method="post" asp-controller="Products" asp-action="Delete" asp-route-id="@p.ProductID">
+                            <input type="hidden" name="productId" value="@p.ProductID" />
+                            <input type="hidden" name="photoId" value="@p.ImageUrl" />
+                            <button type="submit" class="btn btn-danger delete-button">X</button>
+                        </form>
+
+                    
+                         <form method="post" asp-controller="Products" asp-action="EditNameAndPrice" asp-route-id="@p.ProductID">
+                        <input type="hidden" name="ProductID" value="@p.ProductID" id="ProductID" />
+                        <div class="form-group " style="width:max-content; margin-left:80px; ">
+                        <label name="Name" value="@p.Name" id="Name" class="control-label"></label>
+                            <input name="Name" value="@p.Name" id="Name" class="form-control" style="width:max-content;" />
+                    </div>
+                        <div class="form-group" style="width:max-content; margin-left:80px;">
+                            <label name="Price" value="@p.Price" id="Price" class="control-label"></label>
+                            <input name="Price" value="@p.Price" id="Price" class="form-control" style="width:max-content;" />
+                            </div>
+                    
+                    <div class="form-group">
+                            <button  class="btn btn-sm btn-success commonBtn">Save</button>
+                            <input id="productId" type="hidden" value="@p.ProductID">
+                            <input type="hidden" name="Name" value="@p.Name" class="form-control" style="width:max-content;" />
+                            <input type="hidden" name="Price" value="@p.Price" class="form-control" style="width:max-content;" />
+                                                           </div>
+                    </form>
+                </div>
+                </div>
+        }
+
+
+    </div>
+}
+else{
 <div class="row slideanim" style="transition:ease-in-out;">
     <div  style="background: #fbf8f9;text-align:left;padding:1em 0; margin-left:10px;  width:85%; height:400%;">
         <h1 style="margin-left:50px; margin-top:10px;font-style:italic;">Say it with flowers</h1>
@@ -199,4 +246,4 @@
             <p></p></a>
         </div>
     </div>
-</div>
+</div>}

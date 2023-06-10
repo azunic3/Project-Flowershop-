@@ -10,16 +10,20 @@ using Ayana.Models;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
 using static Humanizer.On;
+using Ayana.Patterns;
 
 namespace Ayana.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IProduct _productEditor;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, IProduct p)
         {
             _context = context;
+            _productEditor = p;
+
         }
 
         // GET: Products
@@ -114,13 +118,12 @@ namespace Ayana.Controllers
             }
             return View(product);
         }
-
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Price,Stock,SalesHistory,Category,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Price,Stock,Category,Description,ImageUrl,FlowerType")] Product product)
         {
             if (id != product.ProductID)
             {
@@ -131,8 +134,7 @@ namespace Ayana.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    _productEditor.EditAll(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,10 +147,46 @@ namespace Ayana.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                var AllProducts = _context.Products.ToList();
+                return View("~/Views/Home/Index.cshtml", AllProducts);
             }
-            return View(product);
+
+            return View("~/Views/Home/Index.cshtml");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditNameAndPrice(int id, [Bind("ProductID,Name,Price")] Product product)
+        {
+            if (id != product.ProductID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productEditor.EditNameAndPrice(id, product);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProductExists(product.ProductID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                var AllProducts = _context.Products.ToList();
+                return View("~/Views/Home/Index.cshtml", AllProducts);
+            }
+
+            return View("~/Views/Home/Index.cshtml");
+        }
+
+
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)

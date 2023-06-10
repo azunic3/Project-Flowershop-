@@ -16,6 +16,52 @@
         height: 600px; 
     }
 </style>
+@if (User.IsInRole("Employee"))
+{
+        <div class="row" style="margin-bottom:100px; margin-left:710px;">
+    <div class="col-md-4">
+            <form asp-action="Edit" asp-route-id="@Model.ProductID">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductID" />
+            <input type="hidden" asp-for="ImageUrl"/>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" style="width:max-content;" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+                <div class="form-group" style="width:max-content; ">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+                <div class="form-group" style="width:max-content; ">
+                    <label asp-for="FlowerType" class="control-label"></label>
+                    <input asp-for="FlowerType" class="form-control" />
+                    <span asp-validation-for="FlowerType" class="text-danger"></span>
+                </div>
+            <div class="form-group" style="width:max-content; ">
+                <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" rows="6" ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" style="background-color: #f2b6c1; border-color:white; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;" />
+            </div>
+        </form>
+    </div>
+</div>
+}
+else{
 <div class="window-container" style="display: flex;  justify-content: space-between;  ">
     <img src="@Model.ImageUrl" alt="" width="400" height="400" style=" margin-left: 150px;">
     <div>
@@ -27,7 +73,7 @@
         <button id="addToCartBtn" style="background-color: #f2b6c1; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
         <div id="message" class="message" style="display: none; "></div>
     </div>
-</div>
+</div>}
 <script>
     document.getElementById("addToCartBtn").addEventListener("click", function () {
         document.getElementById("message").style.display = "block";

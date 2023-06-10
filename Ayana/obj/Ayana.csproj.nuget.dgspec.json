@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\OneDrive\\Desktop\\hehe\\Projekat-OOAD\\Ayana\\Ayana.csproj": {}
+    "C:\\Users\\User\\Desktop\\FAKULTET\\OOAD\\Projekat-OOAD\\Ayana\\Ayana.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\OneDrive\\Desktop\\hehe\\Projekat-OOAD\\Ayana\\Ayana.csproj": {
+    "C:\\Users\\User\\Desktop\\FAKULTET\\OOAD\\Projekat-OOAD\\Ayana\\Ayana.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\OneDrive\\Desktop\\hehe\\Projekat-OOAD\\Ayana\\Ayana.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\FAKULTET\\OOAD\\Projekat-OOAD\\Ayana\\Ayana.csproj",
         "projectName": "Ayana",
-        "projectPath": "C:\\Users\\User\\OneDrive\\Desktop\\hehe\\Projekat-OOAD\\Ayana\\Ayana.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\FAKULTET\\OOAD\\Projekat-OOAD\\Ayana\\Ayana.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\OneDrive\\Desktop\\hehe\\Projekat-OOAD\\Ayana\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\FAKULTET\\OOAD\\Projekat-OOAD\\Ayana\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,24 +80,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -102,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,5 +1,6 @@
 using Ayana.Data;
 using Ayana.Models;
+using Ayana.Patterns;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,7 @@ namespace Ayana
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProduct, ProductEditor>();
             services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
     Configuration.GetConnectionString("DefaultConnection")));
