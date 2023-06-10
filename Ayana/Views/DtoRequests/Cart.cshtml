@@ -9,6 +9,7 @@
 <div style="margin-bottom: 100px;">
     <style>
         .order-container {
+            flex-direction: column;
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
@@ -16,10 +17,10 @@
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
-        .order {
-            display: flex;
+        .product-items {
+            margin-left: 80px;
             flex-direction: column;
-            align-items: flex-end;
+            width: 320px;
         }
 
         .order-info {
@@ -41,6 +42,7 @@
         .product-image {
             width: 150px;
             height: 150px;
+            align-content: center;
             object-fit: contain;
         }
 
@@ -79,37 +81,40 @@
 
     @if (ViewBag.UserCarts.Count != 0)
     {
-        <p style="text-align: center; font-size:large;"><strong>CHECKOUT</strong></p>
+
         <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color: black; margin-bottom: 30px; margin-top: 30px">Continue shopping</a>
 
 
         <br>
-        <div class="order-container">
-            @for (var i = 0; i < ViewBag.UserCarts.Count; i++)
-            {
-                var cart = ViewBag.UserCarts[i];
-                var products = ViewBag.CartProducts[i];
+        <div style="display:flex">
+            <div class="product-items">
+                @for (var i = 0; i < ViewBag.UserCarts.Count; i++)
+                {
+                    var cart = ViewBag.UserCarts[i];
+                    var products = ViewBag.CartProducts[i];
 
-                <div class="order">
-                    <div class="order-info">
-
-                        <div class="product-container">
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; background-color:#ffdac1">
                             @foreach (var product in products)
                             {
-                                <div class="product-box">
-                                    <img src="@product.ImageUrl" alt="@product.Name" class="product-image">
-                                    <p class="product-name">@product.Name</p>
-                                    <p>@cart.ProductQuantity</p>
+                                <div style="padding: 10px;margin-left:10px">
+                                    <img src="@product.ImageUrl" alt="@product.Name" style="margin-top:10px;width: 280px;">
+                                    <p style="margin-top: 7px;font-size:20px;font-weight: bold;">@product.Name</p>
+                                    <p style="margin-top: 7px;">BAM @product.Price.00</p>
+                                    <p style="margin-top: 7px;">Quantity: @cart.ProductQuantity</p>
+
+
                                 </div>
                             }
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
 
             <div>
-                <div class="wide-input">
+                <div style="margin-left:300px" class="wide-input">
                     <form asp-action="OrderCreate">
+
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
@@ -131,13 +136,19 @@
 
                         <div class="form-group">
                             <label asp-for="@Model.discount.DiscountCode" class="control-label"></label>
-                            <input asp-for="@Model.discount.DiscountCode" class="form-control" />
+                            <div style="display:flex; align-items:center">
+
+                                <input asp-for="@Model.discount.DiscountCode" class="form-control" style="width: 88%;" />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-primary">&#x2713</button>
+                                </span>
+                            </div>
                             <span asp-validation-for="@Model.discount.DiscountCode" class="text-danger"></span>
                         </div>
 
-                        <button id="applyDiscountBtn" style="background-color: #f2b6c1; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+
                         <div id="message" class="message" style="display: none; "></div>
-                       
+
                         <div class="form-group">
                             <label asp-for="@Model.payment.PaymentType" class="control-label"></label>
                             <select asp-for="@Model.payment.PaymentType" class="form-control" id="paymentType">
@@ -203,12 +214,12 @@
     document.getElementById("applyDiscountBtn").addEventListener("click", function () {
 
         document.getElementById("message").style.display = "block";
-        if(temp) document.getElementById("message").textContent = "Discount applied!";
+        if (temp) document.getElementById("message").textContent = "Discount applied!";
         else document.getElementById("message").textContent = "Wrong discount code!";
     });
 
 
     var temp = false;
 
-    
+
 </script>

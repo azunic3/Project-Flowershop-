@@ -23,7 +23,6 @@ namespace Ayana.Controllers
     public class DtoRequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
-       
         public DtoRequestsController(ApplicationDbContext context)
         {
             _context = context;
@@ -181,8 +180,7 @@ namespace Ayana.Controllers
             await _context.SaveChangesAsync();
 
 
-
-            return Redirect("/Home");
+            return Redirect("/DtoRequests/ThankYou?orderType=subscription");
         }
 
         public async Task<IActionResult> OrderCreate([Bind("Name,Price,personalMessage,DeliveryDate")] Order order, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment, [Bind("DiscountID,DiscountCode,DiscountAmount")] Discount discount)
@@ -230,9 +228,13 @@ namespace Ayana.Controllers
             _context.Add(order1);
             await _context.SaveChangesAsync();
 
+            return Redirect("/DtoRequests/ThankYou?orderType=order");
+        }
 
-
-            return Redirect("/Home");
+        public IActionResult ThankYou(string orderType)
+        {
+            ViewBag.OrderType = orderType;
+            return View();
         }
     }
 }

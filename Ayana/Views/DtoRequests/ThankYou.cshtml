@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "ThankYou";
+}
+
+<style>
+    .continue-shopping {
+        display: inline-block;
+        font-size: medium;
+        text-decoration: underline;
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .continue-shopping::before {
+            content: '\2190';
+            position: absolute;
+            left: 0;
+        }
+
+    .rate-order {
+        display: inline-block;
+        font-size: medium;
+        text-decoration: underline;
+        position: relative;
+        padding-right: 30px;
+    }
+
+        .rate-order::before {
+            content: '\2192';
+            position: absolute;
+            right: 0;
+        }
+</style>
+
+<div style="text-align: center; padding: 20px;">
+    <h2>Thank you for your @ViewBag.OrderType!</h2>
+    <br>
+    <p>
+        Thank you for choosing our services and placing your @ViewBag.OrderType with us. We greatly appreciate your business and trust in our products.
+        Your @ViewBag.OrderType has been successfully received and is being processed. Our team is working diligently to ensure that your order is handled with care and delivered to you in a timely manner.
+        If you have any questions or need further assistance regarding your @ViewBag.OrderType, please don't hesitate to reach out to our customer support team. We're here to help!
+    Once again, thank you for choosing our services. We look forward to serving you again in the future.</p>
+    <p>Best regards,</p>
+    <p>The Ayana Team</p>
+    <br>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Continue shopping</a>
+    <a asp-area="" asp-controller="Orders" asp-action="UserOrders" class="rate-order" style="-webkit-text-fill-color:black;">Rate your orders</a>
+</div>
