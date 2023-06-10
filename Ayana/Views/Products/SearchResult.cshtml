@@ -1,23 +1,86 @@
-﻿@model List<Ayana.Models.Product>
+﻿<div id="products">
 
-
+@using Ayana.Paterni
+@model List<Ayana.Models.Product>
 @{
     ViewData["Title"] = "SearchResult";
 }
+  
 @if (Model.Count == 0)
 {
     <p>We are sorry, we don't have anything that matches your search. Check your spelling and try again!</p>
 }else{
+        <select id="sortDropdown" onchange="handleSortChange()">
+            @if (ViewBag.SelectedSortOption == "ascendingName")
+            {
+                <option value="ascendingName" selected>Ascending by Name</option>
+            }
+            else
+            {
+                <option value="ascendingName">Ascending by Name</option>
+            }
+
+            @if (ViewBag.SelectedSortOption == "descendingName")
+            {
+                <option value="descendingName" selected>Descending by Name</option>
+            }
+            else
+            {
+                <option value="descendingName">Descending by Name</option>
+            }
+
+            @if (ViewBag.SelectedSortOption == "ascendingPrice")
+            {
+                <option value="ascendingPrice" selected>Ascending by Price</option>
+            }
+            else
+            {
+                <option value="ascendingPrice">Ascending by Price</option>
+            }
+
+            @if (ViewBag.SelectedSortOption == "descendingPrice")
+            {
+                <option value="descendingPrice" selected>Descending by Price</option>
+            }
+            else
+            {
+                <option value="descendingPrice">Descending by Price</option>
+            }
+        </select>
+
+    
 <div class="row text-center" style="margin-bottom:100px;">
     @foreach (Product p in Model)
     {
         <div class="col-sm-4">
                 <div>
                     <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@p.ProductID" style="-webkit-text-fill-color:black;">
-                <img src="https://e0.pxfuel.com/wallpapers/996/249/desktop-wallpaper-earth-white-tulip-white-tulips.jpg" alt="" width="200" height="200">
+                <img src="@p.ImageUrl" alt="" width="200" height="200">
                 <p><strong> @p.Name</strong></p></a>
                 <p>BAM @p.Price.00</p>
             </div>
         </div>
     }
-</div>}
+</div>
+    }
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function handleSortChange() {
+        var selectedSortOption = document.getElementById("sortDropdown").value;
+
+        // Make an AJAX request to the server
+        $.ajax({
+            url: '/Products/Sort',
+            type: 'GET',
+            data: { sortOption: selectedSortOption, String: '@ViewBag.String' },
+            success: function (response) {
+                // Replace the current product list with the sorted product list
+                $('#products').html(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

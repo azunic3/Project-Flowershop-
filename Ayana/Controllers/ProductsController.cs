@@ -11,6 +11,9 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
 using static Humanizer.On;
 using Ayana.Patterns;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Ayana.Paterni;
 
 namespace Ayana.Controllers
 {
@@ -51,6 +54,7 @@ namespace Ayana.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -59,14 +63,15 @@ namespace Ayana.Controllers
         {
             List<Product> products = _context.Products.ToList();
             if (search == null)
-                ViewBag.SearchResults = products;
-            else { 
-            string pattern = $"{Regex.Escape(search)}";
-            List<Product> searchResults = products.Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
+                return View(products);
+            else
+            {
+                string pattern = $"{Regex.Escape(search)}";
+                List<Product> searchResults = products.Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
 
-            ViewBag.SearchResults = searchResults;
-}
-            return View(ViewBag.SearchResults);
+                ViewBag.String = search;
+                return View(searchResults);
+            }
         }
 
         public IActionResult PopularSearches(string popularsearch)
@@ -86,12 +91,42 @@ namespace Ayana.Controllers
             }
             return View("~/Views/Products/SearchResult.cshtml", ViewBag.p);
         }
+        [HttpGet]
+        public ActionResult Sort(string sortOption, string String)
+        {
+            ISort sortStrategy;
 
+            if (sortOption == "ascendingName")
+            {
+                sortStrategy = new AscendingNameSortStrategy();
+            }
+            else if (sortOption == "descendingName")
+            {
+                sortStrategy = new DescendingNameSortStrategy();
+            }
+            else if (sortOption == "ascendingPrice")
+            {
+                sortStrategy = new AscendingPriceSortStrategy();
+            }
+            else if (sortOption == "descendingPrice")
+                sortStrategy = new DescendingPriceSortStrategy();
+            else
+                sortStrategy = new AscendingNameSortStrategy();
+            string pattern = $"{Regex.Escape(String)}";
+            List<Product> searchResults = _context.Products.ToList().Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
+
+            var sortedProducts = sortStrategy.Sort(searchResults);
+            ViewBag.SelectedSortOption = sortOption;
+
+            return PartialView("~/Views/Products/SearchResult.cshtml", sortedProducts);
+        }
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> Create([Bind("ProductID,Name,Price,Stock,SalesHistory,Category,Description")] Product product)
         {
             if (ModelState.IsValid)
