@@ -2397,3 +2397,7 @@ C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\V
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Home\Subscription.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Orders\UserOrders.cshtml.g.cs
 C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\obj\Debug\net5.0\Razor\Views\Products\SearchResult.cshtml.g.cs
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\bin\Debug\net5.0\EPPlus.dll
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\bin\Debug\net5.0\EPPlus.Interfaces.dll
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\bin\Debug\net5.0\EPPlus.System.Drawing.dll
+C:\Users\User\Desktop\FAKULTET\OOAD\Projekat-OOAD\Ayana\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll

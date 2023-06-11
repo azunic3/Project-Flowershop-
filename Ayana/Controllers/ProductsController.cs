@@ -21,12 +21,12 @@ namespace Ayana.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IProduct _productEditor;
-
-        public ProductsController(ApplicationDbContext context, IProduct p)
+        private readonly IReportFactory _reportFactory;
+        public ProductsController(ApplicationDbContext context, IProduct p, IReportFactory reportFactory)
         {
             _context = context;
             _productEditor = p;
-
+            _reportFactory = reportFactory;
         }
 
         // GET: Products
@@ -34,7 +34,17 @@ namespace Ayana.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
+        public IActionResult Report(string type)
+        {
+            // Use the factory to create an instance of IReport (specifically WeeklyReport)
+            IReport weeklyReport = _reportFactory.CreateReport(type);
 
+            // Generate the report
+            byte[] reportData = weeklyReport.GenerateReport();
+
+            // Return the report as a file
+            return File(reportData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type+"_report.xlsx");
+        }
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {

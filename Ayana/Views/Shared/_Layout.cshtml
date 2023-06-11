@@ -231,7 +231,26 @@ border-radius: 20px 20px 20px 20px; width: 800px;
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom custom" style=" height:100px;">
-            
+            @if (User.IsInRole("Employee"))
+            {
+                <div class="account-menu">
+                            <div class="menu-trigger">
+                                <button class="menu-toggle" style="float: left;
+            position: absolute;
+            top: 20%;
+            left: 4.6%;
+            transform: translate(-50%, -50%);
+            -webkit-text-fill-color: black; border:none; background-color:white;">
+                                    Report
+                                </button>
+                                <ul class="menu-options" style="float:left; top:95%;left:5%;">
+                                    <li><a asp-controller="Products" asp-action="Report" asp-route-type="weekly" style="-webkit-text-fill-color:black;">Weekly report</a></li>
+                                    <li><a asp-controller="Products" asp-action="Report" asp-route-type="monthly" style="-webkit-text-fill-color:black;">Monthly report</a></li>
+                            <li><a asp-controller="Products" asp-action="Report" asp-route-type="yearly" style="-webkit-text-fill-color:black;">Yearly report</a></li>
+                        </ul>
+                            </div>
+                        </div>
+            }
                 <a class="topnav-centered" asp-area="" asp-controller="Home" asp-action="Index">a  y  a  n  a</a>
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">

@@ -1,5 +1,6 @@
 using Ayana.Data;
 using Ayana.Models;
+using Ayana.Paterni;
 using Ayana.Patterns;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace Ayana
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProduct, ProductEditor>();
+            services.AddScoped<IReportFactory,ReportFactory>();
             services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
     Configuration.GetConnectionString("DefaultConnection")));
