@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Ayana.Models;
 using Ayana.Data;
+using Ayana.MailgunService;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Buffers;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ayana.Areas.Identity.Pages.Account
 {
@@ -15,14 +18,20 @@ namespace Ayana.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _sender;
+        private readonly IEmailService _emailService;
+        private readonly ApplicationDbContext _context;
 
-        public RegisterConfirmationModel(UserManager<ApplicationUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(ApplicationDbContext context, IEmailService emailService, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailSender sender)
         {
+            _context = context;
             _userManager = userManager;
             _sender = sender;
+            _signInManager = signInManager;
+            _emailService = emailService;
         }
-
+        [BindProperty(SupportsGet = true)]
         public string Email { get; set; }
 
         public bool DisplayConfirmAccountLink { get; set; }
@@ -43,21 +52,55 @@ namespace Ayana.Areas.Identity.Pages.Account
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
-            DisplayConfirmAccountLink = true;
-            if (DisplayConfirmAccountLink)
-            {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                EmailConfirmationUrl = Url.Page(
-                    "/Account/ConfirmEmail",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme);
-            }
+            // Rest of the code...
 
             return Page();
+        }
+        public async Task<IActionResult> OnPostAsync(string confirmationCode, string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            var email = Request.Form["Email"]; // Retrieve the email value from the request form
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with email '{email}'.");
+            }
+
+            // Verify the code
+            if (_emailService.VerifyCode(email, confirmationCode))
+            {
+                user.EmailConfirmed = true;
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            else
+            {
+                await _userManager.DeleteAsync(user);
+
+                await _context.SaveChangesAsync();
+                ModelState.AddModelError(string.Empty, "Invalid verification code.");
+            }
+
+            // If the code is invalid or account creation fails, return to the registration page
+            return RedirectToPage("/Account/Register");
         }
     }
 }

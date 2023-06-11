@@ -1,7 +1,9 @@
 using Ayana.Data;
+using Ayana.MailgunService;
 using Ayana.Models;
 using Ayana.Paterni;
 using Ayana.Patterns;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,7 @@ namespace Ayana
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProduct, ProductEditor>();
-            services.AddScoped<IReportFactory,ReportFactory>();
+            services.AddScoped<IReportFactory, ReportFactory>();
             services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
     Configuration.GetConnectionString("DefaultConnection")));
@@ -41,6 +43,17 @@ namespace Ayana
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddHangfire(configuration => configuration.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSingleton<IMailgunService, MailgunServiceClass>();
+            services.AddSingleton(Configuration.GetConnectionString("DefaultConnection"));
+
+            services.AddSingleton<IEmailService, EmailService>();
+            services.AddSingleton<IMailgunService>(s =>
+            {
+                var apiKey = "fff937c6161272edc197b20416ff89a3-6d1c649a-0f2959e2\r\n"; // Replace with your Mailgun API key
+                var domain = "sandbox88a6eff4d8924e7bb58ed3ab18073bf7.mailgun.org";
+                return new MailgunServiceClass(apiKey, domain);
+            });
 
 
         }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Ayana.Data;
+using Ayana.MailgunService;
 
 namespace Ayana.Areas.Identity.Pages.Account
 {
@@ -22,18 +23,20 @@ namespace Ayana.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<   ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _context;
+        private readonly IEmailService _emailService;
+
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext context)
+            ApplicationDbContext context, IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,6 +44,7 @@ namespace Ayana.Areas.Identity.Pages.Account
             _roleManager = roleManager;
             _emailSender = emailSender;
             _context = context;
+            _emailService = emailService;
         }
 
         [BindProperty]
@@ -96,11 +100,14 @@ namespace Ayana.Areas.Identity.Pages.Account
                 {
                     // Fetch all roles from the database
 
-                    var userResult = await _userManager.AddToRoleAsync(user, "Customers");
+                    await _userManager.AddToRoleAsync(user, "Customers");
 
 
                     _logger.LogInformation("User created a new account with password.");
+                    var verificationCode = _emailService.GenerateCode();
 
+                    // Save verification code to cache
+                    _emailService.SendVerificationCode(user.Email);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -113,8 +120,8 @@ namespace Ayana.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    { 
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    {
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, confirmationCode = _emailService.GetVerificationCode(), returnUrl = returnUrl });
                     }
                     else
                     {
@@ -128,9 +135,9 @@ namespace Ayana.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
 
-                  
+
             }
-                    await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             // If we got this far, something failed, redisplay form
             return Page();
         }

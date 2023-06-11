@@ -1,22 +1,27 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Confirm Email";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
-    }
+<h2>Confirm Email</h2>
+
+<p>Please enter the confirmation code you received via email.</p>
+
+@if (Model.Email != null)
+{
+    ViewBag.email = Model.Email;
+    <p>Confirm the email for: <strong>@Model.Email</strong></p>
+
 }
+
+
+<form method="post">
+    <input type="hidden" name="Email" value="@ViewBag.email" />
+    <!-- ... your existing code ... -->
+    <div class="form-group">
+        <label for="confirmationCode">Confirmation Code:</label>
+        <input type="text" class="form-control" id="confirmationCode" name="confirmationCode" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Email</button>
+</form>
