@@ -18,15 +18,19 @@ using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.VisualBasic;
+using Ayana.Paterni;
 
 namespace Ayana.Controllers
 {
     public class DtoRequestsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public DtoRequestsController(ApplicationDbContext context)
+        private readonly IDiscountCodeVerifier _discountCodeVerifier;
+        public DtoRequestsController(ApplicationDbContext context, IDiscountCodeVerifier discountCodeVerifier)
         {
             _context = context;
+            _discountCodeVerifier = discountCodeVerifier;
         }
 
         public async Task<IActionResult> ApplyDiscount(string code)
@@ -34,28 +38,19 @@ namespace Ayana.Controllers
 
             double discAmount = 0;
             string discType = "";
-            var temp = false;
+            var temp =  _discountCodeVerifier.VerifyDiscountCode(code); // Pozovite metodu za verifikaciju koda
 
-            var discountList = _context.Discounts.ToList();
-            var currentDate = DateTime.Now;
-            Discount tempDiscount = null;
-
-            foreach (var discount in discountList)
-            {
-                if (code == discount.DiscountCode)
-                {
-                    discAmount = discount.DiscountAmount;
-                    discType = discount.DiscountType.ToString();
-                    tempDiscount = discount;
-                    temp = true;
-                        break;
-                }
-                
-            }
-            if (!temp) 
+            Discount discount;
+            if (!temp)
                 code = "Wrong code, try again...";
-            else if (temp && !(currentDate >= tempDiscount.DiscountBegins && currentDate <= tempDiscount.DiscountEnds))
+            else if (temp && !_discountCodeVerifier.VerifyExperationDate(code))
                 code = "Code is expired...";
+            else
+            {
+                discount = _discountCodeVerifier.GetDiscount(code);
+                discAmount = discount.DiscountAmount;
+                discType = discount.DiscountType.ToString();
+            }
 
             var discountType1 = 0;
 
@@ -239,23 +234,21 @@ namespace Ayana.Controllers
             {
                 int? discType = null;
 
-                var discountList = _context.Discounts.ToList();
-
-                foreach (var x in discountList)
+                if (_discountCodeVerifier.VerifyDiscountCode(discount.DiscountCode))
                 {
-                    if (discount.DiscountCode == x.DiscountCode)
-                    {
-                        discId = x.DiscountID;
-                        discType = (int)x.DiscountType;
-                        doubleVal = x.DiscountAmount;
+                    if (_discountCodeVerifier.VerifyExperationDate(discount.DiscountCode))
+                    { discount = _discountCodeVerifier.GetDiscount(discount.DiscountCode);
+                        discId = discount.DiscountID;
+                        discType = (int)discount.DiscountType;
+                        doubleVal = discount.DiscountAmount;
                     }
                 }
 
                 if (discType == 1)
-                    total = (double)(total + doubleVal);
+                    total = (double)(total - doubleVal);
                 else
                 {
-                    total = (double)((total * 100) / (100 - doubleVal));
+                    total = (double)(total*(100-doubleVal)/100);
                 }
 
 
@@ -286,11 +279,11 @@ namespace Ayana.Controllers
                 CustomerID = userId,
                 PaymentID = payment1.PaymentID,
                 TotalAmountToPay = total,
+                purchaseDate = DateTime.Now,
                 personalMessage = order.personalMessage,
                 IsOrderSent = false,  //moze se mijenjat
                 Rating = null  //promjenila jer se rejta tek kasnije
             };
-
 
             // Save the subscription to the database
             _context.Add(order1);

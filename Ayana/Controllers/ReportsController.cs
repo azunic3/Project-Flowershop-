@@ -9,6 +9,7 @@ using Ayana.Data;
 using Ayana.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Ayana.Paterni;
 
 namespace Ayana.Controllers
 {
@@ -16,10 +17,12 @@ namespace Ayana.Controllers
     public class ReportsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IReportFactory _reportFactory;
 
-        public ReportsController(ApplicationDbContext context)
+        public ReportsController(ApplicationDbContext context, IReportFactory reportFactory)
         {
             _context = context;
+            _reportFactory = reportFactory;
         }
 
         // GET: Reports
@@ -51,7 +54,17 @@ namespace Ayana.Controllers
         {
             return View();
         }
+        public IActionResult CreateReport(string type)
+        {
+            // Use the factory to create an instance of IReport (specifically WeeklyReport)
+            IReport weeklyReport = _reportFactory.CreateReport(type);
 
+            // Generate the report
+            byte[] reportData = weeklyReport.GenerateReport();
+
+            // Return the report as a file
+            return File(reportData, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", type + "_report.xlsx");
+        }
         // POST: Reports/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

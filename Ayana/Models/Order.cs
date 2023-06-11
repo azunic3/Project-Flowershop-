@@ -22,6 +22,7 @@ namespace Ayana.Models
         [ForeignKey("Customer")]
         public string CustomerID { get; set; }
         public ApplicationUser Customer{ get; set; }
+        public DateTime purchaseDate { get; set; }
 
         public string? personalMessage { get; set; }
 

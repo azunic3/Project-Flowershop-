@@ -33,7 +33,10 @@ namespace Ayana
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProduct, ProductEditor>();
+            services.AddScoped<IDiscountCodeVerifier, DiscountCodeVerifier>();
+
             services.AddScoped<IReportFactory, ReportFactory>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
     Configuration.GetConnectionString("DefaultConnection")));
@@ -43,15 +46,14 @@ namespace Ayana
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddHangfire(configuration => configuration.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IMailgunService, MailgunServiceClass>();
             services.AddSingleton(Configuration.GetConnectionString("DefaultConnection"));
-
+            services.AddHangfire(configuration => configuration.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<IMailgunService>(s =>
             {
-                var apiKey = "fff937c6161272edc197b20416ff89a3-6d1c649a-0f2959e2\r\n"; // Replace with your Mailgun API key
-                var domain = "sandbox88a6eff4d8924e7bb58ed3ab18073bf7.mailgun.org";
+                var apiKey = "87a566fbabc4f7046dc86478f9cfb8d8-6d1c649a-79b20914"; // Replace with your Mailgun API key
+                var domain = "sandbox1219ccda395b4a0bb2410b5b7376da7a.mailgun.org";
                 return new MailgunServiceClass(apiKey, domain);
             });
 
@@ -59,8 +61,13 @@ namespace Ayana
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {app.UseHangfireServer();
+            app.UseHangfireDashboard();
+            app.UseAuthentication();
+            RecurringJob.AddOrUpdate<MailgunBackgroundJob>(x => x.CheckAndSendEmail(null), Cron.Daily, TimeZoneInfo.Local);
+            app.UseAuthorization();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,13 +79,14 @@ namespace Ayana
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            // Inside the appropriate location (e.g., Startup.Configure, a job scheduler class, or a controller action)
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {
