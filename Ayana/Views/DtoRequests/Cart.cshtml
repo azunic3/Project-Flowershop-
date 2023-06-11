@@ -20,7 +20,7 @@
         .product-items {
             margin-left: 80px;
             flex-direction: column;
-            width: 320px;
+            width: 340px;
         }
 
         .order-info {
@@ -40,10 +40,20 @@
         }
 
         .product-image {
-            width: 150px;
+            width: 140px;
             height: 150px;
             align-content: center;
             object-fit: contain;
+        }
+
+        .remove-button {
+            background: #d8e5f1;
+            color: dimgrey;
+            border: none;
+            border-radius: 4px;
+            height: 10px;
+            font-size: 12px;
+            align-content: center;
         }
 
         .product-name {
@@ -94,12 +104,21 @@
                     var products = ViewBag.CartProducts[i];
 
                     <div style="margin-bottom: 20px;">
-                        <div style="display: flex; align-items: center; background-color:#ffdac1">
+                        <div style="display: flex; align-items: center; background-color:#d8e5f1">
                             @foreach (var product in products)
                             {
-                                <div style="padding: 10px;margin-left:10px">
-                                    <img src="@product.ImageUrl" alt="@product.Name" style="margin-top:10px;width: 280px;">
-                                    <p style="margin-top: 7px;font-size:20px;font-weight: bold;">@product.Name</p>
+
+                                <div style="padding: 10px;margin-left:20px">
+
+                                    <a onclick="RemoveItem()" class="remove-button">Remove Item</a>
+                                    <input id="productKey" type="hidden" value="@product.ProductID">
+
+
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductID" style="-webkit-text-fill-color:black;">
+
+                                        <img src="@product.ImageUrl" alt="@product.Name" style="margin-top:10px;width: 280px; border: 2px solid #d8e5f1; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+                                        <p style="margin-top: 7px;font-size:20px;font-weight: bold;">@product.Name</p>
+                                    </a>
                                     <p style="margin-top: 7px;">BAM @product.Price.00</p>
                                     <p style="margin-top: 7px;">Quantity: @cart.ProductQuantity</p>
 
@@ -115,16 +134,35 @@
                 <div style="margin-left:300px" class="wide-input">
                     <form asp-action="OrderCreate">
 
+                        <div class="form-group">
+
+                            <p style="font-style:italic;">Input a valid code to get the best deal!</p>
+                            <label asp-for="@Model.discount.DiscountCode" class="control-label"></label>
+
+                            <div style="display:flex; align-items:center">
+                                <input id="discountCodeInput" asp-for="@Model.discount.DiscountCode" class="form-control" value="@ViewBag.DiscountCode" style="width: 88%;" />
+                                <span class="input-group-append">
+                                    @if (string.IsNullOrWhiteSpace(ViewBag.DiscountCode) || ViewBag.DiscountCode == "Wrong code,try again..." || ViewBag.DiscountCode == "Code is expired...")
+                                    {
+                                        <button id="applyDiscountBtn" style="background-color: #f2b6c1; border:white;padding: 10px 20px; height:35px;border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold">&#x2713;</button>
+
+                                    }
+                                </span>
+                            </div>
+
+                            <span asp-validation-for="@Model.discount.DiscountCode" class="text-danger"></span>
+                        </div>
+
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="@Model.payment.DeliveryAddress" class="control-label"></label>
-                            <input asp-for="@Model.payment.DeliveryAddress" class="form-control" />
+                            <input asp-for="@Model.payment.DeliveryAddress" class="form-control" required />
                             <span asp-validation-for="@Model.payment.DeliveryAddress" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="@Model.order.DeliveryDate" class="control-label"></label>
-                            <input asp-for="@Model.order.DeliveryDate" class="form-control" />
+                            <input asp-for="@Model.order.DeliveryDate" class="form-control" required />
                             <span asp-validation-for="@Model.order.DeliveryDate" class="text-danger"></span>
                         </div>
 
@@ -132,18 +170,6 @@
                             <label asp-for="@Model.order.personalMessage" class="control-label"></label>
                             <input asp-for="@Model.order.personalMessage" class="form-control" style="height:100px" />
                             <span asp-validation-for="@Model.order.personalMessage" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="@Model.discount.DiscountCode" class="control-label"></label>
-                            <div style="display:flex; align-items:center">
-
-                                <input asp-for="@Model.discount.DiscountCode" class="form-control" style="width: 88%;" />
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-primary">&#x2713</button>
-                                </span>
-                            </div>
-                            <span asp-validation-for="@Model.discount.DiscountCode" class="text-danger"></span>
                         </div>
 
 
@@ -164,6 +190,8 @@
                             <span asp-validation-for="@Model.payment.PaymentType" class="text-danger"></span>
                         </div>
 
+
+
                         <input type="hidden" asp-for="@Model.subscription.Name" value="@ViewBag.Data1" />
                         <input type="hidden" asp-for="@Model.subscription.Price" value="@ViewBag.Data2" />
 
@@ -173,8 +201,19 @@
                             <span asp-validation-for="@Model.payment.BankAccount" class="text-danger"></span>
                         </div>
 
+
+                        <input type="hidden" asp-for="@Model.payment.PayedAmount" value="@ViewBag.TotalAmountToPay" />
+                        <p style="margin-top:20px;margin-bottom:20px;font-style: italic">Enjoy your free delivery shipment at Ayana!</p>
+
+
+
+                        <p style="margin-bottom:10px;font-weight: bold; font-size: 16px;">Total cost: BAM @ViewBag.TotalAmountToPay</p>
+
+
                         <div class="form-group">
-                            <input type="submit" value="Pay now" class="btn btn-primary" />
+
+                            <input type="submit" value="Pay now" style="background-color: #f2b6c1; border:none; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: white; font-weight: bold" />
+
                         </div>
                     </form>
                 </div>
@@ -207,19 +246,50 @@
             }
         });
     });
-</script>
 
 
-<script>
-    document.getElementById("applyDiscountBtn").addEventListener("click", function () {
-
-        document.getElementById("message").style.display = "block";
-        if (temp) document.getElementById("message").textContent = "Discount applied!";
-        else document.getElementById("message").textContent = "Wrong discount code!";
-    });
+    document.getElementById("applyDiscountBtn").addEventListener("click", ApplyDiscount);
 
 
-    var temp = false;
+    async function ApplyDiscount() {
+
+        const discountCode = document.getElementById("discountCodeInput").value;
+
+        const parameters = new URLSearchParams();
+
+        parameters.append("code", discountCode);
+
+        const url = "/DtoRequests/ApplyDiscount?" + parameters;
+
+        // double check this
+        fetch(url);
+
+        window.location.href = url;
+
+
+
+
+    }
+
+    function RemoveItem() {
+        const prodId = document.getElementById('productKey').value;
+        const parameters = new URLSearchParams();
+        parameters.append("id", prodId);
+        const url = "/DtoRequests/RemoveItem?" + parameters.toString();
+
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.log("Error removing item from cart");
+                }
+            })
+            .catch(error => {
+                console.log("Error removing item from cart:", error);
+            });
+    }
+
 
 
 </script>

@@ -18,7 +18,7 @@ namespace Ayana.Models
 
         public int? ProductQuantity { get; set; }
 
-        ProductOrder ()
+        public ProductOrder ()
         {
 
         }

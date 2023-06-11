@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Reflection.PortableExecutable;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace Ayana.Controllers
 {
@@ -28,7 +29,90 @@ namespace Ayana.Controllers
             _context = context;
         }
 
-        
+        public async Task<IActionResult> ApplyDiscount(string code)
+        {
+
+            double discAmount = 0;
+            string discType = "";
+            var temp = false;
+
+            var discountList = _context.Discounts.ToList();
+            var currentDate = DateTime.Now;
+            Discount tempDiscount = null;
+
+            foreach (var discount in discountList)
+            {
+                if (code == discount.DiscountCode)
+                {
+                    discAmount = discount.DiscountAmount;
+                    discType = discount.DiscountType.ToString();
+                    tempDiscount = discount;
+                    temp = true;
+                        break;
+                }
+                
+            }
+            if (!temp) 
+                code = "Wrong code, try again...";
+            else if (temp && !(currentDate >= tempDiscount.DiscountBegins && currentDate <= tempDiscount.DiscountEnds))
+                code = "Code is expired...";
+
+            var discountType1 = 0;
+
+            if (discType == "AmountOff") discountType1 = 1;
+
+
+
+            return RedirectToAction("Cart", new
+            {
+                discountAmount = discAmount.ToString(),
+                discountType = discountType1.ToString(),
+                discountCode = code
+            });
+
+
+
+        }
+
+        public async Task<IActionResult> RemoveItem(int id)
+        {
+
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return View("Error");
+
+
+            var cart = _context.Cart.FirstOrDefault(o => o.CustomerID == userId && o.ProductID == id);
+
+            if (cart.ProductQuantity != 1)
+            {
+                cart.ProductQuantity--;
+                await _context.SaveChangesAsync();
+            }
+
+            else
+            {
+                _context.Remove(cart);
+
+                await _context.SaveChangesAsync();
+            }
+
+
+            return RedirectToAction("Cart", new
+            {
+                discountAmount = 0,
+                discountType = 1,
+                discountCode = ""
+            });
+
+
+
+        }
+
+
+
+
         public async Task<IActionResult> AddToCart(int id)
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -49,7 +133,7 @@ namespace Ayana.Controllers
                     CustomerID = userId,
                     ProductID = id,
                     ProductQuantity = 1
-                    
+
                 };
 
                 _context.Add(cart1);
@@ -57,16 +141,16 @@ namespace Ayana.Controllers
             }
             else
             {
-                cart.ProductQuantity ++;
+                cart.ProductQuantity++;
                 await _context.SaveChangesAsync();
 
             }
-          
+
             return Json(new { message = "Radi!" });
 
         }
 
-     
+
         public List<List<Product>> GetCartProducts(List<Cart> carts)
         {
             List<List<Product>> cartProducts = new List<List<Product>>();
@@ -85,8 +169,13 @@ namespace Ayana.Controllers
         }
 
         // GET: DtoRequests/Create
-        public IActionResult Cart()
+        public IActionResult Cart(string discountAmount, string discountType, string discountCode = "")
         {
+
+            double doubleVal = Double.Parse(discountAmount);
+            int intVal = int.Parse(discountType);
+
+
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             // Retrieve user-specific orders based on the CustomerId
@@ -97,17 +186,167 @@ namespace Ayana.Controllers
             // Get the associated products for each order
             List<List<Product>> cartProducts = GetCartProducts(userCarts);
 
-            // Get all discounts available
-            List<Discount> discountList = _context.Discounts.ToList();
 
             // Pass the userOrders and orderProducts to the view
             ViewBag.UserCarts = userCarts;
             ViewBag.CartProducts = cartProducts;
-            ViewBag.DiscountList = discountList;
+            ViewBag.DiscountCode = discountCode;
 
-            // Render the view
-   
+            double totalAmountWithoutDiscount = 0;
+
+            for (var i = 0; i < userCarts.Count; i++)
+            {
+                var cart = userCarts[i];
+                var products = cartProducts[i];
+
+
+                foreach (var product in products)
+                {
+
+                    totalAmountWithoutDiscount += (double)(product.Price * cart.ProductQuantity);
+                }
+            }
+
+            double totalAmount = 0;
+
+            if (intVal == 1)
+                totalAmount = totalAmountWithoutDiscount - doubleVal;
+            else
+            {
+                totalAmount = (totalAmountWithoutDiscount * (100 - doubleVal)) / 100;
+            }
+
+            ViewBag.TotalAmountToPay = totalAmount;
+
             return View();
+        }
+
+        public async Task<IActionResult> OrderCreate([Bind("Name,Price,personalMessage,DeliveryDate")] Order order, [Bind("DeliveryAddress,BankAccount,PaymentType,PayedAmount")] Payment payment, [Bind("DiscountCode")] Discount discount)
+        {
+
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var existingCustomer = _context.Users.FirstOrDefault(m => m.Id == userId);
+            if (userId == null)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
+
+            int? discId = null;
+            double? doubleVal = null;
+            double total = payment.PayedAmount;
+            if (discount.DiscountCode != null)
+            {
+                int? discType = null;
+
+                var discountList = _context.Discounts.ToList();
+
+                foreach (var x in discountList)
+                {
+                    if (discount.DiscountCode == x.DiscountCode)
+                    {
+                        discId = x.DiscountID;
+                        discType = (int)x.DiscountType;
+                        doubleVal = x.DiscountAmount;
+                    }
+                }
+
+                if (discType == 1)
+                    total = (double)(total + doubleVal);
+                else
+                {
+                    total = (double)((total * 100) / (100 - doubleVal));
+                }
+
+
+            }
+
+
+
+
+            // Set up the payment instance
+            Payment payment1 = new Payment
+            {
+                BankAccount = payment.BankAccount,
+                DeliveryAddress = payment.DeliveryAddress,
+                DiscountID = discId,
+                PaymentType = payment.PaymentType,
+                PayedAmount = payment.PayedAmount
+
+            };
+
+            // Save the payment instance to the database
+            _context.Add(payment1);
+            await _context.SaveChangesAsync();
+
+            // Set up the payment instance
+            Order order1 = new Order
+            {
+                DeliveryDate = order.DeliveryDate,
+                CustomerID = userId,
+                PaymentID = payment1.PaymentID,
+                TotalAmountToPay = total,
+                personalMessage = order.personalMessage,
+                IsOrderSent = false,  //moze se mijenjat
+                Rating = null  //promjenila jer se rejta tek kasnije
+            };
+
+
+            // Save the subscription to the database
+            _context.Add(order1);
+            await _context.SaveChangesAsync();
+
+
+
+            // Retrieve user-specific orders based on the CustomerId
+            List<Cart> userCarts = _context.Cart
+                .Where(o => o.CustomerID == userId)
+                .ToList();
+
+            // Get the associated products for each order
+            List<List<Product>> cartProducts = GetCartProducts(userCarts);
+
+            for (var i = 0; i < userCarts.Count; i++)
+            {
+                var cart = userCarts[i];
+                var products = cartProducts[i];
+
+                foreach (var product in products)
+                {
+
+                    ProductOrder productOrder1 = new ProductOrder
+                    {
+                        OrderID = order1.OrderID,
+                        ProductID = product.ProductID,
+                        ProductQuantity = cart.ProductQuantity
+                    };
+
+                    for (var k = 0; k < cart.ProductQuantity; k++)
+                    {
+                        ProductSales productSales1 = new ProductSales
+                        {
+                            SalesDate = DateTime.Now,
+                            ProductID = product.ProductID
+
+                        };
+                        _context.Add(productSales1);
+                        await _context.SaveChangesAsync();
+
+                    }
+
+                    _context.Add(productOrder1);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            foreach (Cart cart in userCarts)
+            {
+                _context.Cart.Remove(cart);
+            }
+
+            _context.SaveChanges();
+
+            return Redirect("/DtoRequests/ThankYou?orderType=order");
         }
 
 
@@ -136,13 +375,13 @@ namespace Ayana.Controllers
             {
                 return View("~/Views/Shared/Error.cshtml");
             }
-          
+
 
             // Set up the payment instance
             Payment payment1 = new Payment
             {
-                BankAccount=payment.BankAccount,
-                PayedAmount =subscription.Price, 
+                BankAccount = payment.BankAccount,
+                PayedAmount = subscription.Price,
                 DeliveryAddress = payment.DeliveryAddress,
                 DiscountID = null,
                 PaymentType = payment.PaymentType
@@ -165,10 +404,10 @@ namespace Ayana.Controllers
             Subscription subscription1 = new Subscription
             {
                 Name = subscription.Name,
-                DeliveryDate= subscription.DeliveryDate,
-                SubscriptionType =subsType,
-                CustomerID=userId,
-                PaymentID=payment1.PaymentID,
+                DeliveryDate = subscription.DeliveryDate,
+                SubscriptionType = subsType,
+                CustomerID = userId,
+                PaymentID = payment1.PaymentID,
                 Price = subscription.Price,
                 personalMessage = subscription.personalMessage
 
@@ -183,53 +422,6 @@ namespace Ayana.Controllers
             return Redirect("/DtoRequests/ThankYou?orderType=subscription");
         }
 
-        public async Task<IActionResult> OrderCreate([Bind("Name,Price,personalMessage,DeliveryDate")] Order order, [Bind("DeliveryAddress,BankAccount,PaymentType")] Payment payment, [Bind("DiscountID,DiscountCode,DiscountAmount")] Discount discount)
-        {
-            //TODO needs fixing --> customer id change to string in all other tables
-
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var existingCustomer = _context.Users.FirstOrDefault(m => m.Id == userId);
-            if (userId == null)
-            {
-                return View("~/Views/Shared/Error.cshtml");
-            }
-
-
-            // Set up the payment instance
-            Payment payment1 = new Payment
-            {
-                BankAccount = payment.BankAccount,
-                PayedAmount = order.TotalAmountToPay,
-                DeliveryAddress = payment.DeliveryAddress,
-                DiscountID = null,
-                PaymentType = payment.PaymentType
-
-            };
-
-            // Save the payment instance to the database
-            _context.Add(payment1);
-            await _context.SaveChangesAsync();
-
-            // Set up the payment instance
-            Order order1 = new Order
-            {
-                DeliveryDate = order.DeliveryDate,
-                CustomerID = userId,
-                PaymentID = payment1.PaymentID,
-                TotalAmountToPay = order.TotalAmountToPay,
-                personalMessage = order.personalMessage,
-                IsOrderSent = order.IsOrderSent,
-                Rating = order.Rating
-            };
-
-
-            // Save the subscription to the database
-            _context.Add(order1);
-            await _context.SaveChangesAsync();
-
-            return Redirect("/DtoRequests/ThankYou?orderType=order");
-        }
 
         public IActionResult ThankYou(string orderType)
         {

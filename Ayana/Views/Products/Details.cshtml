@@ -14,7 +14,22 @@
 
     .window-container {
         height: 600px; 
+        margin-top: 60px
     }
+
+    .continue-shopping {
+        display: inline-block;
+        font-size: medium;
+        text-decoration: underline;
+        position: relative;
+        padding-left: 30px;
+    }
+
+        .continue-shopping::before {
+            content: '\2190';
+            position: absolute;
+            left: 0;
+        }
 </style>
 @if (User.IsInRole("Employee"))
 {
@@ -62,6 +77,7 @@
 </div>
 }
 else{
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Continue shopping</a>
 <div class="window-container" style="display: flex;  justify-content: space-between;  ">
     <img src="@Model.ImageUrl" alt="" width="400" height="400" style=" margin-left: 150px;">
     <div>
@@ -70,7 +86,9 @@ else{
         <div style="width:250px;margin-top:40px; margin-right:150px; ">
             @Model.Description
         </div>
-        <button id="addToCartBtn" style="background-color: #f2b6c1; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+       
+            <button id="addToCartBtn" style="background-color: #f2b6c1; border:none; margin-top: 20px; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; font-weight: bold;">Add to Cart</button>
+
         <div id="message" class="message" style="display: none; "></div>
     </div>
 </div>}
