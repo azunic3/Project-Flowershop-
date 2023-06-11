@@ -68,7 +68,6 @@ namespace Ayana
             app.UseHangfireDashboard();
             app.UseAuthentication();
             RecurringJob.AddOrUpdate<MailgunBackgroundJob>(x => x.CheckAndSendEmail(null), Cron.Daily, TimeZoneInfo.Local);
-            app.UseAuthorization();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -80,12 +79,13 @@ namespace Ayana
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             // Inside the appropriate location (e.g., Startup.Configure, a job scheduler class, or a controller action)
 
             app.UseRouting();
+                        app.UseAuthorization();
 
            
 
