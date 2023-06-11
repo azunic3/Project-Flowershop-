@@ -27,7 +27,12 @@ namespace Ayana.Controllers
 
         public IActionResult CategoryView(string category1)
         {
-            List<Product>categoryList=_context.Products.ToList().FindAll(x => x.Category == category1);
+            List<Product>categoryList=_context.Products.ToList().FindAll(x => x.Category.ToLower() == category1.ToLower());
+            if (categoryList.Count == 0)
+            {
+                categoryList= _context.Products.ToList().FindAll(x => x.FlowerType.ToLower() == category1.ToLower());
+
+            }
             ViewBag.category = categoryList;
             return View("~/Views/Products/SearchResult.cshtml", ViewBag.category);
         }

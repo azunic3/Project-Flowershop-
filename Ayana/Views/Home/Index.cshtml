@@ -31,7 +31,9 @@
         justify-content: center;
         align-items: center;
     }
-
+    .a{
+    -webkit-text-fill-color:black;
+    }
       
 </style>
 @if (User.IsInRole("Employee"))
@@ -116,23 +118,29 @@ else{
 <div class="row text-center">
     <div class="col-sm-4">
         <div>
+           <a asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Rose">
+
             <img src="https://i.pinimg.com/originals/2f/7e/01/2f7e0131e0127fdf2e1d114e3f487905.jpg?v=1680812238" alt="" width="200" height="200">
             <p><strong>Roses </strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
     <div class="col-sm-4">
-        <div>
+            <div>
+                <a asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Tulip">
             <img src="https://e0.pxfuel.com/wallpapers/996/249/desktop-wallpaper-earth-white-tulip-white-tulips.jpg" alt="" width="200" height="200">
             <p><strong>Tulips</strong></p>
-            <p></p>
+                    <p></p>
+                </a>
         </div>
     </div>
     <div class="col-sm-4">
         <div>
+             <a asp-area="" asp-controller="Home" asp-action="CategoryView" asp-route-category1="Sunflower">
+
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/1200px-Sunflower_sky_backdrop.jpg" alt="" width="200" height="200">
             <p><strong>Sunflowers</strong></p>
-            <p></p>
+            <p></p></a>
         </div>
     </div>
     </div>

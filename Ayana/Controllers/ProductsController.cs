@@ -86,7 +86,13 @@ namespace Ayana.Controllers
             }
             else
             {
-                List<Product> categoryList = _context.Products.ToList().FindAll(x => x.Category == popularsearch);
+                List<Product> categoryList = _context.Products.ToList().FindAll(x => x.Category.ToLower() == popularsearch.ToLower());
+
+                if (categoryList.Count == 0)
+                {
+                    categoryList= _context.Products.ToList().FindAll(x => x.FlowerType.ToLower() == popularsearch.ToLower());
+
+                }
                 ViewBag.p = categoryList;
             }
             return View("~/Views/Products/SearchResult.cshtml", ViewBag.p);
