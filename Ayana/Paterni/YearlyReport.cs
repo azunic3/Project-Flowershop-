@@ -63,13 +63,7 @@ namespace Ayana.Paterni
                     worksheet.Cells[i, 3].Value = notSoldProducts[i - productData.Count()].Stock;
                 }
                 // Add a total row for revenue
-                var totalRow = worksheet.Cells[productData.Count() + notSoldProducts.Count() + 2, 1, productData.Count() + notSoldProducts.Count() + 2, 3];
-                totalRow.Merge = true;
-                totalRow.Value = "Total";
-                totalRow.Style.Font.Bold = true;
-
-                worksheet.Cells[productData.Count() + notSoldProducts.Count() + 2, 2].Formula = $"SUM(B2:B{productData.Count() + notSoldProducts.Count() + 1})";
-
+             
                 worksheet.Cells.AutoFitColumns();
 
                 // Create the bar chart for product revenue
