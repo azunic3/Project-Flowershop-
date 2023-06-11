@@ -34,6 +34,7 @@ namespace Ayana
         {
             services.AddScoped<IProduct, ProductEditor>();
             services.AddScoped<IDiscountCodeVerifier, DiscountCodeVerifier>();
+            services.AddSingleton<UserState>();
 
             services.AddScoped<IReportFactory, ReportFactory>();
             services.AddScoped<ICustomerService, CustomerService>();

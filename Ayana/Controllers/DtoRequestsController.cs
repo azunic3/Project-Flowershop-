@@ -27,6 +27,7 @@ namespace Ayana.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IDiscountCodeVerifier _discountCodeVerifier;
+
         public DtoRequestsController(ApplicationDbContext context, IDiscountCodeVerifier discountCodeVerifier)
         {
             _context = context;
@@ -113,7 +114,7 @@ namespace Ayana.Controllers
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (userId == null)
-                return View("Error");
+                return View("Error","Only reigtered users can buy our products. Sign up and enjoy our products");
 
 
             var cart = _context.Cart.FirstOrDefault(o => o.CustomerID == userId && o.ProductID == id);

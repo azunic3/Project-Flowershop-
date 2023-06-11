@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Ayana.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
+using Ayana.Paterni;
 
 namespace Ayana.Controllers
 {
@@ -16,7 +17,7 @@ namespace Ayana.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-
+        public  UserState _userState;
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
@@ -33,6 +34,7 @@ namespace Ayana.Controllers
 
         public IActionResult Index()
         {
+            _userState = new UserState();
             bestSellers();
             birthdayBestSellers();
             return View();

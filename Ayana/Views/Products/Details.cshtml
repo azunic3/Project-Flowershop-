@@ -33,8 +33,11 @@
 </style>
 @if (User.IsInRole("Employee"))
 {
-        <div class="row" style="margin-bottom:100px; margin-left:710px;">
-    <div class="col-md-4">
+    <div style="margin-bottom:100px;">
+        <div class="window-container" style="display: flex;  justify-content: space-between;">
+            <img src="@Model.ImageUrl" alt="" width="400" height="400" style=" margin-left: 150px;">
+        <div class="row" style="margin-bottom:100px;">
+            <div class="col-md-4">
             <form asp-action="Edit" asp-route-id="@Model.ProductID">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductID" />
@@ -74,11 +77,12 @@
             </div>
         </form>
     </div>
+</div>            </div>
 </div>
 }
 else{
     <a asp-area="" asp-controller="Home" asp-action="Index" class="continue-shopping" style="-webkit-text-fill-color:black;">Continue shopping</a>
-<div class="window-container" style="display: flex;  justify-content: space-between;  ">
+<div class="window-container" style="display: flex;  justify-content: space-between; ">
     <img src="@Model.ImageUrl" alt="" width="400" height="400" style=" margin-left: 150px;">
     <div>
         <p style="font-weight: 600;  margin-right:150px; font-style: italic; font-size: medium;">@Model.Name</p>
