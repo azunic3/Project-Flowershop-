@@ -34,6 +34,8 @@ namespace Ayana.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
+        [Authorize(Roles = "Employee")]
+
         public IActionResult Report(string type)
         {
             // Use the factory to create an instance of IReport (specifically WeeklyReport)
@@ -64,7 +66,7 @@ namespace Ayana.Controllers
         }
 
         // GET: Products/Create
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Employee")]
         public IActionResult Create()
         {
             return View();
@@ -149,6 +151,8 @@ namespace Ayana.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -168,6 +172,8 @@ namespace Ayana.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> Edit(int id, [Bind("ProductID,Name,Price,Stock,Category,Description,ImageUrl,FlowerType")] Product product)
         {
             if (id != product.ProductID)
@@ -200,6 +206,8 @@ namespace Ayana.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> EditNameAndPrice(int id, [Bind("ProductID,Name,Price")] Product product)
         {
             if (id != product.ProductID)
@@ -234,6 +242,8 @@ namespace Ayana.Controllers
 
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -254,6 +264,8 @@ namespace Ayana.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);

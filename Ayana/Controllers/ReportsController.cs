@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ayana.Data;
 using Ayana.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Ayana.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class ReportsController : Controller
     {
         private readonly ApplicationDbContext _context;
