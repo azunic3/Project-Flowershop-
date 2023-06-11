@@ -39,7 +39,7 @@ namespace Ayana.Paterni
             {
                 // Add a worksheet for the weekly report
                 var worksheet = package.Workbook.Worksheets.Add("Yearly Report");
-                var tableRange = worksheet.Cells[1, 1, productData.Count() + notSoldProducts.Count() + 1, 3];
+                var tableRange = worksheet.Cells[1, 1, productData.Count() +notSoldProducts.Count() + 1, 3];
                 var table = worksheet.Tables.Add(tableRange, "ProductTable");
 
                 // Format the table style

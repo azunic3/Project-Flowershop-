@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "SearchResult";
 }
-  
+
 @if (Model.Count == 0)
 {
     <p>We are sorry, we don't have anything that matches your search. Check your spelling and try again!</p>
@@ -49,7 +49,7 @@
         </select>
 
     
-<div class="row text-center" style="margin-bottom:100px;">
+<div class="row text-center" style="margin-bottom:100px; margin-top:50px;">
     @foreach (Product p in Model)
     {
         <div class="col-sm-4">
