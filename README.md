@@ -33,6 +33,19 @@ Ayana Florist offers services for purchasing bouquets for various occasions, gif
 - User (registered)
 - External service (email)
 
+
+## Technologies Used 
+- ASP.NET 5
+- C# 
+- HTML
+- CSS
+- JavaScript
+
+# Purpose:
+-This is a web application developed for a course at the University of Sarajevo, Faculty of Electrical Engineering. The application is built using the MVC (Model-View-Controller) architecture and is implemented using C# and ASP.NET 5.
+
+-The code for this application can be found in the 'code' branch of this repository.
+
 ## Web application link
 http://aidaex-001-site1.htempurl.com/
 
