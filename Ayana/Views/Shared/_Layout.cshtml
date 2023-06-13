@@ -2,7 +2,19 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-﻿
+@inject ApplicationDbContext _context
+@{
+    List<string> style=new List<string>();
+    style.Add("-webkit-text-fill-color:black;margin-left:550px; margin-top:40px;");
+    style.Add("-webkit-text-fill-color:black;margin-left:-56px; margin-top:70px;");
+    style.Add("-webkit-text-fill-color:black;margin-left:-86px; margin-top:100px;");
+    style.Add("-webkit-text-fill-color:black;margin-left:-102px; margin-top:130px");
+    style.Add("-webkit-text-fill-color:black;margin-left:350px; margin-top:40px;");
+    style.Add("-webkit-text-fill-color:black;margin-left:-79px; margin-top:70px;");
+    style.Add("-webkit-text-fill-color:black;margin-left:-107px; margin-top:100px");
+    style.Add("-webkit-text-fill-color:black;margin-left:-107px; margin-top:130px");
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -334,18 +346,21 @@ margin-top:-28.6px;
 
     </header>
     <div class="container" style="margin-top:-115px;">
-        <nav class="navbar navbar-custom border-none" style="background-color:transparent; ">
+        @{
+            var occasion = _context.Products.Where(x => x.productType.Equals("Bouquet")).Select(x=>x.Category).Distinct().ToList();
+
+            <nav class="navbar navbar-custom border-none" style="background-color:transparent; ">
             <div class="subnav">
                 <button class="subnavbtn">Occasions </button>
                 <div class="subnav-content">
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="birthday" style="-webkit-text-fill-color:black;margin-left:550px; margin-top:40px;">Birthday</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="mother's day" style="-webkit-text-fill-color:black;margin-left:-56px; margin-top:70px;">Mother's day</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="valentine's day" style="-webkit-text-fill-color:black;margin-left:-86px; margin-top:100px">Valentine's day</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="thank you" style="-webkit-text-fill-color:black;margin-left:-102px; margin-top:130px">Thank you</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="anniversary" style="-webkit-text-fill-color:black;margin-left:350px; margin-top:40px;">Anniversary</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="love & romance" style="-webkit-text-fill-color:black;margin-left:-79px; margin-top:70px;">Love & romance</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="women's day" style="-webkit-text-fill-color:black;margin-left:-107px; margin-top:100px">Women's day</a>
-                    <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="cheer someone up" style="-webkit-text-fill-color:black;margin-left:-107px; margin-top:130px">Cheer someone up</a>
+                        @{ int i = 0;
+                       @foreach(var p in occasion)
+                        {
+                            
+
+                            <a asp-area="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="@p" style="@style.ElementAt(i)">@p</a>
+                            i++;
+                        }}
                 </div>
             </div>
             <div class="subnav">
@@ -383,8 +398,10 @@ margin-top:-28.6px;
                 <a class="subnavbtn" asp-area ="" asp-controller="Products" asp-action="PopularSearches" asp-route-popularsearch="Rose"  class="subnavbtn" style="margin-left:110px;">Personalized rose box </a>
 
             </div>
-        </nav>
+        </nav>}
         </div>
+    
+                
     <div class="container" >
         <main role="main" class="pb-3">
             @RenderBody()

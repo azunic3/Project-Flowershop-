@@ -53,8 +53,8 @@ namespace Ayana
             services.AddSingleton<IEmailService, EmailService>();
             services.AddSingleton<IMailgunService>(s =>
             {
-                var apiKey = "87a566fbabc4f7046dc86478f9cfb8d8-6d1c649a-79b20914"; // Replace with your Mailgun API key
-                var domain = "sandbox1219ccda395b4a0bb2410b5b7376da7a.mailgun.org";
+                var apiKey = "d3cd6e4960a1029b0f385383d6c74467-af778b4b-0d8be1d3"; // Replace with your Mailgun API key
+                var domain = "sandbox9868192fc16447739de7f5cf57633817.mailgun.org";
                 return new MailgunServiceClass(apiKey, domain);
             });
 

@@ -33,6 +33,7 @@ namespace Ayana.Controllers
                 categoryList= _context.Products.ToList().FindAll(x => x.FlowerType.ToLower() == category1.ToLower());
 
             }
+            ViewBag.String = category1;
             ViewBag.category = categoryList;
             return View("~/Views/Products/SearchResult.cshtml", ViewBag.category);
         }

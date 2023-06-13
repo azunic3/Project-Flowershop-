@@ -22,6 +22,7 @@ namespace Ayana.Models
         public string Category { get; set; }
         public string Description { get; set; }
 
+        public string productType { get; set; }
 
         public Product()
         {

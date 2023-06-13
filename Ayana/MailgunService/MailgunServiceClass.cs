@@ -29,15 +29,15 @@ public class MailgunServiceClass : IMailgunService
         RestClient client = new RestClient("https://api.mailgun.net/v3");
 
         RestSharp.RestRequest request = new RestSharp.RestRequest();
-        request.AddParameter("domain", "sandbox1219ccda395b4a0bb2410b5b7376da7a.mailgun.org", RestSharp.ParameterType.UrlSegment);
+        request.AddParameter("domain", "sandbox9868192fc16447739de7f5cf57633817.mailgun.org", RestSharp.ParameterType.UrlSegment);
         request.Resource = "{domain}/messages";
-        request.AddParameter("from", "Excited User <mailgun@sandbox1219ccda395b4a0bb2410b5b7376da7a.mailgun.org>");
+        request.AddParameter("from", "Excited User <mailgun@sandbox9868192fc16447739de7f5cf57633817.mailgun.org>");
         request.AddParameter("to",recipientEmail);
         request.AddParameter("subject", subject);
         request.AddParameter("text", message);
         request.Method = RestSharp.Method.Post;
 
-        string apiKey = "87a566fbabc4f7046dc86478f9cfb8d8-6d1c649a-79b20914";
+        string apiKey = "d3cd6e4960a1029b0f385383d6c74467-af778b4b-0d8be1d3";
         request.AddHeader("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes("api:" + apiKey)));
         RestSharp.RestResponse response = client.Execute(request);
 

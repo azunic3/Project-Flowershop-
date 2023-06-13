@@ -93,6 +93,7 @@ namespace Ayana.Controllers
                     categoryList= _context.Products.ToList().FindAll(x => x.FlowerType.ToLower() == popularsearch.ToLower());
 
                 }
+                ViewBag.String = popularsearch;
                 ViewBag.p = categoryList;
             }
             return View("~/Views/Products/SearchResult.cshtml", ViewBag.p);
@@ -118,8 +119,21 @@ namespace Ayana.Controllers
                 sortStrategy = new DescendingPriceSortStrategy();
             else
                 sortStrategy = new AscendingNameSortStrategy();
-            string pattern = $"{Regex.Escape(String)}";
-            List<Product> searchResults = _context.Products.ToList().Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
+            List<Product> searchResults;
+            if (String != null)
+            { searchResults = _context.Products.Where(x => x.Category == String).ToList();
+                if (searchResults.Count() == 0)
+                {
+                    searchResults = _context.Products.Where(x => x.FlowerType == String).ToList();
+                }
+                if(searchResults.Count()==0){ 
+                string pattern = $"{Regex.Escape(String)}";
+                searchResults = _context.Products.ToList().Where(p => Regex.IsMatch(p.Name, pattern, RegexOptions.IgnoreCase)).ToList();
+            }}
+           
+            else
+                searchResults = _context.Products.ToList();
+            
             ViewBag.String = String;
             var sortedProducts = sortStrategy.Sort(searchResults);
             ViewBag.SelectedSortOption = sortOption;

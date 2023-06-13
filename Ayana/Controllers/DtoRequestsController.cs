@@ -231,6 +231,7 @@ namespace Ayana.Controllers
             int? discId = null;
             double? doubleVal = null;
             double total = payment.PayedAmount;
+           var total2 = payment.PayedAmount;
             if (discount.DiscountCode != null)
             {
                 int? discType = null;
@@ -265,7 +266,7 @@ namespace Ayana.Controllers
                 DeliveryAddress = payment.DeliveryAddress,
                 DiscountID = discId,
                 PaymentType = payment.PaymentType,
-                PayedAmount = payment.PayedAmount
+                PayedAmount = total
 
             };
 
@@ -279,7 +280,7 @@ namespace Ayana.Controllers
                 DeliveryDate = order.DeliveryDate,
                 CustomerID = userId,
                 PaymentID = payment1.PaymentID,
-                TotalAmountToPay = total,
+                TotalAmountToPay = total2,
                 purchaseDate = DateTime.Now,
                 personalMessage = order.personalMessage,
                 IsOrderSent = false,  //moze se mijenjat
